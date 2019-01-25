@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="ClassProjectDB-Web.config Connection String" description="ClassProjectDB Connection String used in web.config by the application to access the database." defaultValue="Server=tcp:classprojectdb.database.windows.net,1433;Initial Catalog=ClassProjectDB;Persist Security Info=False;User ID=mnm;Password=Solutions1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\nki13\\Desktop\\MNM\\mnm_nikki\\Documents\\Milestone_3\\DiscussionHub\\DiscussionHub\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ClassProjectDB']/@connectionString" />
+  </parameter>
+  <parameter name="Discussion-Web.config Connection String" description="Discussion Connection String used in web.config by the application to access the database." defaultValue="data source=tcp:classprojectdb.database.windows.net,1433;initial catalog=ClassProjectDB;persist security info=False;user id=mnm;password=Solutions1;multipleactiveresultsets=False;connect timeout=30;encrypt=True;trustservercertificate=False;App=EntityFramework" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\nki13\\Desktop\\MNM\\mnm_nikki\\Documents\\Milestone_3\\DiscussionHub\\DiscussionHub\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Discussion']/@connectionString" />
+  </parameter>
+</parameters>
