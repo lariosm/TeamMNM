@@ -4,11 +4,24 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.Title)</h2>
+
+<hr />
+
+<div class="col-sm-12">
+    <div class="dropdown float-right">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Options
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @Html.ActionLink("Edit thread", "Edit", new { id = Model.ID }, new { @class = "dropdown-item" })
+            @Html.ActionLink("Delete thread", "Delete", new { id = Model.ID }, new { @class = "dropdown-item" })
+        </div>
+    </div>
+    @Html.ActionLink("Return to index", "Index", "Discussions", null, new { @class = "btn btn-secondary float-right", style = "margin-right: 5px;" })
+</div>
 
 <div>
-    <h4>Discussion</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.User.Name)
@@ -19,11 +32,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.URL)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            <a href="@Model.URL" target="_blank">@Html.DisplayFor(model => model.URL)</a>
         </dd>
 
         <dt>
@@ -34,17 +47,5 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.URL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.URL)
-        </dd>
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
