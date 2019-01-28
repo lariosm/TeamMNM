@@ -1,18 +1,23 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
-
-/* Set padding to keep content from hitting the edges */
-.body-content {
+﻿.body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+tr:nth-child(odd) {
+    background-color: #D3D3D3;
 }
 
+.bg-custom {
+    background-color: #1351c3;
+}
+
+#body-bg-color {
+    background-color: #1a4184;
+}
+
+#custom {
+    margin-top: 20px;
+    background-color: #f4f6f9;
+    border-radius: 15px;
+    padding: 20px;
+}

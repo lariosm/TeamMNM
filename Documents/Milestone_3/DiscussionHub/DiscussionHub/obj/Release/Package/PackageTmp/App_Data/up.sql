@@ -13,8 +13,8 @@ CREATE TABLE [dbo].[Discussions]
     [ID]            INT IDENTITY (1,1)					 NOT NULL,
     [Title]         NVARCHAR(100)						 NOT NULL,
     [Description]   NVARCHAR(MAX)						 NOT NULL,
-    [URL]           NVARCHAR(100)						 NOT NULL,
-    [UserID]          INT FOREIGN KEY REFERENCES Users(ID) NOT NULL
+    [URL]           NVARCHAR(256)						 NOT NULL,
+    [UserID]        INT FOREIGN KEY REFERENCES Users(ID) NOT NULL
 
     CONSTRAINT [PK_dbo.Discussions] PRIMARY KEY CLUSTERED ([ID] ASC)
 )
