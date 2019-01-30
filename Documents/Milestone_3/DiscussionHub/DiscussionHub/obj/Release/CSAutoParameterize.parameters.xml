@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="ClassProjectDB-Web.config Connection String" description="ClassProjectDB Connection String used in web.config by the application to access the database." defaultValue="Server=tcp:discussionhub.database.windows.net,1433;Initial Catalog=ClassProjectDB;Persist Security Info=False;User ID=mnmgroup;Password=Solutions1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\MNMFork\\m-m_manuel\\Documents\\Milestone_3\\DiscussionHub\\DiscussionHub\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ClassProjectDB']/@connectionString" />
-  </parameter>
-</parameters>
