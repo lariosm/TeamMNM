@@ -1,4 +1,4 @@
-﻿@model DiscussionProject.Models.SUPDiscussion
+﻿@model DiscussionProject.Models.SUPDiscussionDetails
 
 @{
     ViewBag.Title = "Details";
@@ -11,48 +11,51 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.SUPUser.FirstName)
+            @Html.DisplayNameFor(model => model.sUPDiscussion.SUPUser.FirstName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SUPUser.FirstName)
+            @Html.DisplayFor(model => model.sUPDiscussion.SUPUser.FirstName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.sUPDiscussion.Title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.sUPDiscussion.Title)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.sUPDiscussion.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.sUPDiscussion.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.URL)
+            @Html.DisplayNameFor(model => model.sUPDiscussion.URL)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.URL)
+            @Html.DisplayFor(model => model.sUPDiscussion.URL)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TIMESTAMP)
+            @Html.DisplayNameFor(model => model.sUPDiscussion.TIMESTAMP)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TIMESTAMP)
+            @Html.DisplayFor(model => model.sUPDiscussion.TIMESTAMP)
         </dd>
 
     </dl>
 </div>
+
+@*Html.RenderPartial("comments", Model.sUPComments); *@
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.sUPDiscussion.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

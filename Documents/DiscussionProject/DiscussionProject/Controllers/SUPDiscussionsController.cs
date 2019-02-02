@@ -24,16 +24,20 @@ namespace DiscussionProject.Controllers
         // GET: SUPDiscussions/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SUPDiscussion sUPDiscussion = db.SUPDiscussions.Find(id);
-            if (sUPDiscussion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sUPDiscussion);
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            
+            //if (sUPDiscussion == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(sUPDiscussion);
+            var model = new SUPDiscussionDetails();
+            model.sUPDiscussion = db.SUPDiscussions.Find(id);
+            model.sUPComments = db.SUPComments.Include(s => s.SUPDiscussion).Include(s => s.SUPUser).ToList();
+            return View(model);
         }
 
         // GET: SUPDiscussions/Create
