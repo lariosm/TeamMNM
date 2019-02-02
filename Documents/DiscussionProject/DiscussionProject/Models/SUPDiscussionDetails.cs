@@ -13,6 +13,7 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SUPComment> sUPComments { get; set; }
 
+        public virtual SUPComment sUPComment { get; set; }
         public virtual SUPDiscussion sUPDiscussion { get; set; }
     }
 }

@@ -53,9 +53,60 @@
     </dl>
 </div>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.sUPDiscussion.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sUPComment.SUPUser.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sUPComment.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sUPComment.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sUPComment.TIMESTAMP)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.sUPComments)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SUPDiscussion.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TIMESTAMP)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+
 @*Html.RenderPartial("comments", Model.sUPComments); *@
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.sUPDiscussion.ID }) |
+    @*Html.ActionLink("Edit", "Edit", new { id = Model.sUPDiscussion.ID }) |*@
     @Html.ActionLink("Back to List", "Index")
 </p>
