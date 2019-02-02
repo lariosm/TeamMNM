@@ -18,6 +18,8 @@ namespace DiscussionProject.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private SUPContext db = new SUPContext();
+
         public AccountController()
         {
         }
@@ -153,6 +155,11 @@ namespace DiscussionProject.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
+                var myuser = new SUPUser { FirstName = model.FirstName, LastName = model.LastName, NetUserId = user.Id };
+                db.SUPUsers.Add(myuser);
+                db.SaveChanges();
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
