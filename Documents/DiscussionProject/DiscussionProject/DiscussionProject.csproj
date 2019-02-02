@@ -189,6 +189,7 @@
     <Compile Include="Models\SUPComment.cs" />
     <Compile Include="Models\SUPContext.cs" />
     <Compile Include="Models\SUPDiscussion.cs" />
+    <Compile Include="Models\SUPDiscussionDetails.cs" />
     <Compile Include="Models\SUPUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
