@@ -49,13 +49,13 @@ namespace DiscussionProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,Details,TIMESTAMP,UserID,DiscussionID")] SUPComment sUPComment)
+        public ActionResult Create([Bind(Include = "ID,Title,Details,UserID,DiscussionID")] SUPComment sUPComment)
         {
             if (ModelState.IsValid)
             {
                 db.SUPComments.Add(sUPComment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home", null);
             }
 
             ViewBag.DiscussionID = new SelectList(db.SUPDiscussions, "ID", "Title", sUPComment.DiscussionID);
@@ -85,13 +85,13 @@ namespace DiscussionProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Title,Details,TIMESTAMP,UserID,DiscussionID")] SUPComment sUPComment)
+        public ActionResult Edit([Bind(Include = "ID,Title,Details,UserID,DiscussionID")] SUPComment sUPComment)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(sUPComment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home", null);
             }
             ViewBag.DiscussionID = new SelectList(db.SUPDiscussions, "ID", "Title", sUPComment.DiscussionID);
             ViewBag.UserID = new SelectList(db.SUPUsers, "ID", "FirstName", sUPComment.UserID);
@@ -121,7 +121,7 @@ namespace DiscussionProject.Controllers
             SUPComment sUPComment = db.SUPComments.Find(id);
             db.SUPComments.Remove(sUPComment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home", null);
         }
 
         protected override void Dispose(bool disposing)

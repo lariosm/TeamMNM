@@ -58,13 +58,13 @@ namespace DiscussionProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,Description,URL,TIMESTAMP,UserID")] SUPDiscussion sUPDiscussion)
+        public ActionResult Create([Bind(Include = "ID,Title,Description,URL,UserID")] SUPDiscussion sUPDiscussion)
         {
             if (ModelState.IsValid)
             {
                 db.SUPDiscussions.Add(sUPDiscussion);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home", null);
             }
 
             ViewBag.UserID = new SelectList(db.SUPUsers, "ID", "FirstName", sUPDiscussion.UserID);
@@ -92,13 +92,13 @@ namespace DiscussionProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Title,Description,URL,TIMESTAMP,UserID")] SUPDiscussion sUPDiscussion)
+        public ActionResult Edit([Bind(Include = "ID,Title,Description,URL,UserID")] SUPDiscussion sUPDiscussion)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(sUPDiscussion).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home", null);
             }
             ViewBag.UserID = new SelectList(db.SUPUsers, "ID", "FirstName", sUPDiscussion.UserID);
             return View(sUPDiscussion);
@@ -127,7 +127,7 @@ namespace DiscussionProject.Controllers
             SUPDiscussion sUPDiscussion = db.SUPDiscussions.Find(id);
             db.SUPDiscussions.Remove(sUPDiscussion);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home", null);
         }
 
         protected override void Dispose(bool disposing)
