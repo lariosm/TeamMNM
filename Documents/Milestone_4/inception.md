@@ -106,17 +106,17 @@ Site and data must be backed up regularly and have failover redundacy that will 
         * [U] As an owner, I would like to leave a review on my experience with a rentee.
         * [U] As a renter, I would like to leave a review on my thoughts about an item.
         * [U] As a visitor, I would like to be able to read reviews so that I can see how others' experiences are going so far with this website.
-* [F] Listing items for rent
+4. [F] Listing items for rent
     * [U] As an owner, I want to be able to create an item listing so that I can make some money from my belongings I am not using now.
         * [T] Add a listing title
         * [T] Add a description
         * [T] Add conditions to the listing
         * [T] Set price rate(s)
     * [U] As an owner, I want to be able to revise a listing I previously created.
-* [F] Rental history log
+5. [F] Rental history log
     * [U] As an owner, I want to see all the items I had rented out and which ones didn't get rented so that I can remove items that aren't being rented a lot.
     * [U] As a renter, I wanto see a history of the items I've rented to see what would maybe be worth purchasing for myself.
-* [F] Payment system
+6. [F] Payment system
     * [U] As a renter, I would like to save my payment information to my account so that I don't have to keep re-entering it every time I rent something.
     * [U] As a user, it is earier for me to use a payment application, such as PayPal or Venmo.
 
