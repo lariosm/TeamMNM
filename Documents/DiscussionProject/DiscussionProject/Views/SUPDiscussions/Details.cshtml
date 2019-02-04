@@ -4,26 +4,32 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.sUPDiscussion.Title)</h2>
+
+<hr />
+
+<div class="col-sm-12">
+    <div class="dropdown float-right">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Options
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @Html.ActionLink("Edit thread", "Edit", new { id = Model.sUPDiscussion.ID }, new { @class = "dropdown-item" })
+            @Html.ActionLink("Delete thread", "Delete", new { id = Model.sUPDiscussion.ID }, new { @class = "dropdown-item" })
+        </div>
+    </div>
+    @Html.ActionLink("Return to index", "Index", "Home", null, new { @class = "btn btn-secondary float-right", style = "margin-right: 5px;" })
+</div>
 
 <div>
-    <h4>SUPDiscussion</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.sUPDiscussion.SUPUser.FirstName)
+            User
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.sUPDiscussion.SUPUser.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sUPDiscussion.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sUPDiscussion.Title)
         </dd>
 
         <dt>
@@ -53,22 +59,23 @@
     </dl>
 </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create", "SUPComments")
-</p>
+<br />
+<br />
+
+<h5>Comments</h5>
+
+@Html.ActionLink("Add a comment", "Create", "SUPComments", null, new { @class = "btn btn-secondary float-right" })
+<br />
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.sUPDiscussion.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sUPComment.SUPUser.FirstName)
+            User
         </th>
         <th>
             @Html.DisplayNameFor(model => model.sUPComment.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sUPComment.Details)
+            Comment
         </th>
         <th>
             @Html.DisplayNameFor(model => model.sUPComment.TIMESTAMP)
@@ -79,9 +86,6 @@
     @foreach (var item in Model.sUPComments)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SUPDiscussion.Title)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
             </td>
@@ -95,18 +99,10 @@
                 @Html.DisplayFor(modelItem => item.TIMESTAMP)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Edit", "Edit", "SUPComments", new { id = item.ID }, null) |
+                @Html.ActionLink("Delete", "Delete", "SUPComments", new { id = item.ID }, null)
             </td>
         </tr>
     }
 
 </table>
-
-@*Html.RenderPartial("comments", Model.sUPComments); *@
-
-<p>
-    @*Html.ActionLink("Edit", "Edit", new { id = Model.sUPDiscussion.ID }) |*@
-    @Html.ActionLink("Back to List", "Index")
-</p>

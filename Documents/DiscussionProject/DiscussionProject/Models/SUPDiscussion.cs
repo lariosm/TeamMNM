@@ -2,6 +2,7 @@ namespace DiscussionProject.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -16,7 +17,7 @@ namespace DiscussionProject.Models
 
         public int ID { get; set; }
 
-        [Required]
+        [Required, DisplayName("Discussion title")]
         [StringLength(100)]
         public string Title { get; set; }
 
@@ -27,8 +28,10 @@ namespace DiscussionProject.Models
         [StringLength(100)]
         public string URL { get; set; }
 
-        public DateTime TIMESTAMP { get; set; }
+        [DisplayName("Created on")]
+        public DateTime TIMESTAMP { get; set; } = DateTime.Now;
 
+        [DisplayName("User")]
         public int UserID { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
