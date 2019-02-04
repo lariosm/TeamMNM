@@ -1,0 +1,108 @@
+﻿@model DiscussionProject.Models.SUPDiscussionDetails
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Html.DisplayFor(model => model.sUPDiscussion.Title)</h2>
+
+<hr />
+
+<div class="col-sm-12">
+    <div class="dropdown float-right">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Options
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @Html.ActionLink("Edit thread", "Edit", new { id = Model.sUPDiscussion.ID }, new { @class = "dropdown-item" })
+            @Html.ActionLink("Delete thread", "Delete", new { id = Model.sUPDiscussion.ID }, new { @class = "dropdown-item" })
+        </div>
+    </div>
+    @Html.ActionLink("Return to index", "Index", "Home", null, new { @class = "btn btn-secondary float-right", style = "margin-right: 5px;" })
+</div>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            User
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUPDiscussion.SUPUser.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUPDiscussion.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUPDiscussion.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUPDiscussion.URL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUPDiscussion.URL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUPDiscussion.TIMESTAMP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUPDiscussion.TIMESTAMP)
+        </dd>
+
+    </dl>
+</div>
+
+<br />
+<br />
+
+<h5>Comments</h5>
+
+@Html.ActionLink("Add a comment", "Create", "SUPComments", null, new { @class = "btn btn-secondary float-right" })
+<br />
+<table class="table">
+    <tr>
+        <th>
+            User
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sUPComment.Title)
+        </th>
+        <th>
+            Comment
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sUPComment.TIMESTAMP)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.sUPComments)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TIMESTAMP)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "SUPComments", new { id = item.ID }, null) |
+                @Html.ActionLink("Delete", "Delete", "SUPComments", new { id = item.ID }, null)
+            </td>
+        </tr>
+    }
+
+</table>

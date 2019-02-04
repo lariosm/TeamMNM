@@ -3,7 +3,7 @@
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
@@ -12,16 +12,14 @@
     <dl class="dl-horizontal">
         <dt>Password:</dt>
         <dd>
-            [
             @if (Model.HasPassword)
             {
-                @Html.ActionLink("Change your password", "ChangePassword")
+                @Html.ActionLink("Change your password", "ChangePassword", null, new { @class = "btn btn-secondary"})
             }
             else
             {
-                @Html.ActionLink("Create", "SetPassword")
+                @Html.ActionLink("Create", "SetPassword", null, new { @class = "btn btn-secondary" })
             }
-            ]
         </dd>
         <dt>External Logins:</dt>
         <dd>
