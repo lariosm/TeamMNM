@@ -1,7 +1,7 @@
 #### Team: MNM Solutions
-#### Milestone: 4
+#### Milestone: 5
 
-# Team Project Inception Phase (Week 2)
+# Team Project Inception Phase (Week 3)
 
 ## Summary of Our Approach to Software Development
 We are following the Agile SCRUM process, and also processes explained in the Disciplined Agile Delivery book.
@@ -138,11 +138,11 @@ _**Diagram Separate_
 ## Timeline and Release Plan
 
 * Sprint 1 - _Start_: Monday, February 11th - _End_: Sunday, February 24th - **Release 1**
-* Sprint 2 - _Start_: Monday February 25th - _End_: Sunday, March 10th - **Release 2**
-* Sprint 3 - _Start_: Monday April 1st - _End_: Sunday, April 14th - **Release 3**
+* Sprint 2 - _Start_: Monday, February 25th - _End_: Sunday, March 10th - **Release 2**
+* Sprint 3 - _Start_: Monday, April 1st - _End_: Sunday, April 14th - **Release 3**
 * Sprint 4 - _Start_: Monday, April 15th - _End_: Sunday, April 28th - **Release 4**
 * Sprint 5 - _Start_: Monday, April 29th - _End_: Sunday, May 12th - **Release 5**
-* Test: TBD
+* Test: _TBD_
 * Sprint 6 - _Start_: Monday, May 13th - _End_: Sunday, May 26th - **Release 6**
 
 ## Identification of Risks
