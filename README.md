@@ -53,7 +53,8 @@ We are following the Agile SCRUM process, and also processes explained in the Di
 1. Respect
 2. Complete what you say you will complete
 3. Communication with team members
-(Team Mascot)[https://www.youtube.com/watch?v=j5a0jTc9S10]
+
+[Team Mascot](https://www.youtube.com/watch?v=j5a0jTc9S10)
 
 ### Tools:
 Visual Studio Community - ASP.NET MVC 5
