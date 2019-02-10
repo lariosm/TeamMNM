@@ -1,4 +1,4 @@
-![MNM Solutions logo](Documents/Milestone_1/logo.png)
+# MNM Solutions
 
 This is the repository for **MNM Solutions**. It primarily houses work items for the 2018-19 Capstone project course sequence.
 
@@ -12,7 +12,7 @@ This is the repository for **MNM Solutions**. It primarily houses work items for
 
 People like to save money; people like to make money. People like to rent items instead of buying them, or rent their property out to make a little extra money. The problem with this is that there are not any good places to do this on the Web. Not only have businesses taken over the rental marketplace, but it is also very flawed.
 
-By flooding rental websites or mobile apps with business products, it deprecates the idea of a sharing economy. Some of these businesses include Rent-A-Center and Aaron’s.  A sharing economy and peer to peer transactions are main priorities for this web application. This is because by taking away the businesses, we can sustain a host that will give users, both owners and renters, a more personal and enjoyable renting experience.
+By flooding rental websites or mobile apps with business products, it deprecates the idea of a sharing economy. Some of these businesses include Rent-A-Center and Aaronï¿½s.  A sharing economy and peer to peer transactions are main priorities for this web application. This is because by taking away the businesses, we can sustain a host that will give users, both owners and renters, a more personal and enjoyable renting experience.
 
 We have investigated other attempts at a rental website, and they are poor attempts. Just look at services like lendr and BeOmni which are mobile apps, and Zilok and PeerRenters are poorly designed websites. These services are not quite as simple as an Amazon or Craigslist when it comes to renting.
 
