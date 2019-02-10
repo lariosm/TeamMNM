@@ -19,7 +19,7 @@ We have investigated other attempts at a rental website, and they are poor attem
 We want a site that is simple, easy to use, and sharing economy friendly for people to find what they want or need to rent. Visitors should be able to search and view rentable products without having to log in, users should be able to make an account to both rent and rent out items, and it should be done easily. It should provide features for the user to sign in using a 3rd-party log in, manage their account, view their renting history, and even rate their rental experience.
 
 ## Contribution guidelines
-You can find our contribution guidelines [here](contribute.md).
+You can find our contribution guidelines [here](https://bitbucket.org/manuellarios/m-m/src/develop/contribute.md).
 
 ## Project Tools and Packages
 This project uses the following tools and packages*:
