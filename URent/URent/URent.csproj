@@ -190,6 +190,10 @@
     <Content Include="App_Data\MLDB_log.ldf">
       <DependentUpon>MLDB.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\NKDB.mdf" />
+    <Content Include="App_Data\NKDB_log.ldf">
+      <DependentUpon>NKDB.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\up.sql" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
