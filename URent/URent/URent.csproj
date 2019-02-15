@@ -190,6 +190,14 @@
     <Content Include="App_Data\MLDB_log.ldf">
       <DependentUpon>MLDB.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\msdb.mdf" />
+    <Content Include="App_Data\msdb_log.ldf">
+      <DependentUpon>msdb.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\temp.mdf" />
+    <Content Include="App_Data\temp_log.ldf">
+      <DependentUpon>temp.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\up.sql" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
