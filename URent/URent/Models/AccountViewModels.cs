@@ -64,6 +64,35 @@ namespace URent.Models
 
     public class RegisterViewModel
     {
+
+        [Required]
+        [Display(Name = "First Name")]
+        public virtual string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public virtual string LastName { get; set; }
+
+        //[Required]
+        //[Display(Name = "Date of Birth")]
+        //public virtual string DateOfBirth { get; set; }
+
+        [Required]
+        [Display(Name = "Street Address")]
+        public virtual string StreetAddress { get; set; }
+
+        [Required]
+        [Display(Name = "City")]
+        public virtual string CityAddress { get; set; }
+
+        [Required]
+        [Display(Name = "State")]
+        public virtual string StateAddress { get; set; }
+
+        [Required]
+        [Display(Name = "ZipCode")]
+        public virtual string ZipCode { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

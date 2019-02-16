@@ -21,7 +21,7 @@ namespace URent.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("tempDB", throwIfV1Schema: false)
         {
         }
 

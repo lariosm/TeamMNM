@@ -1,0 +1,58 @@
+﻿@model URent.Models.SUPItemRate
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SUPItemRate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SUPItem.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUPItem.ItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HourlyRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HourlyRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DailyRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DailyRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeeklyRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeeklyRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MonthlyRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MonthlyRate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
