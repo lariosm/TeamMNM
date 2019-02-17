@@ -202,7 +202,7 @@
     <Content Include="App_Data\NKDB.mdf" />
     <Content Include="App_Data\NKDB_log.ldf">
       <DependentUpon>NKDB.mdf</DependentUpon>
-	</Content>
+    </Content>
     <Content Include="App_Data\msdb.mdf" />
     <Content Include="App_Data\msdb_log.ldf">
       <DependentUpon>msdb.mdf</DependentUpon>
@@ -218,9 +218,13 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Img\urent_altlogo.svg" />
+    <Content Include="Content\Img\urent_logo.svg" />
+    <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
