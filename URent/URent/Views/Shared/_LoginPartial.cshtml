@@ -4,7 +4,7 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "ml-auto" , @style="color:white;"}))
     {
     @Html.AntiForgeryToken()
-
+        
     <ul class="nav ml-auto">
         <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link", @style="color:white;" })
