@@ -199,6 +199,10 @@
     <Content Include="App_Data\MLDB_log.ldf">
       <DependentUpon>MLDB.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\NKDB.mdf" />
+    <Content Include="App_Data\NKDB_log.ldf">
+      <DependentUpon>NKDB.mdf</DependentUpon>
+	</Content>
     <Content Include="App_Data\msdb.mdf" />
     <Content Include="App_Data\msdb_log.ldf">
       <DependentUpon>msdb.mdf</DependentUpon>
