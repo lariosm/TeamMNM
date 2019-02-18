@@ -25,8 +25,9 @@ namespace URent.Models
         [StringLength(100)]
         public string Description { get; set; }
 
-        public DateTime TimeStamp { get; set; }
+        public DateTime TimeStamp { get; set; } = DateTime.Now;
 
+        [DisplayName("Item availability")]
         public bool IsAvailable { get; set; }
 
         public int OwnerID { get; set; }
