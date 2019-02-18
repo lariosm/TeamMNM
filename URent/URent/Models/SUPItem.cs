@@ -2,6 +2,7 @@ namespace URent.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -17,7 +18,7 @@ namespace URent.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(100), DisplayName("Title")]
         public string ItemName { get; set; }
 
         [Required]
