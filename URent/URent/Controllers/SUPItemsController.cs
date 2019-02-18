@@ -48,7 +48,7 @@ namespace URent.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ItemName,Description,TimeStamp,IsAvailable,OwnerID")] SUPItem sUPItem)
+        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,OwnerID")] SUPItem sUPItem)
         {
             if (ModelState.IsValid)
             {
