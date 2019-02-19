@@ -48,7 +48,7 @@ namespace URent.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,OwnerID")] SUPItem sUPItem)
+        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable")] SUPItem sUPItem)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace URent.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
+            //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
             return View(sUPItem);
         }
 

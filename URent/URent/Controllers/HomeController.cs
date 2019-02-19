@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
+using URent.Models;
 
 namespace URent.Controllers
 {
     public class HomeController : Controller
     {
+        private SUPContext db = new SUPContext();
+
         public ActionResult Index()
         {
-            return View();
+            var sUPItems = db.SUPItems.Include(s => s.SUPUser);
+            return View(sUPItems.ToList());
         }
 
         public ActionResult About()
