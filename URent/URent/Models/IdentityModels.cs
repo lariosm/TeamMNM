@@ -21,7 +21,7 @@ namespace URent.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("NKDB", throwIfV1Schema: false)
+            : base("TEMP", throwIfV1Schema: false)
         {
         }
 

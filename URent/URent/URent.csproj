@@ -333,6 +333,7 @@
     <Content Include="Views\SUPItemRates\Details.cshtml" />
     <Content Include="Views\SUPItemRates\Edit.cshtml" />
     <Content Include="Views\SUPItemRates\Index.cshtml" />
+    <Content Include="Views\Shared\_UserPageLayout.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
