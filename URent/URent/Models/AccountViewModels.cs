@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace URent.Models
@@ -73,9 +74,9 @@ namespace URent.Models
         [Display(Name = "Last Name")]
         public virtual string LastName { get; set; }
 
-        //[Required]
-        //[Display(Name = "Date of Birth")]
-        //public virtual string DateOfBirth { get; set; }
+        [Required]
+        [Display(Name = "Date of Birth")]
+        public virtual DateTime DateOfBirth { get; set; }
 
         [Required]
         [Display(Name = "Street Address")]
@@ -90,7 +91,7 @@ namespace URent.Models
         public virtual string StateAddress { get; set; }
 
         [Required]
-        [Display(Name = "ZipCode")]
+        [Display(Name = "Zip Code")]
         public virtual string ZipCode { get; set; }
 
         [Required]
