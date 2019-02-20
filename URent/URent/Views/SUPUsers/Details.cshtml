@@ -2,12 +2,12 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_UserPageLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Overview</h2>
 
 <div>
-    <h4>SUPUser</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -64,22 +64,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.ZipCode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeStamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TimeStamp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NetUserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NetUserId)
         </dd>
 
     </dl>
