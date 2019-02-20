@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -14,6 +15,21 @@ namespace URent.Controllers
     {
         private SUPContext db = new SUPContext();
 
+        [Authorize]
+        private string getIdentityID()
+        {
+            return User.Identity.GetUserId();
+        }
+
+        [Authorize]
+        private int getSUPUserID()
+        {
+            string id = getIdentityID();
+            SUPUser supUser = db.SUPUsers.Where(u => u.NetUserId.Equals(id)).FirstOrDefault();
+            int supUserid = supUser.Id;
+            return supUserid;
+        }
+
         // GET: SUPUsers
         public ActionResult Index()
         {
@@ -23,11 +39,16 @@ namespace URent.Controllers
         // GET: SUPUsers/Details/5
         public ActionResult Details(int? id)
         {
+            SUPUser sUPUser = db.SUPUsers.Find(id);
+            if (User.Identity.IsAuthenticated)
+            {
+                sUPUser = db.SUPUsers.Find(getSUPUserID());
+                return View(sUPUser);
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SUPUser sUPUser = db.SUPUsers.Find(id);
             if (sUPUser == null)
             {
                 return HttpNotFound();
