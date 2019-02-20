@@ -19,9 +19,9 @@
     <div class="form-group">
             @Html.LabelFor(model => model.OwnerID, "Owner of Item Listing:", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("OwnerID", null, htmlAttributes: new { @class = "form-control" })
-            @*@Html.DisplayFor(model => model.SUPUser.FirstName)*@
-            @Html.ValidationMessageFor(model => model.OwnerID, "", new { @class = "text-danger" })
+            @Html.DisplayFor(model => model.SUPUser.FirstName)
+            @*@Html.DropDownList("OwnerID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.OwnerID, "", new { @class = "text-danger" })*@
         </div>
     </div>
 

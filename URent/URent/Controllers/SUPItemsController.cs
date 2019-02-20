@@ -100,10 +100,11 @@ namespace URent.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ItemName,Description,TimeStamp,IsAvailable,OwnerID")] SUPItem sUPItem)
+        public ActionResult Edit([Bind(Include = "Id,ItemName,Description,TimeStamp,IsAvailable")] SUPItem sUPItem)
         {
             if (ModelState.IsValid)
             {
+                sUPItem.OwnerID = getSUPUserID();
                 db.Entry(sUPItem).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
