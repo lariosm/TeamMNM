@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using URent.Models;
 
 namespace URent.Controllers
@@ -13,6 +14,21 @@ namespace URent.Controllers
     public class SUPItemsController : Controller
     {
         private SUPContext db = new SUPContext();
+
+        [Authorize]
+        private string getIdentityID()
+        {
+            return User.Identity.GetUserId();
+        }
+
+        [Authorize]
+        private int getSUPUserID()
+        {
+            string id = getIdentityID();
+            SUPUser supUser = db.SUPUsers.Where(u => u.NetUserId.Equals(id)).FirstOrDefault();
+            int supUserid = supUser.Id;
+            return supUserid;
+        }
 
         // GET: SUPItems
         public ActionResult Index()
@@ -39,7 +55,7 @@ namespace URent.Controllers
         // GET: SUPItems/Create
         public ActionResult Create()
         {
-            ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName");
+            //ViewBag.OwnerID = new SelectList(db.SUPUsers, supuser.Id, "FirstName");
             return View();
         }
 
@@ -48,10 +64,12 @@ namespace URent.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,OwnerID")] SUPItem sUPItem)
+        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable")] SUPItem sUPItem)
         {
+            
             if (ModelState.IsValid)
             {
+                sUPItem.OwnerID = getSUPUserID();
                 db.SUPItems.Add(sUPItem);
                 db.SaveChanges();
                 return RedirectToAction("Index");
