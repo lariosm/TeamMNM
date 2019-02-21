@@ -2,7 +2,6 @@ namespace DiscussionProject.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -12,13 +11,12 @@ namespace DiscussionProject.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SUPUser()
         {
-            SUPComments = new HashSet<SUPComment>();
-            SUPDiscussions = new HashSet<SUPDiscussion>();
+            SUPItems = new HashSet<SUPItem>();
         }
 
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        [Required, DisplayName("First name")]
+        [Required]
         [StringLength(100)]
         public string FirstName { get; set; }
 
@@ -26,13 +24,31 @@ namespace DiscussionProject.Models
         [StringLength(100)]
         public string LastName { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime DateOfBirth { get; set; }
+
+        [Required]
+        [StringLength(128)]
+        public string StreetAddress { get; set; }
+
+        [Required]
+        [StringLength(128)]
+        public string CityAddress { get; set; }
+
+        [Required]
+        [StringLength(128)]
+        public string StateAddress { get; set; }
+
+        [Required]
+        [StringLength(128)]
+        public string ZipCode { get; set; }
+
+        public DateTime TimeStamp { get; set; }
+
         [StringLength(128)]
         public string NetUserId { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SUPComment> SUPComments { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SUPDiscussion> SUPDiscussions { get; set; }
+        public virtual ICollection<SUPItem> SUPItems { get; set; }
     }
 }

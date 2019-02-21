@@ -1,14 +1,14 @@
-namespace URent.Models
+namespace DiscussionProject.Models
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class SUPContext : DbContext
+    public partial class Model1 : DbContext
     {
-        public SUPContext()
-            : base("name=SUPUserTables")
+        public Model1()
+            : base("name=Model1")
         {
         }
 
