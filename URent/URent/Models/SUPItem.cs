@@ -12,7 +12,6 @@ namespace URent.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SUPItem()
         {
-            SUPItemRates = new HashSet<SUPItemRate>();
         }
 
         public int Id { get; set; }
@@ -32,9 +31,9 @@ namespace URent.Models
 
         public int OwnerID { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SUPItemRate> SUPItemRates { get; set; }
-
         public virtual SUPUser SUPUser { get; set; }
+
+        [Required]
+        public decimal DailyPrice { get; set; }
     }
 }
