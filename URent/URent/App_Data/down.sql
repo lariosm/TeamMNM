@@ -1,4 +1,3 @@
-DROP TABLE [dbo].[SUPItemRates]
 DROP TABLE [dbo].[SUPItems]
 DROP TABLE [dbo].[SUPUsers]
 

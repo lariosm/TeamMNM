@@ -21,21 +21,10 @@ CREATE TABLE [dbo].[SUPItems]
     [Description]   NVARCHAR(100)           NOT NULL,
     [TimeStamp]     DATETIME                NOT NULL,
     [IsAvailable]   BIT                     NOT NULL,
+	[DailyPrice]	DECIMAL					NOT NULL,
     [OwnerID]       INT FOREIGN KEY REFERENCES SUPUsers(Id) NOT NULL
 
 	CONSTRAINT [PK_dbo.SUPItems] PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-CREATE TABLE [dbo].[SUPItemRates]
-(
-    [Id]            INT IDENTITY (1,1)      NOT NULL,
-    [HourlyRate]    INT                     NULL,
-    [DailyRate]     INT                     NULL,
-    [WeeklyRate]    INT                     NULL,
-    [MonthlyRate]   INT                     NULL,
-    [ItemID]        INT FOREIGN KEY REFERENCES SUPItems(Id) NOT NULL
-
-	CONSTRAINT [PK_dbo.SUPItemRates] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 -- Identity tables
