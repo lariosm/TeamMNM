@@ -64,9 +64,8 @@ namespace URent.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,SUPItemRates")] SUPItem sUPItem)
+        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,DailyPrice")] SUPItem sUPItem)
         {
-            
             if (ModelState.IsValid)
             {
                 sUPItem.OwnerID = getSUPUserID();
@@ -74,8 +73,7 @@ namespace URent.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
+            //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
             return View(sUPItem);
         }
 
@@ -91,7 +89,7 @@ namespace URent.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
+            //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
             return View(sUPItem);
         }
 
@@ -100,7 +98,7 @@ namespace URent.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ItemName,Description,TimeStamp,IsAvailable")] SUPItem sUPItem)
+        public ActionResult Edit([Bind(Include = "Id,ItemName,Description,TimeStamp,IsAvailable,DailyPrice")] SUPItem sUPItem)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +107,7 @@ namespace URent.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
+            //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
             return View(sUPItem);
         }
 

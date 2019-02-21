@@ -177,7 +177,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\SUPItemRatesController.cs" />
     <Compile Include="Controllers\SUPItemsController.cs" />
     <Compile Include="Controllers\SUPUsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -187,7 +186,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SUPItem.cs" />
-    <Compile Include="Models\SUPItemRate.cs" />
     <Compile Include="Models\SUPUser.cs" />
     <Compile Include="Models\SUPContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

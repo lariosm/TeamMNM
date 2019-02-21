@@ -14,8 +14,8 @@ namespace URent.Controllers
 
         public ActionResult Index()
         {
-            var sUPItems = db.SUPItems.Include(s => s.SUPUser);
-            return View(sUPItems.ToList());
+            //var sUPItems = db.SUPItems.Include(s => s.SUPUser);
+            return View();
         }
 
         public ActionResult About()
