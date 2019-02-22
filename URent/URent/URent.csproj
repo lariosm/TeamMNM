@@ -332,6 +332,7 @@
     <Content Include="Views\SUPItemRates\Edit.cshtml" />
     <Content Include="Views\SUPItemRates\Index.cshtml" />
     <Content Include="Views\Shared\_UserPageLayout.cshtml" />
+    <Content Include="Views\SUPItems\Error.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
