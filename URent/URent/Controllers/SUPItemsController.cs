@@ -30,6 +30,27 @@ namespace URent.Controllers
             return supUserid;
         }
 
+        [Authorize]
+        private bool checkUser(int ?listingid)
+        {
+            int userid = getSUPUserID();
+            int listingoid = db.SUPItems.Find(listingid).OwnerID;
+            if(userid == listingoid)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        [Authorize]
+        public ActionResult Error()
+        {
+            return View();
+        }
+
         // GET: SUPItems
         public ActionResult Index()
         {
@@ -78,6 +99,7 @@ namespace URent.Controllers
         }
 
         // GET: SUPItems/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -89,14 +111,23 @@ namespace URent.Controllers
             {
                 return HttpNotFound();
             }
+            bool check = checkUser(id);
+            if ( check == false )
+            {
+                return RedirectToAction("Error");
+            }
+            else
+            {
+                return View(sUPItem);
+
+            }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
-            return View(sUPItem);
         }
 
         // POST: SUPItems/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,ItemName,Description,TimeStamp,IsAvailable,DailyPrice")] SUPItem sUPItem)
         {
