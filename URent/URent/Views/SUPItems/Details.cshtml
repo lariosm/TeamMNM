@@ -4,18 +4,18 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Item details</h2>
 
 <div>
-    <h4>SUPItem</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.SUPUser.FirstName)
+            Owner name
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.SUPUser.FirstName)
+            @Html.DisplayFor(model => model.SUPUser.LastName)
         </dd>
 
         <dt>
@@ -35,12 +35,21 @@
         </dd>
 
         <dt>
+            Item Location
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUPUser.CityAddress),
+            @Html.DisplayFor(model => model.SUPUser.StateAddress)
+        </dd>
+
+        @*<dt>
             @Html.DisplayNameFor(model => model.TimeStamp)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.TimeStamp)
-        </dd>
+        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.IsAvailable)
@@ -48,6 +57,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.IsAvailable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DailyPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DailyPrice)
         </dd>
 
     </dl>

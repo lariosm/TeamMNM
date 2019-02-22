@@ -34,6 +34,7 @@ namespace URent.Models
         public virtual SUPUser SUPUser { get; set; }
 
         [Required]
+        [DisplayName("Daily price rate")]
         public decimal DailyPrice { get; set; }
     }
 }

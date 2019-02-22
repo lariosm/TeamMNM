@@ -6,8 +6,6 @@
 }
 
 <h2>Create your listing</h2>
-<br />
-<br />
 
 @*<div class="col-sm-12">
     <div class="col-sm-4">
@@ -85,7 +83,7 @@
         @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control",
-            @placeholder = "Enter product name (i.e. Apple iPad Pro 3rd gen, Paragon 14oz Popcorn Machine, etc.)" } })
+            @placeholder = "Enter product name (i.e. Apple iPad Pro 3rd gen)" } })
             @Html.ValidationMessageFor(model => model.ItemName, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -121,9 +119,12 @@
     <div class="form-group">
         @Html.LabelFor(model => model.DailyPrice, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DailyPrice, new { htmlAttributes = new { @class = "form-control",
-            @placeholder = "Enter a price..." } })
-            @Html.ValidationMessageFor(model => model.DailyPrice, "", new { @class = "text-danger" })
+            <div class="input-group-prepend">
+                <div class="input-group-text">$</div>
+                @Html.EditorFor(model => model.DailyPrice, new { htmlAttributes = new { @class = "form-control form-inline",
+                @placeholder = "Enter an amount (i.e. 12.49)" } })
+                @Html.ValidationMessageFor(model => model.DailyPrice, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
 
