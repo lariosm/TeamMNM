@@ -27,6 +27,16 @@ CREATE TABLE [dbo].[SUPItems]
 	CONSTRAINT [PK_dbo.SUPItems] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
+CREATE TABLE [dbo].[Images]
+(
+	[Id]		INT IDENTITY(1,1)						NOT NULL,
+	[Filename]	NVARCHAR(100)							NOT NULL,
+	[Input]		VARBINARY(MAX)							NOT NULL,
+	[ItemID]	INT FOREIGN KEY REFERENCES SUPItems(Id)	NOT NULL
+
+	CONSTRAINT [PK_dbo.Images] PRIMARY KEY CLUSTERED ([Id] Asc)
+);
+
 -- Identity tables
 
 

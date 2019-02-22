@@ -12,6 +12,7 @@ namespace URent.Models
         {
         }
 
+        public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<SUPItem> SUPItems { get; set; }
         public virtual DbSet<SUPUser> SUPUsers { get; set; }
 
@@ -20,6 +21,12 @@ namespace URent.Models
             modelBuilder.Entity<SUPItem>()
                 .Property(e => e.DailyPrice)
                 .HasPrecision(18, 0);
+
+            modelBuilder.Entity<SUPItem>()
+                .HasMany(e => e.Images)
+                .WithRequired(e => e.SUPItem)
+                .HasForeignKey(e => e.ItemID)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<SUPUser>()
                 .HasMany(e => e.SUPItems)
