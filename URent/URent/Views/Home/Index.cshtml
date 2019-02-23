@@ -14,55 +14,51 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
     *@
 </div>
+<div class="container">
+    <div class="row">
+        <!-- Empty for now...list of all items goes here-->
+        <h3>All possible rental listings:</h3>
+        <table class="table">
+            <tr>
+                <th>
+                    Item name
+                </th>
+                <th>
+                    Owner name
+                </th>
+                <th>
+                    Item location
+                </th>
+                <th>
+                    Daily rate ($/day)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAvailable)
+                </th>
+            </tr>
 
-<div class="row">
-    <!-- Empty for now...list of all items goes here-->
-    <h3>All possible rental listings:</h3>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IsAvailable)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SUPUser.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsAvailable)
-            </th>
-            <th>
-                Daily Rate
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAvailable)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DailyPrice)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", "SUPItems", new { id = item.Id }, null)
-            </td>
-        </tr>
-        }
-    </table>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.ItemName, "Details", "SUPItems", new { id = item.Id }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
+                    @Html.DisplayFor(modelItem => item.SUPUser.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SUPUser.CityAddress),
+                    @Html.DisplayFor(modelItem => item.SUPUser.StateAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DailyPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAvailable)
+                </td>
+            </tr>
+            }
+        </table>
+    </div>
 </div>
