@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -185,6 +186,47 @@ namespace URent.Controllers
             int userId = getSUPUserID();
             var myItems = db.SUPItems.Where(u => u.OwnerID == userId);
             return View(myItems.ToList());
+        }
+
+        /* DropZone Method called from Form element in View */
+        public ActionResult SaveUploadedFile()
+        {
+            bool isSavedSuccessfully = true;
+            string fName = "";
+            try
+            {
+                foreach (string fileName in Request.Files)
+                {
+                    HttpPostedFileBase file = Request.Files[fileName];
+                    //Save file content goes here
+                    fName = file.FileName;
+                    // base instance of image for saving information
+                    Image i = new Image();
+                    //assign file name to filename
+                    i.Filename = file.FileName;
+                    // read in InputStream into input
+                    using (var reader = new BinaryReader(file.InputStream))
+                    {
+                        i.Input = reader.ReadBytes((int)file.InputStream.Length);
+                    }
+                    //save file to local db
+                    // !!!!!!!!! NOTE: it is saving into SUPUserTables database
+                    db.Images.Add(i);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                isSavedSuccessfully = false;
+            }
+            if (isSavedSuccessfully)
+            {
+                return Json(new { Message = fName });
+            }
+            else
+            {
+                return Json(new { Message = "Error in saving file" });
+            }
         }
     }
 }

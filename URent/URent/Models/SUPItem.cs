@@ -12,7 +12,7 @@ namespace URent.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SUPItem()
         {
-            Images = new HashSet<Image>();
+            //Images = new HashSet<Image>();
         }
 
         public int Id { get; set; }
@@ -38,7 +38,7 @@ namespace URent.Models
         [DisplayName("Daily price rate")]
         public decimal DailyPrice { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Image> Images { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<Image> Images { get; set; }
     }
 }
