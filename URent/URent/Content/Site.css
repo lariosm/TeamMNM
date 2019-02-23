@@ -18,3 +18,13 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+
+/* DropZone stuff */
+.dropZone {
+    background: gray;
+    border: black dashed 3px;
+    width: 200px;
+    padding: 50px;
+    text-align: center;
+    color: white;
+}
