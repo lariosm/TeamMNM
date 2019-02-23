@@ -94,7 +94,7 @@ namespace URent.Controllers
                 sUPItem.OwnerID = getSUPUserID();
                 db.SUPItems.Add(sUPItem);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("GetUserItems");
             }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
             return View(sUPItem);
