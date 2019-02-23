@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -175,6 +176,66 @@ namespace URent.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult SaveUploadedFile()
+        {
+            bool isSavedSuccessfully = true;
+            //string fName = "";
+            try
+            {
+                foreach (string fileName in Request.Files)
+                {
+                    HttpPostedFileBase file = Request.Files[fileName];
+                    //Save file content goes here
+                    //fName = file.FileName;
+
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        Image i = new Image();
+                        i.Filename = file.FileName;
+
+                        using (var reader = new BinaryReader(file.InputStream))
+                        {
+                            i.Input = reader.ReadBytes((int)file.InputStream.Length);
+                        }
+                        //save file to local db
+                        db.Images.Add(i);
+                        db.SaveChanges();
+
+                        //var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\WallImages", Server.MapPath(@"\")));
+
+                        //string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "imagepath");
+
+                        //var fileName1 = Path.GetFileName(file.FileName);
+
+                        //bool isExists = System.IO.Directory.Exists(pathString);
+
+                        //if (!isExists)
+                        //    System.IO.Directory.CreateDirectory(pathString);
+
+                        //var path = string.Format("{0}\\{1}", pathString, file.FileName);
+                        //file.SaveAs(path);
+
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                isSavedSuccessfully = false;
+            }
+
+
+            if (isSavedSuccessfully == false)
+            {
+                return Json(new { Message = "Error in saving file" });
+            }
+            else
+            {
+                return Json(new { Message = "Success saving file" });
+            }
         }
     }
 }
