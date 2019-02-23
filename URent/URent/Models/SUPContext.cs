@@ -22,11 +22,11 @@ namespace URent.Models
                 .Property(e => e.DailyPrice)
                 .HasPrecision(18, 0);
 
-            modelBuilder.Entity<SUPItem>()
-                .HasMany(e => e.Images)
-                .WithRequired(e => e.SUPItem)
-                .HasForeignKey(e => e.ItemID)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<SUPItem>()
+            //    .HasMany(e => e.Images)
+            //    .WithRequired(e => e.SUPItem)
+            //    .HasForeignKey(e => e.ItemID)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<SUPUser>()
                 .HasMany(e => e.SUPItems)

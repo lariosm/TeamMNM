@@ -17,7 +17,7 @@ namespace URent.Models
         [Required]
         public byte[] Input { get; set; }
 
-        public int ItemID { get; set; }
+        //public int ItemID { get; set; }
 
         public virtual SUPItem SUPItem { get; set; }
     }
