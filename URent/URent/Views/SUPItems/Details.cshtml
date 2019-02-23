@@ -4,6 +4,11 @@
     ViewBag.Title = "Details";
 }
 
+@if (Request.IsAuthenticated)
+{
+    Layout = "~/Views/Shared/_UserPageLayout.cshtml";
+}
+
 <h2>Item details</h2>
 
 <div>
@@ -44,12 +49,12 @@
         </dd>
 
         @*<dt>
-            @Html.DisplayNameFor(model => model.TimeStamp)
-        </dt>
+                @Html.DisplayNameFor(model => model.TimeStamp)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TimeStamp)
-        </dd>*@
+            <dd>
+                @Html.DisplayFor(model => model.TimeStamp)
+            </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.IsAvailable)
@@ -69,7 +74,10 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@if (Request.IsAuthenticated)
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

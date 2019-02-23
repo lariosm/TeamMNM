@@ -1,0 +1,65 @@
+﻿@model IEnumerable<URent.Models.SUPItem>
+
+@{
+    ViewBag.Title = "GetUserItems";
+    Layout = "~/Views/Shared/_UserPageLayout.cshtml";
+}
+
+<h2>GetUserItems</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SUPUser.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </th>
+        <th>
+            Daily Rate
+        </th>
+        <th></th>
+    </tr>
+    
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAvailable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeStamp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DailyPrice)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

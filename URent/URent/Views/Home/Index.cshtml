@@ -21,6 +21,9 @@
     <table class="table">
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.IsAvailable)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.SUPUser.FirstName)
             </th>
             <th>
@@ -30,33 +33,36 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimeStamp)
+                @Html.DisplayNameFor(model => model.IsAvailable)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsAvailable)
+                Daily Rate
             </th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TimeStamp)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsAvailable)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAvailable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DailyPrice)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", "SUPItems", new { id = item.Id }, null)
+            </td>
+        </tr>
         }
     </table>
 </div>
