@@ -14,14 +14,16 @@
 <div>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            Owner name
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SUPUser.FirstName)
-            @Html.DisplayFor(model => model.SUPUser.LastName)
-        </dd>
+        @if (!Request.IsAuthenticated)
+        {
+            <dt>
+                Owner name
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SUPUser.FirstName)
+                @Html.DisplayFor(model => model.SUPUser.LastName)
+            </dd>
+        }
 
         <dt>
             @Html.DisplayNameFor(model => model.ItemName)
@@ -49,12 +51,12 @@
         </dd>
 
         @*<dt>
-                @Html.DisplayNameFor(model => model.TimeStamp)
-            </dt>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.TimeStamp)
-            </dd>*@
+        <dd>
+            @Html.DisplayFor(model => model.TimeStamp)
+        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.IsAvailable)
