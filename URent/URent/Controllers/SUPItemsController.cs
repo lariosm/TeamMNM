@@ -178,13 +178,5 @@ namespace URent.Controllers
             }
             base.Dispose(disposing);
         }
-
-        [Authorize]
-        public ActionResult GetUserItems()
-        {
-            int userId = getSUPUserID();
-            var myItems = db.SUPItems.Where(u => u.OwnerID == userId);
-            return View(myItems.ToList());
-        }
     }
 }
