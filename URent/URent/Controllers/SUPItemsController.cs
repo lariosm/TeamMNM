@@ -84,6 +84,7 @@ namespace URent.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,DailyPrice")] SUPItem sUPItem)
         {
@@ -143,6 +144,7 @@ namespace URent.Controllers
         }
 
         // GET: SUPItems/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -175,6 +177,14 @@ namespace URent.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [Authorize]
+        public ActionResult GetUserItems()
+        {
+            int userId = getSUPUserID();
+            var myItems = db.SUPItems.Where(u => u.OwnerID == userId);
+            return View(myItems.ToList());
         }
     }
 }
