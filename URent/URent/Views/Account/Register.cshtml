@@ -1,0 +1,90 @@
+﻿@model URent.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="container">
+    <h2>@ViewBag.Title</h2>
+
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Create an account</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.FirstName, "First name", new { @class = "col-md-2 control-label" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.LastName, "Last name", new { @class = "col-md-2 control-label" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, "Email address", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, "Date of birth", new { @class = "col-md-2 control-label" })
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control", placeholder = "YYYY-MM-DD" })
+            </div>
+        </div>
+        <div class="container form-row">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(m => m.StreetAddress, "Street address", new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(m => m.StreetAddress, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(m => m.CityAddress, "City", new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(m => m.CityAddress, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="container form-row">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(m => m.StateAddress, "State", new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(m => m.StateAddress, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group col-md-2">
+                @Html.LabelFor(m => m.ZipCode, "Zip code", new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-3">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+            <div class="col-md-3">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-primary" value="Register" />
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

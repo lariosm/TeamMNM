@@ -1,0 +1,75 @@
+﻿@model IEnumerable<URent.Models.SUPItem>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>URent</h1>
+        <p class="lead">A peer to peer transaction website where you can rent items and/or rent out items to make some extra money.</p>
+        <h4>Getting started</h4>
+        <ol>
+            <li>Sign up for an account</li>
+            <li>
+                On the left hand side of your account page, click "Add item" to create a rental listing
+                <ul>
+                    <li>Fill out the required information, indicate whether or not the item will be available and set a price rate.</li>
+                </ul>
+            </li>
+            <li>You're done!</li>
+        </ol>
+
+        @*
+            <p><a href="#" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        *@
+    </div>
+
+    <div class="row">
+        <!-- Empty for now...list of all items goes here-->
+        <h3>All possible rental listings:</h3>
+        <table class="table">
+            <tr>
+                <th>
+                    Item name
+                </th>
+                <th>
+                    Owner name
+                </th>
+                <th>
+                    Item location
+                </th>
+                <th>
+                    Daily rate ($/day)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAvailable)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.ItemName, "Details", "SUPItems", new { id = item.Id }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
+                    @Html.DisplayFor(modelItem => item.SUPUser.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SUPUser.CityAddress),
+                    @Html.DisplayFor(modelItem => item.SUPUser.StateAddress)
+                </td>
+                <td>
+                    @String.Format("{0:C}", item.DailyPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAvailable)
+                </td>
+            </tr>
+            }
+        </table>
+    </div>
+</div>

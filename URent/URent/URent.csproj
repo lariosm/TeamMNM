@@ -9,12 +9,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{42DD6D02-5CB2-4526-996B-30891E54A547}</ProjectGuid>
+    <ProjectGuid>{7060655C-92E3-40A2-B895-ACCA9014E56F}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DiscussionProject</RootNamespace>
-    <AssemblyName>DiscussionProject</AssemblyName>
+    <RootNamespace>URent</RootNamespace>
+    <AssemblyName>URent</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -177,31 +177,39 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\SUPCommentsController.cs" />
-    <Compile Include="Controllers\SUPDiscussionsController.cs" />
+    <Compile Include="Controllers\SUPItemsController.cs" />
     <Compile Include="Controllers\SUPUsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Model1.cs" />
-    <Compile Include="Models\SUPComment.cs" />
-    <Compile Include="Models\SUPContext.cs" />
-    <Compile Include="Models\SUPDiscussion.cs" />
-    <Compile Include="Models\SUPDiscussionDetails.cs" />
     <Compile Include="Models\SUPItem.cs" />
     <Compile Include="Models\SUPUser.cs" />
+    <Compile Include="Models\SUPContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Database1.mdf" />
-    <Content Include="App_Data\Database1_log.ldf">
-      <DependentUpon>Database1.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\down.sql" />
+    <Content Include="App_Data\MasonLocal.mdf" />
+    <Content Include="App_Data\MasonLocal_log.ldf">
+      <DependentUpon>MasonLocal.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\MLDB.mdf" />
+    <Content Include="App_Data\MLDB_log.ldf">
+      <DependentUpon>MLDB.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\NKDB.mdf" />
+    <Content Include="App_Data\NKDB_log.ldf">
+      <DependentUpon>NKDB.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\temp.mdf" />
+    <Content Include="App_Data\temp_log.ldf">
+      <DependentUpon>temp.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\up.sql" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -209,13 +217,31 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="favicon.ico" />
-    <Content Include="Global.asax" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Img\urent_altlogo.svg" />
+    <Content Include="Content\Img\urent_logo.svg" />
     <Content Include="Content\Site.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
@@ -226,15 +252,6 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Scripts\esm\popper-utils.js" />
-    <Content Include="Scripts\esm\popper-utils.min.js" />
-    <Content Include="Scripts\esm\popper.js" />
-    <Content Include="Scripts\esm\popper.min.js" />
-    <Content Include="Scripts\esm\popper.min.js.map" />
-    <Content Include="Scripts\esm\popper.js.map" />
-    <Content Include="Scripts\esm\popper-utils.min.js.map" />
-    <Content Include="Scripts\esm\popper-utils.js.map" />
-    <None Include="Properties\PublishProfiles\mnm-discussionhub - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -305,16 +322,20 @@
     <Content Include="Views\SUPUsers\Details.cshtml" />
     <Content Include="Views\SUPUsers\Edit.cshtml" />
     <Content Include="Views\SUPUsers\Index.cshtml" />
-    <Content Include="Views\SUPComments\Create.cshtml" />
-    <Content Include="Views\SUPComments\Delete.cshtml" />
-    <Content Include="Views\SUPComments\Details.cshtml" />
-    <Content Include="Views\SUPComments\Edit.cshtml" />
-    <Content Include="Views\SUPComments\Index.cshtml" />
-    <Content Include="Views\SUPDiscussions\Create.cshtml" />
-    <Content Include="Views\SUPDiscussions\Delete.cshtml" />
-    <Content Include="Views\SUPDiscussions\Details.cshtml" />
-    <Content Include="Views\SUPDiscussions\Edit.cshtml" />
-    <Content Include="Views\SUPDiscussions\Index.cshtml" />
+    <Content Include="Views\SUPItems\Create.cshtml" />
+    <Content Include="Views\SUPItems\Delete.cshtml" />
+    <Content Include="Views\SUPItems\Details.cshtml" />
+    <Content Include="Views\SUPItems\Edit.cshtml" />
+    <Content Include="Views\SUPItems\Index.cshtml" />
+    <Content Include="Views\SUPItemRates\Create.cshtml" />
+    <Content Include="Views\SUPItemRates\Delete.cshtml" />
+    <Content Include="Views\SUPItemRates\Details.cshtml" />
+    <Content Include="Views\SUPItemRates\Edit.cshtml" />
+    <Content Include="Views\SUPItemRates\Index.cshtml" />
+    <Content Include="Views\Shared\_UserPageLayout.cshtml" />
+    <Content Include="Views\SUPItems\Error.cshtml" />
+    <Content Include="Views\SUPItems\GetUserItems.cshtml" />
+    <Content Include="Views\SUPUsers\Error.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -345,9 +366,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52239</DevelopmentServerPort>
+          <DevelopmentServerPort>60978</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52239/</IISUrl>
+          <IISUrl>http://localhost:60978/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -357,30 +378,16 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target> -->
-  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
-    <ItemGroup>
-      <RoslynFiles Include="$(CscToolPath)\*" />
-    </ItemGroup>
-    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
-    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
-  </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
-  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
-    <ItemGroup>
-      <RoslynFiles Include="$(CscToolPath)\*" />
-    </ItemGroup>
-    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
-    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
   </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
 </Project>

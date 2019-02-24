@@ -1,0 +1,30 @@
+﻿body {
+    padding-bottom: 35px;
+}
+
+/* Navbar background color */
+.bg-custom {
+    background-color: #4c0893;
+}
+
+/* Overrides input text width */
+.form-inline {
+    display: inline !important;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-top: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* DropZone stuff */
+.dropZone {
+    background: gray;
+    border: black dashed 3px;
+    width: 200px;
+    padding: 50px;
+    text-align: center;
+    color: white;
+}

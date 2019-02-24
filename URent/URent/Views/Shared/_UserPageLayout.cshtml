@@ -1,0 +1,27 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <aside class="col-2 px-0" id="left">
+            <div class="list-group w-100">
+                @Html.ActionLink("Overview", "Details", "SUPUsers", null, new { @class = "list-group-item" })
+                @Html.ActionLink("My Items", "GetUserItems", "SUPItems", null, new { @class = "list-group-item" })
+                @Html.ActionLink("Add Item", "Create", "SUPItems", null, new { @class = "list-group-item" })
+                <a href="#" class="list-group-item">Transactions (Coming soon)</a>
+                <a href="#" class="list-group-item">Requested Items (Coming soon)</a>
+                <a href="#" class="list-group-item">Login & Security (Coming soon)</a>
+                <a href="#" class="list-group-item">Payment Info (Coming soon)</a>
+            </div>
+        </aside>
+        <div class="col-sm-10" id="user-page">
+            @RenderBody()
+            @RenderSection("scripts", required: false)
+        </div>
+    </div>
+</div>
+
+

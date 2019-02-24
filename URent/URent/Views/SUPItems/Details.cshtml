@@ -1,0 +1,85 @@
+﻿@model URent.Models.SUPItem
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@if (Request.IsAuthenticated)
+{
+    Layout = "~/Views/Shared/_UserPageLayout.cshtml";
+}
+
+<h2>Item details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        @if (!Request.IsAuthenticated)
+        {
+            <dt>
+                Owner name
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SUPUser.FirstName)
+                @Html.DisplayFor(model => model.SUPUser.LastName)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            Item Location
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUPUser.CityAddress),
+            @Html.DisplayFor(model => model.SUPUser.StateAddress)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeStamp)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAvailable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DailyPrice)
+        </dt>
+
+        <dd>
+            @String.Format("{0:C}", Model.DailyPrice)
+        </dd>
+
+    </dl>
+</div>
+@if (Request.IsAuthenticated)
+{
+<p>
+    @Html.ActionLink("Edit listing", "Edit", new { id = Model.Id }, new { @class = "btn btn-secondary" })
+    @Html.ActionLink("Delete listing", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" })
+</p>
+}
