@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<URent.Models.SUPItem>
 
 @{
-    ViewBag.Title = "GetUserItems";
+    ViewBag.Title = "My item listings";
     Layout = "~/Views/Shared/_UserPageLayout.cshtml";
 }
 
@@ -12,12 +12,6 @@
     <tr>
         <th>
             Item name
-        </th>
-        <th>
-            Owner name
-        </th>
-        <th>
-            Item location
         </th>
         <th>
             Daily rate ($/day)
@@ -32,14 +26,6 @@
         <tr>
             <td>
                 @Html.ActionLink(item.ItemName, "Details", "SUPItems", new { id = item.Id }, null)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
-                @Html.DisplayFor(modelItem => item.SUPUser.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SUPUser.CityAddress),
-                @Html.DisplayFor(modelItem => item.SUPUser.StateAddress)
             </td>
             <td>
                 @String.Format("{0:C}", item.DailyPrice)

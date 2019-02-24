@@ -53,11 +53,11 @@ namespace URent.Controllers
         }
 
         // GET: SUPItems
-        public ActionResult Index()
-        {
-            var sUPItems = db.SUPItems.Include(s => s.SUPUser);
-            return View(sUPItems.ToList());
-        }
+        //public ActionResult Index()
+        //{
+        //    var sUPItems = db.SUPItems.Include(s => s.SUPUser);
+        //    return View(sUPItems.ToList());
+        //}
 
         // GET: SUPItems/Details/5
         public ActionResult Details(int? id)
@@ -75,6 +75,7 @@ namespace URent.Controllers
         }
 
         // GET: SUPItems/Create
+        [Authorize]
         public ActionResult Create()
         {
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, supuser.Id, "FirstName");
@@ -121,7 +122,6 @@ namespace URent.Controllers
             else
             {
                 return View(sUPItem);
-
             }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
         }
@@ -138,7 +138,7 @@ namespace URent.Controllers
                 sUPItem.OwnerID = getSUPUserID();
                 db.Entry(sUPItem).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("GetUserItems");
             }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
             return View(sUPItem);
@@ -157,10 +157,19 @@ namespace URent.Controllers
             {
                 return HttpNotFound();
             }
-            return View(sUPItem);
+            bool check = checkUser(id);
+            if (check == false)
+            {
+                return RedirectToAction("Error");
+            }
+            else
+            {
+                return View(sUPItem);
+            }
         }
 
         // POST: SUPItems/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -168,7 +177,7 @@ namespace URent.Controllers
             SUPItem sUPItem = db.SUPItems.Find(id);
             db.SUPItems.Remove(sUPItem);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("GetUserItems");
         }
 
         protected override void Dispose(bool disposing)
