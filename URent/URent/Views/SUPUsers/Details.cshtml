@@ -31,7 +31,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateOfBirth)
+            @String.Format("{0:MM/dd/yyyy}", Model.DateOfBirth)
         </dd>
 
         <dt>
@@ -69,6 +69,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
-    @*@Html.ActionLink("Back to List", "Index")*@
+    @Html.ActionLink("Edit account info", "Edit", new { id = Model.Id }, new { @class = "btn btn-secondary"})
 </p>

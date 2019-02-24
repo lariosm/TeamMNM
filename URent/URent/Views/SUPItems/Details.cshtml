@@ -71,15 +71,15 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DailyPrice)
+            @String.Format("{0:C}", Model.DailyPrice)
         </dd>
 
     </dl>
 </div>
 @if (Request.IsAuthenticated)
 {
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+<p>
+    @Html.ActionLink("Edit listing", "Edit", new { id = Model.Id }, new { @class = "btn btn-secondary" })
+    @Html.ActionLink("Delete listing", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" })
+</p>
 }

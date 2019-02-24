@@ -2,10 +2,10 @@
 
 @{
     ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_UserPageLayout.cshtml";
 }
 
 <h2>Edit your listing</h2>
-
 
 @using (Html.BeginForm())
 {
@@ -55,7 +55,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.DailyPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-1">
+        <div class="col-md-2">
             <div class="input-group-prepend">
                 <div class="input-group-text">$</div>
                 @Html.EditorFor(model => model.DailyPrice, new { htmlAttributes = new { @class = "form-control form-inline",
@@ -68,14 +68,11 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Save" class="btn btn-primary" />
+            @Html.ActionLink("Cancel", "Details", new { id = Model.Id }, new { @class = "btn btn-secondary" })
         </div>
     </div>
 </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -31,12 +31,13 @@ namespace URent.Controllers
         }
 
         // GET: SUPUsers
-        public ActionResult Index()
-        {
-            return View(db.SUPUsers.ToList());
-        }
+        //public ActionResult Index()
+        //{
+        //    return View(db.SUPUsers.ToList());
+        //}
 
         // GET: SUPUsers/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             SUPUser sUPUser = db.SUPUsers.Find(id);
@@ -56,30 +57,31 @@ namespace URent.Controllers
             return View(sUPUser);
         }
 
-        // GET: SUPUsers/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //// GET: SUPUsers/Create
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        // POST: SUPUsers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,DateOfBirth,StreetAddress,CityAddress,StateAddress,ZipCode,TimeStamp,NetUserId")] SUPUser sUPUser)
-        {
-            if (ModelState.IsValid)
-            {
-                db.SUPUsers.Add(sUPUser);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //// POST: SUPUsers/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "Id,FirstName,LastName,DateOfBirth,StreetAddress,CityAddress,StateAddress,ZipCode,TimeStamp,NetUserId")] SUPUser sUPUser)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.SUPUsers.Add(sUPUser);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(sUPUser);
-        }
+        //    return View(sUPUser);
+        //}
 
         // GET: SUPUsers/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -91,12 +93,20 @@ namespace URent.Controllers
             {
                 return HttpNotFound();
             }
-            return View(sUPUser);
+            if(id == getSUPUserID())
+            {
+                return View(sUPUser);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         // POST: SUPUsers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,DateOfBirth,StreetAddress,CityAddress,StateAddress,ZipCode,TimeStamp,NetUserId")] SUPUser sUPUser)
@@ -105,12 +115,13 @@ namespace URent.Controllers
             {
                 db.Entry(sUPUser).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new {id = sUPUser.Id });
             }
             return View(sUPUser);
         }
 
         // GET: SUPUsers/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -126,6 +137,7 @@ namespace URent.Controllers
         }
 
         // POST: SUPUsers/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -143,6 +155,12 @@ namespace URent.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [Authorize]
+        public ActionResult Error()
+        {
+            return View();
         }
     }
 }
