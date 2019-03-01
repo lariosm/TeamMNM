@@ -6,7 +6,7 @@ namespace URent.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Image
+    public partial class SUPImage
     {
         public int Id { get; set; }
 
@@ -17,7 +17,7 @@ namespace URent.Models
         [Required]
         public byte[] Input { get; set; }
 
-        //public int ItemID { get; set; }
+        public int? ItemID { get; set; }
 
         public virtual SUPItem SUPItem { get; set; }
     }

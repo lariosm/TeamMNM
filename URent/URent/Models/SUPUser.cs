@@ -2,7 +2,6 @@ namespace URent.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -13,43 +12,51 @@ namespace URent.Models
         public SUPUser()
         {
             SUPItems = new HashSet<SUPItem>();
+            SUPRequests = new HashSet<SUPRequest>();
+            SUPTransactions = new HashSet<SUPTransaction>();
         }
 
         public int Id { get; set; }
 
         [Required]
-        [StringLength(100), DisplayName("First name")]
+        [StringLength(100)]
         public string FirstName { get; set; }
 
         [Required]
-        [StringLength(100), DisplayName("Last name")]
+        [StringLength(100)]
         public string LastName { get; set; }
 
-        [Column(TypeName = "date"), DisplayName("Date of birth")]
+        [Column(TypeName = "date")]
         public DateTime DateOfBirth { get; set; }
 
         [Required]
-        [StringLength(128), DisplayName("Street address")]
+        [StringLength(128)]
         public string StreetAddress { get; set; }
 
         [Required]
-        [StringLength(128), DisplayName("City")]
+        [StringLength(128)]
         public string CityAddress { get; set; }
 
         [Required]
-        [StringLength(128), DisplayName("State")]
+        [StringLength(128)]
         public string StateAddress { get; set; }
 
         [Required]
-        [StringLength(128), DisplayName("Zip code")]
+        [StringLength(128)]
         public string ZipCode { get; set; }
 
-        public DateTime TimeStamp { get; set; } = DateTime.Now;
+        public DateTime TimeStamp { get; set; }
 
         [StringLength(128)]
         public string NetUserId { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SUPItem> SUPItems { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SUPRequest> SUPRequests { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SUPTransaction> SUPTransactions { get; set; }
     }
 }

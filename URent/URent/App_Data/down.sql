@@ -1,4 +1,6 @@
-DROP TABLE [dbo].[Images]
+DROP TABLE [dbo].[SUPTransactions]
+DROP TABLE [dbo].[SUPRequests]
+DROP TABLE [dbo].[SUPImages]
 DROP TABLE [dbo].[SUPItems]
 DROP TABLE [dbo].[SUPUsers]
 DROP TABLE [dbo].[AspNetUserRoles]

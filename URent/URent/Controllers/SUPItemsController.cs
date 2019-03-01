@@ -209,8 +209,8 @@ namespace URent.Controllers
                     HttpPostedFileBase file = Request.Files[fileName];
                     //Save file content goes here
                     fName = file.FileName;
-                    // base instance of image for saving information
-                    Image i = new Image();
+                    // base instance of Image for saving information
+                    SUPImage i = new SUPImage();
                     //assign file name to filename
                     i.Filename = file.FileName;
                     // read in InputStream into input
@@ -220,7 +220,7 @@ namespace URent.Controllers
                     }
                     //save file to local db
                     // !!!!!!!!! NOTE: it is saving into SUPUserTables database
-                    db.Images.Add(i);
+                    db.SUPImages.Add(i);
                     db.SaveChanges();
                 }
             }

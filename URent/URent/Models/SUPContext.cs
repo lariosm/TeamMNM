@@ -8,12 +8,15 @@ namespace URent.Models
     public partial class SUPContext : DbContext
     {
         public SUPContext()
-            : base("name=SUPUserTables")
+            : base("name=SUPContext")
         {
+            Database.SetInitializer<SUPContext>(null);
         }
 
-        public virtual DbSet<Image> Images { get; set; }
+        public virtual DbSet<SUPImage> SUPImages { get; set; }
         public virtual DbSet<SUPItem> SUPItems { get; set; }
+        public virtual DbSet<SUPRequest> SUPRequests { get; set; }
+        public virtual DbSet<SUPTransaction> SUPTransactions { get; set; }
         public virtual DbSet<SUPUser> SUPUsers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -22,16 +25,43 @@ namespace URent.Models
                 .Property(e => e.DailyPrice)
                 .HasPrecision(18, 0);
 
-            //modelBuilder.Entity<SUPItem>()
-            //    .HasMany(e => e.Images)
-            //    .WithRequired(e => e.SUPItem)
-            //    .HasForeignKey(e => e.ItemID)
-            //    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<SUPItem>()
+                .HasMany(e => e.SUPImages)
+                .WithOptional(e => e.SUPItem)
+                .HasForeignKey(e => e.ItemID);
+
+            modelBuilder.Entity<SUPItem>()
+                .HasMany(e => e.SUPRequests)
+                .WithRequired(e => e.SUPItem)
+                .HasForeignKey(e => e.ItemID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<SUPItem>()
+                .HasMany(e => e.SUPTransactions)
+                .WithRequired(e => e.SUPItem)
+                .HasForeignKey(e => e.ItemID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<SUPTransaction>()
+                .Property(e => e.TotalPrice)
+                .HasPrecision(18, 0);
 
             modelBuilder.Entity<SUPUser>()
                 .HasMany(e => e.SUPItems)
                 .WithRequired(e => e.SUPUser)
                 .HasForeignKey(e => e.OwnerID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<SUPUser>()
+                .HasMany(e => e.SUPRequests)
+                .WithRequired(e => e.SUPUser)
+                .HasForeignKey(e => e.RenterID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<SUPUser>()
+                .HasMany(e => e.SUPTransactions)
+                .WithRequired(e => e.SUPUser)
+                .HasForeignKey(e => e.RenterID)
                 .WillCascadeOnDelete(false);
         }
     }
