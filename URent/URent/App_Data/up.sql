@@ -27,14 +27,39 @@ CREATE TABLE [dbo].[SUPItems]
 	CONSTRAINT [PK_dbo.SUPItems] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
-CREATE TABLE [dbo].[Images]
+CREATE TABLE [dbo].[SUPImages]
 (
 	[Id]		INT IDENTITY(1,1)						NOT NULL,
 	[Filename]	NVARCHAR(100)							NOT NULL,
 	[Input]		VARBINARY(MAX)							NOT NULL,
-	--[ItemID]	INT FOREIGN KEY REFERENCES SUPItems(Id)	NULL
+	[ItemID]	INT FOREIGN KEY REFERENCES SUPItems(Id)	NULL
 
-	CONSTRAINT [PK_dbo.Images] PRIMARY KEY CLUSTERED ([Id] Asc)
+	CONSTRAINT [PK_dbo.SUPImages] PRIMARY KEY CLUSTERED ([Id] Asc)
+);
+
+CREATE TABLE [dbo].[SUPTransactions]
+(
+    [Id]            INT IDENTITY (1,1)      NOT NULL,
+	[StartDate]     DATE	                NOT NULL,
+	[EndDate]		DATE	                NOT NULL,
+    [TimeStamp]     DATETIME                NOT NULL,
+	[TotalPrice]	DECIMAL					NOT NULL,
+    [RenterID]      INT FOREIGN KEY REFERENCES SUPUsers(Id) NOT NULL,
+	[ItemID]		INT FOREIGN KEY REFERENCES SUPItems(Id)	NOT NULL
+
+	CONSTRAINT [PK_dbo.SUPTransactions] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[SUPRequests]
+(
+    [Id]            INT IDENTITY (1,1)      NOT NULL,
+	[StartDate]     DATE	                NOT NULL,
+	[EndDate]		DATE	                NOT NULL,
+    [TimeStamp]     DATETIME                NOT NULL,
+    [RenterID]      INT FOREIGN KEY REFERENCES SUPUsers(Id) NOT NULL,
+	[ItemID]		INT FOREIGN KEY REFERENCES SUPItems(Id)	NOT NULL
+
+	CONSTRAINT [PK_dbo.SUPRequests] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 -- Identity tables
