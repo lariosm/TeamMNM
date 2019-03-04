@@ -178,6 +178,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SUPItemsController.cs" />
+    <Compile Include="Controllers\SUPRequestsController.cs" />
+    <Compile Include="Controllers\SUPTransactionsController.cs" />
     <Compile Include="Controllers\SUPUsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -326,6 +328,16 @@
     <Content Include="Views\SUPItems\Error.cshtml" />
     <Content Include="Views\SUPItems\GetUserItems.cshtml" />
     <Content Include="Views\SUPUsers\Error.cshtml" />
+    <Content Include="Views\SUPTransactions\Create.cshtml" />
+    <Content Include="Views\SUPTransactions\Delete.cshtml" />
+    <Content Include="Views\SUPTransactions\Details.cshtml" />
+    <Content Include="Views\SUPTransactions\Edit.cshtml" />
+    <Content Include="Views\SUPTransactions\Index.cshtml" />
+    <Content Include="Views\SUPRequests\Create.cshtml" />
+    <Content Include="Views\SUPRequests\Delete.cshtml" />
+    <Content Include="Views\SUPRequests\Details.cshtml" />
+    <Content Include="Views\SUPRequests\Edit.cshtml" />
+    <Content Include="Views\SUPRequests\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
