@@ -8,7 +8,7 @@ namespace URent.Models
     public partial class SUPContext : DbContext
     {
         public SUPContext()
-            : base("name=SUPContext")
+            : base("name=NKDB")
         {
             Database.SetInitializer<SUPContext>(null);
         }

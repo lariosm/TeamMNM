@@ -19,7 +19,7 @@ CREATE TABLE [dbo].[SUPItems]
     [Id]            INT IDENTITY (1,1)      NOT NULL,
     [ItemName]      NVARCHAR(100)           NOT NULL,
     [Description]   NVARCHAR(100)           NOT NULL,
-    [TimeStamp]     DATETIME                NOT NULL,
+    [TimeStamp]     DATETIME2                NOT NULL,
     [IsAvailable]   BIT                     NOT NULL,
 	[DailyPrice]	DECIMAL					NOT NULL,
     [OwnerID]       INT FOREIGN KEY REFERENCES SUPUsers(Id) NOT NULL
