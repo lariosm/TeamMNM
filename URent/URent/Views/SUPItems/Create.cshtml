@@ -57,6 +57,9 @@
         </div>
     </div>
 
+    <!-- Place for Image stuff -->
+    <input hidden="hidden" id="PhotoElement" name="photoElementID"/>
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Create" class="btn btn-primary" />
@@ -69,8 +72,8 @@
 <div class="jumbotron">
     <form action="~/SUPItems/SaveUploadedFile" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm" style="width: 50px; background: none; border: none;">
         <div class="fallback">
-            <input name="file" type="file" multiple />
-            <input type="submit" value="Upload" />
+            @*<input name="file" type="file" multiple />
+            <input type="submit" value="Upload" />*@
         </div>
     </form>
 </div>
@@ -82,6 +85,8 @@
             this.on("complete", function (data) {
                 //var res = eval('(' + data.xhr.responseText + ')');
                 var res = JSON.parse(data.xhr.responseText);
+                console.info(res);
+                $("#PhotoElement").val(res.value);
             });
         }
     };

@@ -88,13 +88,19 @@ namespace URent.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,DailyPrice")] SUPItem sUPItem)
+        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,DailyPrice")] SUPItem sUPItem, int photoElementID)
         {
             if (ModelState.IsValid)
             {
                 sUPItem.OwnerID = getSUPUserID();
+                //saving itemid to photo
+                SUPImage p = db.SUPImages.Find(photoElementID);
                 db.SUPItems.Add(sUPItem);
                 db.SaveChanges();
+                p.ItemID = sUPItem.Id;
+                db.Entry(p).State = EntityState.Modified;
+                db.SaveChanges();
+                //sUPImage.ItemID = sUPItem.Id;
                 return RedirectToAction("GetUserItems");
             }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
@@ -202,15 +208,16 @@ namespace URent.Controllers
         {
             bool isSavedSuccessfully = true;
             string fName = "";
+            int pid = 0;
             try
             {
+                // base instance of Image for saving information
+                SUPImage i = new SUPImage();
                 foreach (string fileName in Request.Files)
                 {
                     HttpPostedFileBase file = Request.Files[fileName];
                     //Save file content goes here
                     fName = file.FileName;
-                    // base instance of Image for saving information
-                    SUPImage i = new SUPImage();
                     //assign file name to filename
                     i.Filename = file.FileName;
                     // read in InputStream into input
@@ -220,9 +227,10 @@ namespace URent.Controllers
                     }
                     //save file to local db
                     // !!!!!!!!! NOTE: it is saving into SUPUserTables database
-                    db.SUPImages.Add(i);
-                    db.SaveChanges();
                 }
+                db.SUPImages.Add(i);
+                db.SaveChanges();
+                pid = i.Id;
             }
             catch (Exception ex)
             {
@@ -230,7 +238,7 @@ namespace URent.Controllers
             }
             if (isSavedSuccessfully)
             {
-                return Json(new { Message = fName });
+                return Json(new { id = "PhotoID", value = pid });
             }
             else
             {
