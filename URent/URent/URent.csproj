@@ -198,6 +198,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\down.sql" />
+    <Content Include="App_Data\MasonLocal.mdf" />
+    <Content Include="App_Data\MasonLocal_log.ldf">
+      <DependentUpon>MasonLocal.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\up.sql" />
     <Content Include="App_Data\URentDB.mdf" />
     <Content Include="App_Data\URentDB_log.ldf">
