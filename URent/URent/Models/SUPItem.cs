@@ -26,7 +26,7 @@ namespace URent.Models
         [StringLength(100)]
         public string Description { get; set; }
 
-        public DateTime TimeStamp { get; set; }
+        public DateTime TimeStamp { get; set; } = DateTime.Now;
 
         public bool IsAvailable { get; set; }
 
