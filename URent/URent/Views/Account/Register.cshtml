@@ -34,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Email, "Date of birth", new { @class = "col-md-2 control-label" })
             <div class="col-md-2">
-                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control", placeholder = "YYYY-MM-DD" })
+                @Html.EditorFor(m => m.DateOfBirth, new { htmlAttributes = new { @class = "form-control", placeholder = "DD/MM/YYYY", id = "dob" } })
             </div>
         </div>
         <div class="container form-row">
@@ -87,4 +87,21 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqueryui")
+
+    <script>
+        $(function ()
+        {
+            $('#dob').datepicker(
+            {
+                dateFormat: 'mm/dd/yy',
+                changeMonth: true,
+                changeYear: true,
+                minDate: "-100Y",
+                maxDate: "-18Y",
+                yearRange: "-100:-18"
+            });
+        })
+    </script>
 }
