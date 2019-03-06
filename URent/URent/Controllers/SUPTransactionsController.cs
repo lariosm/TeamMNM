@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,6 +14,21 @@ namespace URent.Controllers
     public class SUPTransactionsController : Controller
     {
         private SUPContext db = new SUPContext();
+
+        [Authorize]
+        private string getIdentityID()
+        {
+            return User.Identity.GetUserId();
+        }
+
+        [Authorize]
+        private int getSUPUserID()
+        {
+            string id = getIdentityID();
+            SUPUser supUser = db.SUPUsers.Where(u => u.NetUserId.Equals(id)).FirstOrDefault();
+            int supUserid = supUser.Id;
+            return supUserid;
+        }
 
         // GET: SUPTransactions
         public ActionResult Index()
@@ -37,11 +53,16 @@ namespace URent.Controllers
         }
 
         // GET: SUPTransactions/Create
-        public ActionResult Create()
+        public ActionResult Create(int? itemId, decimal? dailyPrice)
         {
+            SUPTransaction transaction = new SUPTransaction();
+            transaction.ItemID = itemId;
+
+            ViewBag.dailyPrice = dailyPrice;
+
             ViewBag.ItemID = new SelectList(db.SUPItems, "Id", "ItemName");
             ViewBag.RenterID = new SelectList(db.SUPUsers, "Id", "FirstName");
-            return View();
+            return View(transaction);
         }
 
         // POST: SUPTransactions/Create
@@ -49,10 +70,13 @@ namespace URent.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TimeStamp,TotalPrice,RenterID,ItemID")] SUPTransaction sUPTransaction)
+        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TotalPrice,ItemID")] SUPTransaction sUPTransaction)
         {
             if (ModelState.IsValid)
             {
+                sUPTransaction.RenterID = getSUPUserID();
+                sUPTransaction.TimeStamp = DateTime.Now;
+
                 db.SUPTransactions.Add(sUPTransaction);
                 db.SaveChanges();
                 return RedirectToAction("Index");

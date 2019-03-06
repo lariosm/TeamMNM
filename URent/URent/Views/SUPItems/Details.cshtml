@@ -83,6 +83,7 @@
         </dd>
 
     </dl>
+    @Html.ActionLink("Rent", "Create", "SUPTransactions", new { itemId = Model.Id, dailyPrice = Model.DailyPrice }, new { @class = "btn btn-primary"})
 </div>
 @if (Request.IsAuthenticated)
 {

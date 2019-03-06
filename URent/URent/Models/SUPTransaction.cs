@@ -18,11 +18,11 @@ namespace URent.Models
 
         public DateTime TimeStamp { get; set; }
 
-        public decimal TotalPrice { get; set; }
+        public decimal? TotalPrice { get; set; }
 
         public int RenterID { get; set; }
 
-        public int ItemID { get; set; }
+        public int? ItemID { get; set; }
 
         public virtual SUPItem SUPItem { get; set; }
 
