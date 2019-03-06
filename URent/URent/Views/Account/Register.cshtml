@@ -89,19 +89,5 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/cssjqueryui")
-
-    <script>
-        $(function ()
-        {
-            $('#dob').datepicker(
-            {
-                dateFormat: 'mm/dd/yy',
-                changeMonth: true,
-                changeYear: true,
-                minDate: "-100Y",
-                maxDate: "-18Y",
-                yearRange: "-100:-18"
-            });
-        })
-    </script>
+    @Scripts.Render("~/Scripts/Calendar.js")
 }
