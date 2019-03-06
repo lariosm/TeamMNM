@@ -6,7 +6,7 @@
 
 body {
     /*Minimum distance from footer*/
-    margin-bottom: 60px;
+    margin-bottom: 120px;
 }
 
 footer {
@@ -29,50 +29,6 @@ footer > p {
     background-color: #4c0893;
 }
 
-/* Custom search button color. Overrides bootstrap styling. */
-.search-btn-outline {
-    border-color: #e7de14;
-    color: #e7de14;
-}
-
-.search-btn-outline:hover {
-    background-color: #e7de14;
-    border-color: #e7de14;
-}
-
-/* Custom primary button. Overrides bootstrap styling. */
-.btn-primary {
-    background-color: #6b0ad1;
-    border-color: #6b0ad1;
-}
-
-.btn-primary:hover {
-    background-color: #5c0ab2;
-    border-color: #5c0ab2;
-}
-
-.btn-primary:active {
-    background-color: #5c0ab2;
-    border-color: #6b0ad1;
-}
-
-/* Custom outline secondary button. Overrides bootstrap styling. */
-.btn-outline-secondary {
-    border-color: #6b0ad1;
-    color: #6b0ad1;
-}
-
-.btn-outline-secondary:hover {
-    border-color: #6b0ad1;
-    background-color: #6b0ad1;
-    color: #fff;
-}
-
-.btn-outline-secondary:active {
-    background-color: #6b0ad1;
-    border-color: #6b0ad1;
-}
-
 /* Overrides input text width */
 .form-inline {
     display: inline !important;
@@ -83,14 +39,4 @@ footer > p {
     padding-top: 25px;
     padding-left: 15px;
     padding-right: 15px;
-}
-
-/* DropZone stuff */
-.dropZone {
-    background: gray;
-    border: black dashed 3px;
-    width: 200px;
-    padding: 50px;
-    text-align: center;
-    color: white;
 }
