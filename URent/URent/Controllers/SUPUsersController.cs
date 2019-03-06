@@ -89,6 +89,8 @@ namespace URent.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SUPUser sUPUser = db.SUPUsers.Find(id);
+            //sUPUser.DateOfBirth = dob;
+            //sUPUser.NetUserId = netid;
             if (sUPUser == null)
             {
                 return HttpNotFound();
@@ -109,7 +111,7 @@ namespace URent.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,DateOfBirth,StreetAddress,CityAddress,StateAddress,ZipCode,TimeStamp,NetUserId")] SUPUser sUPUser)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,StreetAddress,CityAddress,StateAddress,ZipCode,TimeStamp")] SUPUser sUPUser)
         {
             if (ModelState.IsValid)
             {
