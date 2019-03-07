@@ -88,20 +88,43 @@ namespace URent.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,DailyPrice")] SUPItem sUPItem, int photoElementID)
+        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,DailyPrice")] SUPItem sUPItem, int? photoElementID)
         {
             if (ModelState.IsValid)
             {
                 sUPItem.OwnerID = getSUPUserID();
-                //saving itemid to photo
-                SUPImage p = db.SUPImages.Find(photoElementID);
-                db.SUPItems.Add(sUPItem);
-                db.SaveChanges();
-                p.ItemID = sUPItem.Id;
-                db.Entry(p).State = EntityState.Modified;
-                db.SaveChanges();
-                //sUPImage.ItemID = sUPItem.Id;
+
+                if(photoElementID != null) //is a photo present?
+                {
+                    SUPImage p = db.SUPImages.Find(photoElementID);
+                    db.SUPItems.Add(sUPItem);
+                    db.SaveChanges();
+                    p.ItemID = sUPItem.Id;
+                    db.Entry(p).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    sUPItem.OwnerID = getSUPUserID();
+                    db.SUPItems.Add(sUPItem);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("GetUserItems");
+
+                //saving itemid to photo
+
+
+                //sUPItem.OwnerID = getSUPUserID();
+                ////saving itemid to photo
+                //SUPImage p = db.SUPImages.Find(photoElementID);
+                //db.SUPItems.Add(sUPItem);
+                //db.SaveChanges();
+                //p.ItemID = sUPItem.Id;
+                //db.Entry(p).State = EntityState.Modified;
+                //db.SaveChanges();
+                ////sUPImage.ItemID = sUPItem.Id;
+                //return RedirectToAction("GetUserItems");
             }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
             return View(sUPItem);
