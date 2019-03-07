@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,14 +13,13 @@ namespace URent.Controllers
     {
         SUPContext db = new SUPContext();
         // GET: Resources
-        public ActionResult Index(int? id)
+        public ActionResult Photo(int? id)
         {
+            Console.WriteLine("in resources controller");
             SUPImage p = db.SUPImages.Find(id);
-            if(id != null)
-            {
-
-            }
-            return View();
+            Stream stream = new MemoryStream(p.Input);
+            Image file = Image.FromStream(stream);
+            return View(file);
         }
     }
 }
