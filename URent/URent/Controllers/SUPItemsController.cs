@@ -268,5 +268,28 @@ namespace URent.Controllers
                 return Json(new { Message = "Error in saving file" });
             }
         }
+
+        [HttpGet]
+        public ActionResult SearchResult(string search)
+        { 
+            if(!string.IsNullOrWhiteSpace(search))
+            {
+                var sUPItems = db.SUPItems.Where(s => s.ItemName.Contains(search));
+                if(!sUPItems.Any())
+                {
+                    ViewBag.ShowError = true;
+                }
+                else
+                {
+                    ViewBag.ResultString = "Results matching your search: \"" + search + "\"";
+                }
+                return View(sUPItems.ToList());
+            }
+            else
+            {
+                ViewBag.ShowError = true;
+                return View();
+            }
+        }
     }
 }
