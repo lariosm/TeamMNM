@@ -177,6 +177,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\SUPItemsController.cs" />
     <Compile Include="Controllers\SUPRequestsController.cs" />
     <Compile Include="Controllers\SUPTransactionsController.cs" />
@@ -386,8 +387,11 @@
     <Content Include="Views\SUPRequests\Details.cshtml" />
     <Content Include="Views\SUPRequests\Edit.cshtml" />
     <Content Include="Views\SUPRequests\Index.cshtml" />
+    <Content Include="Views\SUPItems\Search.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Resources\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />

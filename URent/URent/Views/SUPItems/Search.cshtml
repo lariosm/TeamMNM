@@ -1,0 +1,55 @@
+﻿@model IEnumerable<URent.Models.SUPItem>
+@{
+    ViewBag.Title = "Search results";
+}
+
+@if(ViewBag.ShowError)
+{
+    <p>Your search didn't return any matches.</p>
+}
+else
+{
+    <p>Results matching your search: "<b>@ViewBag.ResultString</b>"</p>
+}
+
+<div class="container">
+    <div class="row">
+        <!-- Listing search results-->
+        <h3>Possible search results</h3>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemName)
+                </th>
+                <th>
+                    Item location
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DailyPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAvailable)
+                </th>
+            </tr>
+
+            @foreach (var listing in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(listing.ItemName, "Details", "SUPItems", new { id = listing.Id }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => listing.SUPUser.CityAddress),
+                        @Html.DisplayFor(modelItem => listing.SUPUser.StateAddress)
+                    </td>
+                    <td>
+                        @String.Format("{0:C}", listing.DailyPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => listing.IsAvailable)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

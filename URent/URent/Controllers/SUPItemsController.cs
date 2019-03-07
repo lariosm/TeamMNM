@@ -103,7 +103,7 @@ namespace URent.Controllers
                     db.Entry(p).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-                else
+                else //create a listing without any photos
                 {
                     sUPItem.OwnerID = getSUPUserID();
                     db.SUPItems.Add(sUPItem);
@@ -266,6 +266,31 @@ namespace URent.Controllers
             else
             {
                 return Json(new { Message = "Error in saving file" });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Search(string query)
+        {
+            ViewBag.ShowError = false;
+
+            if(!string.IsNullOrWhiteSpace(query))
+            {
+                var sUPItems = db.SUPItems.Where(s => s.ItemName.Contains(query));
+                if(!sUPItems.Any())
+                {
+                    ViewBag.ShowError = true;
+                }
+                else
+                {
+                    ViewBag.ResultString = query;
+                }
+                return View(sUPItems.ToList());
+            }
+            else
+            {
+                ViewBag.ShowError = true;
+                return View();
             }
         }
     }
