@@ -387,7 +387,7 @@
     <Content Include="Views\SUPRequests\Details.cshtml" />
     <Content Include="Views\SUPRequests\Edit.cshtml" />
     <Content Include="Views\SUPRequests\Index.cshtml" />
-    <Content Include="Views\SUPItems\SearchResult.cshtml" />
+    <Content Include="Views\SUPItems\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Resources\" />
