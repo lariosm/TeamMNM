@@ -13,13 +13,13 @@ namespace URent.Controllers
     {
         SUPContext db = new SUPContext();
         // GET: Resources
-        public ActionResult Photo(int? id)
+        public FileResult Photo(int? id)
         {
             Console.WriteLine("in resources controller");
             SUPImage p = db.SUPImages.Find(id);
-            Stream stream = new MemoryStream(p.Input);
-            Image file = Image.FromStream(stream);
-            return View(file);
+            //Stream stream = new MemoryStream(p.Input);
+            //Image file = Image.FromStream(stream);
+            return File(p.Input, "image");
         }
     }
 }
