@@ -32,7 +32,7 @@ namespace URent.Models
         [Display(Name = "Item availability")]
         public bool IsAvailable { get; set; }
 
-        [Display(Name = "Daily price rate")]
+        [Display(Name = "Daily rate")]
         public decimal DailyPrice { get; set; }
 
         public int OwnerID { get; set; }

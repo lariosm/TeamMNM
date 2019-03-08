@@ -71,6 +71,8 @@ namespace URent.Controllers
             {
                 return HttpNotFound();
             }
+            SUPImage pid = db.SUPImages.Where(a => a.ItemID == id).FirstOrDefault();
+            ViewBag.Send = pid.Id;
             return View(sUPItem);
         }
 
@@ -88,20 +90,43 @@ namespace URent.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,DailyPrice")] SUPItem sUPItem, int photoElementID)
+        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,DailyPrice")] SUPItem sUPItem, int? photoElementID)
         {
             if (ModelState.IsValid)
             {
                 sUPItem.OwnerID = getSUPUserID();
-                //saving itemid to photo
-                SUPImage p = db.SUPImages.Find(photoElementID);
-                db.SUPItems.Add(sUPItem);
-                db.SaveChanges();
-                p.ItemID = sUPItem.Id;
-                db.Entry(p).State = EntityState.Modified;
-                db.SaveChanges();
-                //sUPImage.ItemID = sUPItem.Id;
+
+                if(photoElementID != null) //is a photo present?
+                {
+                    SUPImage p = db.SUPImages.Find(photoElementID);
+                    db.SUPItems.Add(sUPItem);
+                    db.SaveChanges();
+                    p.ItemID = sUPItem.Id;
+                    db.Entry(p).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else //create a listing without any photos
+                {
+                    sUPItem.OwnerID = getSUPUserID();
+                    db.SUPItems.Add(sUPItem);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("GetUserItems");
+
+                //saving itemid to photo
+
+
+                //sUPItem.OwnerID = getSUPUserID();
+                ////saving itemid to photo
+                //SUPImage p = db.SUPImages.Find(photoElementID);
+                //db.SUPItems.Add(sUPItem);
+                //db.SaveChanges();
+                //p.ItemID = sUPItem.Id;
+                //db.Entry(p).State = EntityState.Modified;
+                //db.SaveChanges();
+                ////sUPImage.ItemID = sUPItem.Id;
+                //return RedirectToAction("GetUserItems");
             }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
             return View(sUPItem);
@@ -243,6 +268,31 @@ namespace URent.Controllers
             else
             {
                 return Json(new { Message = "Error in saving file" });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Search(string query)
+        {
+            ViewBag.ShowError = false;
+
+            if(!string.IsNullOrWhiteSpace(query))
+            {
+                var sUPItems = db.SUPItems.Where(s => s.ItemName.Contains(query));
+                if(!sUPItems.Any())
+                {
+                    ViewBag.ShowError = true;
+                }
+                else
+                {
+                    ViewBag.ResultString = query;
+                }
+                return View(sUPItems.ToList());
+            }
+            else
+            {
+                ViewBag.ShowError = true;
+                return View();
             }
         }
     }
