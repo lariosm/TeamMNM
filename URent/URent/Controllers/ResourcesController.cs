@@ -15,7 +15,6 @@ namespace URent.Controllers
         // GET: Resources
         public FileResult Photo(int? id)
         {
-            Console.WriteLine("in resources controller");
             SUPImage p = db.SUPImages.Find(id);
             //Stream stream = new MemoryStream(p.Input);
             //Image file = Image.FromStream(stream);
