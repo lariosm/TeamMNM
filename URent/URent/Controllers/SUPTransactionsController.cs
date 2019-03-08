@@ -70,14 +70,14 @@ namespace URent.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TotalPrice,ItemID")] SUPTransaction sUPTransaction)
+        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TotalPrice,RenterID,ItemID")] SUPTransaction sUPTransaction)
         {
             if (ModelState.IsValid)
             {
                 sUPTransaction.RenterID = getSUPUserID();
                 sUPTransaction.TimeStamp = DateTime.Now;
-
                 db.SUPTransactions.Add(sUPTransaction);
+                //db.Entry(sUPTransaction).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
