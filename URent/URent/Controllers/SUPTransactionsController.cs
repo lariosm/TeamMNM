@@ -79,7 +79,7 @@ namespace URent.Controllers
                 db.SUPTransactions.Add(sUPTransaction);
                 //db.Entry(sUPTransaction).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("getRentersTransactions");
             }
 
             ViewBag.ItemID = new SelectList(db.SUPItems, "Id", "ItemName", sUPTransaction.ItemID);
@@ -155,6 +155,13 @@ namespace URent.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult getRentersTransactions()
+        {
+            int id = getSUPUserID();
+            var transactions = db.SUPTransactions.Where(u => u.RenterID == id);
+            return View(transactions.ToList());
         }
     }
 }

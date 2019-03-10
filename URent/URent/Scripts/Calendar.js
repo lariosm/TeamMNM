@@ -36,3 +36,43 @@ $(function () {
         }
     });
 });
+
+//$(function () {
+//    $("#StartRequest").datepicker({
+//        minDate: 0,
+//        maxDate: '+1Y+6M',
+//        onSelect: function (dateStr) {
+//            var min = $(this).datepicker('getDate'); // Get selected date
+//            $("#EndRequest").datepicker('option', 'minDate', min || '0'); // Set other min, default to today
+//        }
+//    });
+
+//    $("#EndRequest").datepicker({
+//        minDate: '0',
+//        maxDate: '+1Y+6M',
+//        onSelect: function (dateStr) {
+//            var max = $(this).datepicker('getDate'); // Get selected date
+//            $('#datepicker').datepicker('option', 'maxDate', max || '+1Y+6M'); // Set other max, default to +18 months
+//        }
+//    });
+//});
+
+$(document).ready(function () {
+    $('#StartRequest').datepicker(
+        {
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            minDate: "0D",
+            maxDate: "3Y"
+        });
+
+    $('#EndRequest').datepicker(
+        {
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            minDate: "0D",
+            maxDate: "3Y"
+        });
+});

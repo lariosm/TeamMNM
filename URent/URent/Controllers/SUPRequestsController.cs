@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,6 +14,21 @@ namespace URent.Controllers
     public class SUPRequestsController : Controller
     {
         private SUPContext db = new SUPContext();
+
+        [Authorize]
+        private string getIdentityID()
+        {
+            return User.Identity.GetUserId();
+        }
+
+        [Authorize]
+        private int getSUPUserID()
+        {
+            string id = getIdentityID();
+            SUPUser supUser = db.SUPUsers.Where(u => u.NetUserId.Equals(id)).FirstOrDefault();
+            int supUserid = supUser.Id;
+            return supUserid;
+        }
 
         // GET: SUPRequests
         public ActionResult Index()
@@ -37,11 +53,14 @@ namespace URent.Controllers
         }
 
         // GET: SUPRequests/Create
-        public ActionResult Create()
+        public ActionResult Create(int? itemId)
         {
+            SUPRequest request = new SUPRequest();
+            request.ItemID = itemId;
+
             ViewBag.ItemID = new SelectList(db.SUPItems, "Id", "ItemName");
             ViewBag.RenterID = new SelectList(db.SUPUsers, "Id", "FirstName");
-            return View();
+            return View(request);
         }
 
         // POST: SUPRequests/Create
@@ -49,13 +68,15 @@ namespace URent.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TimeStamp,RenterID,ItemID")] SUPRequest sUPRequest)
+        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,ItemID")] SUPRequest sUPRequest)
         {
             if (ModelState.IsValid)
             {
+                sUPRequest.RenterID = getSUPUserID();
+                sUPRequest.TimeStamp = DateTime.Now;
                 db.SUPRequests.Add(sUPRequest);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("getRentersRequests");
             }
 
             ViewBag.ItemID = new SelectList(db.SUPItems, "Id", "ItemName", sUPRequest.ItemID);
@@ -131,6 +152,13 @@ namespace URent.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult getRentersRequests()
+        {
+            int id = getSUPUserID();
+            var requests = db.SUPRequests.Where(u => u.RenterID == id);
+            return View(requests.ToList());
         }
     }
 }
