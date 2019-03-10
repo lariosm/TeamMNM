@@ -51,12 +51,12 @@
         </dd>
 
         @*<dt>
-            @Html.DisplayNameFor(model => model.TimeStamp)
-        </dt>
+                @Html.DisplayNameFor(model => model.TimeStamp)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TimeStamp)
-        </dd>*@
+            <dd>
+                @Html.DisplayFor(model => model.TimeStamp)
+            </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.IsAvailable)
@@ -83,7 +83,8 @@
         </dd>
 
     </dl>
-    @Html.ActionLink("Rent", "Create", "SUPTransactions", new { itemId = Model.Id, dailyPrice = Model.DailyPrice }, new { @class = "btn btn-primary"})
+    @Html.ActionLink("Rent", "Create", "SUPTransactions", new { itemId = Model.Id, dailyPrice = Model.DailyPrice }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Request", "Create", "SUPRequests", new { itemId = Model.Id }, new { @class = "btn btn-primary" })
 </div>
 @if (Request.IsAuthenticated)
 {

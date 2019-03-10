@@ -113,20 +113,7 @@ namespace URent.Controllers
                 }
 
                 return RedirectToAction("GetUserItems");
-
-                //saving itemid to photo
-
-
-                //sUPItem.OwnerID = getSUPUserID();
-                ////saving itemid to photo
-                //SUPImage p = db.SUPImages.Find(photoElementID);
-                //db.SUPItems.Add(sUPItem);
-                //db.SaveChanges();
-                //p.ItemID = sUPItem.Id;
-                //db.Entry(p).State = EntityState.Modified;
-                //db.SaveChanges();
-                ////sUPImage.ItemID = sUPItem.Id;
-                //return RedirectToAction("GetUserItems");
+                
             }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
             return View(sUPItem);

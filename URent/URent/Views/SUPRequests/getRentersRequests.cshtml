@@ -1,0 +1,47 @@
+﻿@model IEnumerable<URent.Models.SUPRequest>
+
+@{
+    ViewBag.Title = "getRentersRequests";
+    Layout = "~/Views/Shared/_UserPageLayout.cshtml";
+}
+
+<h2>Your Requests</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SUPItem.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SUPUser.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SUPItem.ItemName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SUPUser.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
