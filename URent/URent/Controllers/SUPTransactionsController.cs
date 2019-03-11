@@ -74,6 +74,9 @@ namespace URent.Controllers
         {
             if (ModelState.IsValid)
             {
+                SUPItem i = db.SUPItems.Find(sUPTransaction.ItemID);
+                i.IsAvailable = false;
+                db.Entry(i).State = EntityState.Modified;
                 sUPTransaction.RenterID = getSUPUserID();
                 sUPTransaction.TimeStamp = DateTime.Now;
                 db.SUPTransactions.Add(sUPTransaction);
