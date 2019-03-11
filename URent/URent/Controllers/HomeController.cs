@@ -12,6 +12,7 @@ namespace URent.Controllers
     {
         private SUPContext db = new SUPContext();
 
+        [HttpGet]
         public ActionResult Index()
         {
             var sUPItems = db.SUPItems.Include(s => s.SUPUser);

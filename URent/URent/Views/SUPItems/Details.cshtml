@@ -1,7 +1,7 @@
 ﻿@model URent.Models.SUPItem
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Html.DisplayFor(model => model.ItemName);
 }
 
 @if (Request.IsAuthenticated)
@@ -9,80 +9,62 @@
     Layout = "~/Views/Shared/_UserPageLayout.cshtml";
 }
 
-<h2>Item details</h2>
+<div class="container">
+    <h2>@Html.DisplayFor(model => model.ItemName)</h2>
+    <br />
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                @if (ViewBag.Send != null)
+                {
+                    <img class="d-block w-100" src="/Resources/Photo/@ViewBag.Send" alt="Item photo">
+                }
+                else
+                {
+                    <img class="d-block w-100" src="https://via.placeholder.com/450x250?text=No+photo+to+display" alt="Placeholder image" />
+                }
+            </div>
+        </div>
+    </div>
 
-<div>
     <hr />
-    <dl class="dl-horizontal">
-        @if (!Request.IsAuthenticated)
-        {
-            <dt>
-                Owner name
-            </dt>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <dt>Owner name</dt>
             <dd>
                 @Html.DisplayFor(model => model.SUPUser.FirstName)
                 @Html.DisplayFor(model => model.SUPUser.LastName)
             </dd>
-        }
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ItemName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ItemName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            Item Location
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SUPUser.CityAddress),
-            @Html.DisplayFor(model => model.SUPUser.StateAddress)
-        </dd>
-
-        @*<dt>
-                @Html.DisplayNameFor(model => model.TimeStamp)
-            </dt>
-
+        </div>
+        <div class="col-sm-3">
+            <dt>Item location</dt>
             <dd>
-                @Html.DisplayFor(model => model.TimeStamp)
-            </dd>*@
+                @Html.DisplayFor(model => model.SUPUser.CityAddress),
+                @Html.DisplayFor(model => model.SUPUser.StateAddress)
+            </dd>
+        </div>
+        <div class="col-sm-3">
+            <dt>@Html.DisplayNameFor(model => model.DailyPrice)</dt>
+            <dd>
+                @String.Format("{0:C}", Model.DailyPrice)/day
+            </dd>
+        </div>
+        <div class="col-sm-3">
+            <dt>@Html.DisplayNameFor(model => model.IsAvailable)</dt>
+            @if (Model.IsAvailable == true)
+            {
+                <dd style="color:green">Available</dd>
+            }
+            else
+            {
+                <dd style="color:red">Not available</dd>
+            }
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsAvailable)
-        </dt>
+    <br />
 
-        <dd>
-            @Html.DisplayFor(model => model.IsAvailable)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DailyPrice)
-        </dt>
-
-        <dd>
-            @String.Format("{0:C}", Model.DailyPrice)
-        </dd>
-
-        <dt>
-            Image:
-        </dt>
-
-        <dd>
-            <img src="/Resources/Photo/@ViewBag.Send" />
-        </dd>
-
-    </dl>
     @if (Model.IsAvailable == true)
     {
         @Html.ActionLink("Rent", "Create", "SUPTransactions", new { itemId = Model.Id, dailyPrice = Model.DailyPrice }, new { @class = "btn btn-primary" })
@@ -91,11 +73,9 @@
     {
         @Html.ActionLink("Request", "Create", "SUPRequests", new { itemId = Model.Id }, new { @class = "btn btn-primary" })
     }
+
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("Edit listing", "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-primary" })
+    }
 </div>
-@if (Request.IsAuthenticated)
-{
-<p>
-    @Html.ActionLink("Edit listing", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Delete listing", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" })
-</p>
-}
