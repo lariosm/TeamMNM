@@ -9,40 +9,37 @@
     Layout = "~/Views/Shared/_UserPageLayout.cshtml";
 }
 
-<h2>Request this Item</h2>
+<div class="container">
+    <h2>Request this Item</h2>
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>SUPRequest</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div>
-            <p>
-                Date From :
-                <input class="form-group" type="text" id="StartRequest" name="StartDate" />
-            </p>
-            <p>
-                Date To :
-                <input class="form-group" type="text" id="EndRequest" name="EndDate" />
-            </p>
-            <div id="TextBox3" typeof="hidden" val=""></div>
+        <div class="form-horizontal">
+            <h4>Choose which days you would like to rent out this item.</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div>
+                <label>Date from</label>
+                <p>
+                    <input class="form-group form-control col-md-2" type="text" id="StartRequest" name="StartDate" placeholder="MM/DD/YYYY" />
+                </p>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+                <label>Date to</label>
+                <p>
+                    <input class="form-group form-control col-md-2" type="text" id="EndRequest" name="EndDate" placeholder="MM/DD/YYYY" />
+                </p>
+                <div id="TextBox3" typeof="hidden" val=""></div>
+
+                <input type="submit" value="Submit request" class="btn btn-primary" />
             </div>
         </div>
-    </div>
-}
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
