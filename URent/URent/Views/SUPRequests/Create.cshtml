@@ -2,10 +2,14 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+@if (Request.IsAuthenticated)
+{
+    Layout = "~/Views/Shared/_UserPageLayout.cshtml";
+}
+
+<h2>Request this Item</h2>
 
 
 @using (Html.BeginForm())
