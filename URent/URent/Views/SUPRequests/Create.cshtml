@@ -4,14 +4,9 @@
     ViewBag.Title = "Create";
 }
 
-@if (Request.IsAuthenticated)
-{
-    Layout = "~/Views/Shared/_UserPageLayout.cshtml";
-}
 
 <div class="container">
     <h2>Request this Item</h2>
-
 
     @using (Html.BeginForm())
     {
@@ -37,7 +32,6 @@
             </div>
         </div>
     }
-
 </div>
 
 

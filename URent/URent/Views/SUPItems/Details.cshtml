@@ -52,7 +52,7 @@
         </div>
         <div class="col-sm-3">
             <dt>@Html.DisplayNameFor(model => model.IsAvailable)</dt>
-            @if(Model.IsAvailable == true)
+            @if (Model.IsAvailable == true)
             {
                 <dd style="color:green">Available</dd>
             }
@@ -64,7 +64,7 @@
     </div>
 
     <br />
-    
+
     @if (Model.IsAvailable == true)
     {
         @Html.ActionLink("Rent", "Create", "SUPTransactions", new { itemId = Model.Id, dailyPrice = Model.DailyPrice }, new { @class = "btn btn-primary" })
@@ -73,11 +73,9 @@
     {
         @Html.ActionLink("Request", "Create", "SUPRequests", new { itemId = Model.Id }, new { @class = "btn btn-primary" })
     }
+
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("Edit listing", "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-primary" })
+    }
 </div>
-@if (Request.IsAuthenticated)
-{
-<p>
-    @Html.ActionLink("Edit listing", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Delete listing", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" })
-</p>
-}

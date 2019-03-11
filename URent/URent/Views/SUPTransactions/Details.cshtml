@@ -5,10 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+@if (Request.IsAuthenticated)
+{
+    Layout = "~/Views/Shared/_UserPageLayout.cshtml";
+}
+
+<h2>Transaction details</h2>
 
 <div>
-    <h4>SUPTransaction</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -20,11 +24,21 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SUPUser.FirstName)
+            Owner name
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.SUPUser.FirstName)
+            @Html.DisplayFor(model => model.SUPUser.LastName)
+        </dd>
+
+        <dt>
+            Item location
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUPUser.CityAddress),
+            @Html.DisplayFor(model => model.SUPUser.StateAddress)
         </dd>
 
         <dt>
@@ -32,7 +46,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StartDate)
+            @String.Format("{0:MM/dd/yyyy}", Model.StartDate)
         </dd>
 
         <dt>
@@ -40,15 +54,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeStamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TimeStamp)
+            @String.Format("{0:MM/dd/yyyy}", Model.EndDate)
         </dd>
 
         <dt>
@@ -56,12 +62,12 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TotalPrice)
+            @String.Format("{0:C}", Model.TotalPrice)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("End transaction", "Delete", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back", "getRentersTransactions", null, new { @class = "btn btn-outline-primary" })
 </p>

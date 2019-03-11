@@ -3,22 +3,15 @@
 @{
     ViewBag.Title = "Create";
 }
-
-@if (Request.IsAuthenticated)
-{
-    Layout = "~/Views/Shared/_UserPageLayout.cshtml";
-}
-
 <div class="container">
-    <h2>Rent this Item</h2>
-
+    <h2>Rent this item</h2>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div actions="/SUPTranctions/Create" class="form-horizontal" method="POST">
-            <h4>SUPTransaction</h4>
+            <h4>Choose how long you want to rent out this item for</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -28,10 +21,12 @@
                 <p>
                     <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" />
                 </p>
+
                 <label>Date to</label>
                 <p>
                     <input class="form-group form-control col-md-2" type="text" id="EndDate" name="EndDate" placeholder="MM/DD/YYYY" />
                 </p>
+
                 <div id="TextBox3" typeof="hidden" val=""></div>
 
                 <label>Total price</label>
@@ -43,10 +38,6 @@
             </div>
         </div>
     }
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
 </div>
 
 @section Scripts {

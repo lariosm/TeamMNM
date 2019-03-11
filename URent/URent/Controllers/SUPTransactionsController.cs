@@ -148,7 +148,7 @@ namespace URent.Controllers
             SUPTransaction sUPTransaction = db.SUPTransactions.Find(id);
             db.SUPTransactions.Remove(sUPTransaction);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("getRentersTransactions");
         }
 
         protected override void Dispose(bool disposing)

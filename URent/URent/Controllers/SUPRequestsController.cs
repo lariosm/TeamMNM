@@ -142,7 +142,7 @@ namespace URent.Controllers
             SUPRequest sUPRequest = db.SUPRequests.Find(id);
             db.SUPRequests.Remove(sUPRequest);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("getRentersRequests");
         }
 
         protected override void Dispose(bool disposing)
