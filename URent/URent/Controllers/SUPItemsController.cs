@@ -71,6 +71,11 @@ namespace URent.Controllers
             {
                 return HttpNotFound();
             }
+            SUPImage pid = db.SUPImages.Where(a => a.ItemID == id).FirstOrDefault();
+            if(pid != null) //Display an image if it exists.
+            {
+                ViewBag.Send = pid.Id;
+            }
             return View(sUPItem);
         }
 
@@ -88,14 +93,30 @@ namespace URent.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,DailyPrice")] SUPItem sUPItem)
+        public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,DailyPrice")] SUPItem sUPItem, int? photoElementID)
         {
             if (ModelState.IsValid)
             {
                 sUPItem.OwnerID = getSUPUserID();
-                db.SUPItems.Add(sUPItem);
-                db.SaveChanges();
+
+                if(photoElementID != null) //is a photo present?
+                {
+                    SUPImage p = db.SUPImages.Find(photoElementID);
+                    db.SUPItems.Add(sUPItem);
+                    db.SaveChanges();
+                    p.ItemID = sUPItem.Id;
+                    db.Entry(p).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else //create a listing without any photos
+                {
+                    sUPItem.OwnerID = getSUPUserID();
+                    db.SUPItems.Add(sUPItem);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("GetUserItems");
+                
             }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
             return View(sUPItem);
@@ -202,15 +223,16 @@ namespace URent.Controllers
         {
             bool isSavedSuccessfully = true;
             string fName = "";
+            int pid = 0;
             try
             {
+                // base instance of Image for saving information
+                SUPImage i = new SUPImage();
                 foreach (string fileName in Request.Files)
                 {
                     HttpPostedFileBase file = Request.Files[fileName];
                     //Save file content goes here
                     fName = file.FileName;
-                    // base instance of image for saving information
-                    Image i = new Image();
                     //assign file name to filename
                     i.Filename = file.FileName;
                     // read in InputStream into input
@@ -220,9 +242,10 @@ namespace URent.Controllers
                     }
                     //save file to local db
                     // !!!!!!!!! NOTE: it is saving into SUPUserTables database
-                    db.Images.Add(i);
-                    db.SaveChanges();
                 }
+                db.SUPImages.Add(i);
+                db.SaveChanges();
+                pid = i.Id;
             }
             catch (Exception ex)
             {
@@ -230,11 +253,36 @@ namespace URent.Controllers
             }
             if (isSavedSuccessfully)
             {
-                return Json(new { Message = fName });
+                return Json(new { id = "PhotoID", value = pid });
             }
             else
             {
                 return Json(new { Message = "Error in saving file" });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Search(string query)
+        {
+            ViewBag.ShowError = false;
+
+            if(!string.IsNullOrWhiteSpace(query))
+            {
+                var sUPItems = db.SUPItems.Where(s => s.ItemName.Contains(query));
+                if(!sUPItems.Any())
+                {
+                    ViewBag.ShowError = true;
+                }
+                else
+                {
+                    ViewBag.ResultString = query;
+                }
+                return View(sUPItems.ToList());
+            }
+            else
+            {
+                ViewBag.ShowError = true;
+                return View();
             }
         }
     }

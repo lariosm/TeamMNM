@@ -1,4 +1,4 @@
-﻿@model IEnumerable<URent.Models.SUPItem>
+﻿@model List<URent.Models.SUPItem>
 
 @{
     ViewBag.Title = "Home Page";
@@ -26,50 +26,42 @@
         *@
     </div>
 
-    <div class="row">
-        <!-- Empty for now...list of all items goes here-->
-        <h3>All possible rental listings:</h3>
-        <table class="table">
-            <tr>
-                <th>
-                    Item name
-                </th>
-                <th>
-                    Owner name
-                </th>
-                <th>
-                    Item location
-                </th>
-                <th>
-                    Daily rate ($/day)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsAvailable)
-                </th>
-            </tr>
-
-            @foreach (var item in Model)
+    @for (var i = 0; i < Model.Count; i++)
+    {
+        <div class="row">
+            @do
             {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.ItemName, "Details", "SUPItems", new { id = item.Id }, null)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
-                    @Html.DisplayFor(modelItem => item.SUPUser.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SUPUser.CityAddress),
-                    @Html.DisplayFor(modelItem => item.SUPUser.StateAddress)
-                </td>
-                <td>
-                    @String.Format("{0:C}", item.DailyPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsAvailable)
-                </td>
-            </tr>
+                <div class="col-md-6">
+                    <div class="card mx-auto">
+                        <img class="card-img-top" src="https://via.placeholder.com/450x250?text=No+photo+to+display" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">@Model[i].ItemName</h5>
+                            <p class="card-text">@Model[i].SUPUser.CityAddress, @Model[i].SUPUser.StateAddress</p>
+                            <p class="card-subtitle"><b>$@Model[i].DailyPrice/day</b></p>
+                            @if (Model[i].IsAvailable)
+                            {
+                                <p class="card-text" style="color:green">Available</p>
+                            }
+                            else
+                            {
+                                <p class="card-text" style="color:red">Not available</p>
+                            }
+                            <br />
+                            @Html.ActionLink("View listing", "Details", "SUPItems", new { id = Model[i].Id }, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+
+                i++; //Increment by 1
+
+                if (i >= Model.Count) //Have we reached end of list?
+                {
+                    break;
+                }
             }
-        </table>
-    </div>
+            while (i % 2 != 0);
+            @{i--;}
+
+        </div>
+    }
 </div>

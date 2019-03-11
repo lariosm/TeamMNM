@@ -30,9 +30,14 @@
             <td>
                 @String.Format("{0:C}", item.DailyPrice)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAvailable)
-            </td>
+            @if(item.IsAvailable)
+            {
+                <td style="color:green">Available</td>
+            }
+            else
+            {
+                <td style="color:red">Not available</td>
+            }
         </tr>
     }
 </table>

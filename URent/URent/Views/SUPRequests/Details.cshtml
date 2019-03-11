@@ -1,0 +1,65 @@
+﻿@model URent.Models.SUPRequest
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    Layout = "~/Views/Shared/_UserPageLayout.cshtml";
+}
+
+<h2>Request details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SUPItem.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUPItem.ItemName)
+        </dd>
+
+        <dt>
+            Owner name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUPUser.FirstName)
+            @Html.DisplayFor(model => model.SUPUser.LastName)
+        </dd>
+
+        <dt>
+            Item location
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUPUser.CityAddress),
+            @Html.DisplayFor(model => model.SUPUser.StateAddress)
+        </dd>
+
+        <dt>
+            Start date
+        </dt>
+
+        <dd>
+            @String.Format("{0:MM/dd/yyyy}", Model.StartDate)
+        </dd>
+
+        <dt>
+            End date
+        </dt>
+
+        <dd>
+            @String.Format("{0:MM/dd/yyyy}", Model.EndDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Cancel request", "Delete", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back", "getRentersRequests", null, new { @class = "btn btn-outline-primary" })
+</p>

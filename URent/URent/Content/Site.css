@@ -1,5 +1,27 @@
-﻿body {
-    padding-bottom: 35px;
+﻿html {
+    /* Footer styling */
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /*Minimum distance from footer*/
+    margin-bottom: 120px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #4c0893;
+}
+
+footer > p {
+    margin-bottom: 0;
+    color: #fff;
+    opacity: 0.55;
 }
 
 /* Navbar background color */
@@ -17,14 +39,4 @@
     padding-top: 25px;
     padding-left: 15px;
     padding-right: 15px;
-}
-
-/* DropZone stuff */
-.dropZone {
-    background: gray;
-    border: black dashed 3px;
-    width: 200px;
-    padding: 50px;
-    text-align: center;
-    color: white;
 }

@@ -1,0 +1,73 @@
+﻿@model URent.Models.SUPTransaction
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+    Layout = "~/Views/Shared/_UserPageLayout.cshtml";
+}
+
+<h2>Transaction details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SUPItem.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUPItem.ItemName)
+        </dd>
+
+        <dt>
+            Owner name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUPUser.FirstName)
+            @Html.DisplayFor(model => model.SUPUser.LastName)
+        </dd>
+
+        <dt>
+            Item location
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUPUser.CityAddress),
+            @Html.DisplayFor(model => model.SUPUser.StateAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @String.Format("{0:MM/dd/yyyy}", Model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @String.Format("{0:MM/dd/yyyy}", Model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+
+        <dd>
+            @String.Format("{0:C}", Model.TotalPrice)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("End transaction", "Delete", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back", "getRentersTransactions", null, new { @class = "btn btn-outline-primary" })
+</p>
