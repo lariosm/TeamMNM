@@ -18,7 +18,7 @@ CREATE TABLE [dbo].[SUPItems]
 (
     [Id]            INT IDENTITY (1,1)      NOT NULL,
     [ItemName]      NVARCHAR(100)           NOT NULL,
-    [Description]   NVARCHAR(100)           NOT NULL,
+    [Description]   NVARCHAR(MAX)           NOT NULL,
     [TimeStamp]     DATETIME                NOT NULL,
     [IsAvailable]   BIT                     NOT NULL,
 	[DailyPrice]	DECIMAL					NOT NULL,
