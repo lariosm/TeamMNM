@@ -29,7 +29,7 @@
 
     <hr />
 
-    <div class="row">
+    <div class="row">     
         <div class="col-sm-3">
             <dt>Owner name</dt>
             <dd>
@@ -60,6 +60,14 @@
             {
                 <dd style="color:red">Not available</dd>
             }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <dl>
+                <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+                <dd>@Html.DisplayFor(model => model.Description)</dd>
+            </dl>
         </div>
     </div>
 
