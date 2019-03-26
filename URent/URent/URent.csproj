@@ -211,8 +211,8 @@
     <Content Include="Content\custom.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\Img\urent_altlogo.svg" />
-    <Content Include="Content\Img\urent_logo.svg" />
+    <Content Include="Content\Img\urentlogo.svg" />
+    <Content Include="Content\Img\urentlogoalt.svg" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />

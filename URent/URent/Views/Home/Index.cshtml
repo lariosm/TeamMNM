@@ -1,7 +1,7 @@
 ﻿@model List<URent.Models.SUPItem>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
 }
 
 <div class="container">
@@ -19,17 +19,13 @@
             </li>
             <li>You're done!</li>
         </ol>
-
-        @*
-            <p><a href="#" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        *@
     </div>
 
+    <!-- Displays all listings in two-column format -->
     @for (var i = 0; i < Model.Count; i++)
     {
         <div class="row">
-            @do
+            @do //places each listing in each column of a given row.
             {
                 <div class="col-md-6">
                     <div class="card mx-auto">
