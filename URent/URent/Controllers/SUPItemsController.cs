@@ -72,7 +72,7 @@ namespace URent.Controllers
                 return HttpNotFound();
             }
             SUPImage pid = db.SUPImages.Where(a => a.ItemID == id).FirstOrDefault();
-            if(pid != null) //Display an image if it exists.
+            if(pid != null) //Display an image if it exists in the table.
             {
                 ViewBag.Send = pid.Id;
             }
