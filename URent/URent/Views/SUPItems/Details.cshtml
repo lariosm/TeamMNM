@@ -4,23 +4,29 @@
     ViewBag.Title = Html.DisplayFor(model => model.ItemName);
 }
 
-@if (Request.IsAuthenticated)
+@if (Request.IsAuthenticated) //Is a logged in user viewing this page?
 {
+    //If so, show the user sidebar.
     Layout = "~/Views/Shared/_UserPageLayout.cshtml";
 }
 
 <div class="container">
+    <!-- Item name -->
     <h2>@Html.DisplayFor(model => model.ItemName)</h2>
     <br />
+
+    <!-- Item photo -->
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                @if (ViewBag.Send != null)
+                @if (ViewBag.Send != null) //Does a photo for this item exist?
                 {
+                    //If so, display the photo.
                     <img class="d-block w-100" src="/Resources/Photo/@ViewBag.Send" alt="Item photo">
                 }
                 else
                 {
+                    //If not, display a placeholder image instead.
                     <img class="d-block w-100" src="https://via.placeholder.com/450x250?text=No+photo+to+display" alt="Placeholder image" />
                 }
             </div>
@@ -29,7 +35,8 @@
 
     <hr />
 
-    <div class="row">
+    <!-- Item details -->
+    <div class="row">     
         <div class="col-sm-3">
             <dt>Owner name</dt>
             <dd>
@@ -63,19 +70,32 @@
         </div>
     </div>
 
+    <!-- Item description -->
+    <div class="row">
+        <div class="col-sm-12">
+            <dl>
+                <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+                <dd>@Html.DisplayFor(model => model.Description)</dd>
+            </dl>
+        </div>
+    </div>
+
     <br />
 
-    @if (Model.IsAvailable == true)
+    @if (Model.IsAvailable == true) //Is the item available?
     {
+        //If so, then we show a "Rent" button.
         @Html.ActionLink("Rent", "Create", "SUPTransactions", new { itemId = Model.Id, dailyPrice = Model.DailyPrice }, new { @class = "btn btn-primary" })
     }
     else
     {
+        //If not, we show a "Request" button.
         @Html.ActionLink("Request", "Create", "SUPRequests", new { itemId = Model.Id }, new { @class = "btn btn-primary" })
     }
 
-    @if (Request.IsAuthenticated)
+    @if (Request.IsAuthenticated) //Is a logged in user viewing this page?
     {
+        //Show an "Edit listing" button.
         @Html.ActionLink("Edit listing", "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-primary" })
     }
 </div>

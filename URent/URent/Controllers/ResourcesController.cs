@@ -12,6 +12,12 @@ namespace URent.Controllers
     public class ResourcesController : Controller
     {
         SUPContext db = new SUPContext();
+
+        /// <summary>
+        /// Retrieves photo to display to view.
+        /// </summary>
+        /// <param name="id">ID of a photo to display.</param>
+        /// <returns>Photo to display to view.</returns>
         // GET: Resources
         public FileResult Photo(int? id)
         {

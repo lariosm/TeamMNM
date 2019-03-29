@@ -16,12 +16,20 @@ namespace URent.Controllers
     {
         private SUPContext db = new SUPContext();
 
+        /// <summary>
+        /// Retrieves user ID of current user from AspNetUsers table.
+        /// </summary>
+        /// <returns>User ID of current user from AspNetUsers table.</returns>
         [Authorize]
         private string getIdentityID()
         {
             return User.Identity.GetUserId();
         }
 
+        /// <summary>
+        /// Retrieves user ID of current user from SUPUsers table that is associated with user ID from AspNetUsers table.
+        /// </summary>
+        /// <returns>User ID of current user from SUPUsers table associated with user ID from AspNetUsers table.</returns>
         [Authorize]
         private int getSUPUserID()
         {
@@ -31,12 +39,17 @@ namespace URent.Controllers
             return supUserid;
         }
 
+        /// <summary>
+        /// Checks if a user is the owner of a listing.
+        /// </summary>
+        /// <param name="listingId">ID of an item listing</param>
+        /// <returns>Whether a user is the owner of a listing.</returns>
         [Authorize]
-        private bool checkUser(int ?listingid)
+        private bool checkUser(int ?listingId)
         {
-            int userid = getSUPUserID();
-            int listingoid = db.SUPItems.Find(listingid).OwnerID;
-            if(userid == listingoid)
+            int userId = getSUPUserID(); //Retrieves ID of current user
+            int listingOwnerId = db.SUPItems.Find(listingId).OwnerID; //Finds owner of the listing
+            if(userId == listingOwnerId) //checks if current user is the owner of the listing
             {
                 return true;
             }
@@ -46,6 +59,10 @@ namespace URent.Controllers
             }
         }
 
+        /// <summary>
+        /// Displays the Error page
+        /// </summary>
+        /// <returns>View of Error.cshtml</returns>
         [Authorize]
         public ActionResult Error()
         {
@@ -60,19 +77,24 @@ namespace URent.Controllers
         //}
 
         // GET: SUPItems/Details/5
+        /// <summary>
+        /// Displays details of an item listing
+        /// </summary>
+        /// <param name="id">ID of an item listing</param>
+        /// <returns>Details of an item listing</returns>
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (id == null) //No item listing ID?
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SUPItem sUPItem = db.SUPItems.Find(id);
-            if (sUPItem == null)
+            SUPItem sUPItem = db.SUPItems.Find(id); //Finds the item listing associated with that ID.
+            if (sUPItem == null) //Does the item listing exist?
             {
                 return HttpNotFound();
             }
-            SUPImage pid = db.SUPImages.Where(a => a.ItemID == id).FirstOrDefault();
-            if(pid != null) //Display an image if it exists.
+            SUPImage pid = db.SUPImages.Where(a => a.ItemID == id).FirstOrDefault(); //Finds an image associated with the listing.
+            if(pid != null) //Display an image if it exists in the table.
             {
                 ViewBag.Send = pid.Id;
             }
@@ -80,6 +102,10 @@ namespace URent.Controllers
         }
 
         // GET: SUPItems/Create
+        /// <summary>
+        /// Displays the item listing Create page.
+        /// </summary>
+        /// <returns>View of Create.cshtml</returns>
         [Authorize]
         public ActionResult Create()
         {
@@ -90,20 +116,29 @@ namespace URent.Controllers
         // POST: SUPItems/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Creates an item listing.
+        /// </summary>
+        /// <param name="sUPItem">The item listing to create</param>
+        /// <param name="photoElementID">The photo ID this listing will be associated with</param>
+        /// <returns>Whether creation of item listing was successful.</returns>
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,ItemName,Description,IsAvailable,DailyPrice")] SUPItem sUPItem, int? photoElementID)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //Are all required fields filled out and valid?
             {
-                sUPItem.OwnerID = getSUPUserID();
+                sUPItem.OwnerID = getSUPUserID(); //Retrieve ID of current user to bind to item listing.
 
-                if(photoElementID != null) //is a photo present?
+                if(photoElementID != null) //is a photo ID value present?
                 {
-                    SUPImage p = db.SUPImages.Find(photoElementID);
+                    //Add the item listing to the database
                     db.SUPItems.Add(sUPItem);
                     db.SaveChanges();
+
+                    //Fetch the photo matching passed photoElementID value and link it to this listing.
+                    SUPImage p = db.SUPImages.Find(photoElementID);
                     p.ItemID = sUPItem.Id;
                     db.Entry(p).State = EntityState.Modified;
                     db.SaveChanges();
@@ -119,30 +154,39 @@ namespace URent.Controllers
                 
             }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
+
+            //If not, take the user back to the Create page.
             return View(sUPItem);
         }
 
         // GET: SUPItems/Edit/5
+        /// <summary>
+        /// Displays an item listing page.
+        /// </summary>
+        /// <param name="id">ID of an item listing</param>
+        /// <returns>Whether access to the edit page of a listing is permitted.</returns>
         [Authorize]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (id == null) //No item listing ID?
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SUPItem sUPItem = db.SUPItems.Find(id);
-            if (sUPItem == null)
+            SUPItem sUPItem = db.SUPItems.Find(id); //Finds the item listing associated with that ID.
+            if (sUPItem == null) //Does the item listing exist?
             {
                 return HttpNotFound();
             }
             bool check = checkUser(id);
-            if ( check == false )
+
+            //Is current user the owner of the requested item listing?
+            if (check == false)
             {
-                return RedirectToAction("Error");
+                return RedirectToAction("Error"); //If not, show an error page.
             }
             else
             {
-                return View(sUPItem);
+                return View(sUPItem); //Otherwise, allow user to edit listing.
             }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
         }
@@ -150,18 +194,26 @@ namespace URent.Controllers
         // POST: SUPItems/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Edits the item listing
+        /// </summary>
+        /// <param name="sUPItem">The item listing to modify</param>
+        /// <returns>Whether edits to listing were successful.</returns>
         [HttpPost, Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,ItemName,Description,TimeStamp,IsAvailable,DailyPrice")] SUPItem sUPItem)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //Are all required fields filled out and valid?
             {
+                //Save edits of item listing to database.
                 sUPItem.OwnerID = getSUPUserID();
                 db.Entry(sUPItem).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("GetUserItems");
             }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
+
+            //If not, send the user back to the Edit page.
             return View(sUPItem);
         }
 
@@ -210,20 +262,30 @@ namespace URent.Controllers
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Displays a list of all item listings created by current user.
+        /// </summary>
+        /// <returns>List of all item listings created current user.</returns>
         [Authorize]
         public ActionResult GetUserItems()
         {
-            int userId = getSUPUserID();
-            var myItems = db.SUPItems.Where(u => u.OwnerID == userId);
+            int userId = getSUPUserID(); //Retrieves ID of current user.
+            var myItems = db.SUPItems.Where(u => u.OwnerID == userId); //Find all listings created by that user.
             return View(myItems.ToList());
         }
 
         /* DropZone Method called from Form element in View */
+        /// <summary>
+        /// Saves uploaded photo to database and returns it as JSON data.
+        /// </summary>
+        /// <returns>JSON photo data</returns>
+        [Authorize]
         public ActionResult SaveUploadedFile()
         {
             bool isSavedSuccessfully = true;
             string fName = "";
             int pid = 0;
+
             try
             {
                 // base instance of Image for saving information
@@ -251,37 +313,45 @@ namespace URent.Controllers
             {
                 isSavedSuccessfully = false;
             }
-            if (isSavedSuccessfully)
+
+            if (isSavedSuccessfully) //Was photo saved successfully?
             {
+                //Return JSON data containing photo info.
                 return Json(new { id = "PhotoID", value = pid });
             }
             else
             {
+                //Return JSON data containing error message.
                 return Json(new { Message = "Error in saving file" });
             }
         }
 
+        /// <summary>
+        /// Performs item listing search based on keywords entered from search box.
+        /// </summary>
+        /// <param name="query">Keywords to search</param>
+        /// <returns>A list of item listings matching keywords entered</returns>
         [HttpGet]
         public ActionResult Search(string query)
         {
             ViewBag.ShowError = false;
 
-            if(!string.IsNullOrWhiteSpace(query))
+            if(!string.IsNullOrWhiteSpace(query)) //Makes sure query is not blank or contains only whitespaces.
             {
-                var sUPItems = db.SUPItems.Where(s => s.ItemName.Contains(query));
-                if(!sUPItems.Any())
+                var sUPItems = db.SUPItems.Where(s => s.ItemName.Contains(query)); //Performs the query
+                if(!sUPItems.Any()) //No matching results? The search was unsuccessful.
                 {
-                    ViewBag.ShowError = true;
+                    ViewBag.ShowError = true; //Display unsuccessful search message.
                 }
-                else
+                else //We got matching results. The search was a success!
                 {
-                    ViewBag.ResultString = query;
+                    ViewBag.ResultString = query; //Keywords to display to the view.
                 }
                 return View(sUPItems.ToList());
             }
             else
             {
-                ViewBag.ShowError = true;
+                ViewBag.ShowError = true; //Display unsuccessful search message.
                 return View();
             }
         }

@@ -24,7 +24,6 @@ namespace URent.Models
         public string ItemName { get; set; }
 
         [Required]
-        [StringLength(100)]
         public string Description { get; set; }
 
         public DateTime TimeStamp { get; set; } = DateTime.Now;

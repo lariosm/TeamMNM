@@ -199,15 +199,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\down.sql" />
-    <Content Include="App_Data\MasonLocal.mdf" />
-    <Content Include="App_Data\MasonLocal_log.ldf">
-      <DependentUpon>MasonLocal.mdf</DependentUpon>
+    <Content Include="App_Data\MLDB.mdf" />
+    <Content Include="App_Data\MLDB_log.ldf">
+      <DependentUpon>MLDB.mdf</DependentUpon>
     </Content>
     <Content Include="App_Data\up.sql" />
-    <Content Include="App_Data\URentDB.mdf" />
-    <Content Include="App_Data\URentDB_log.ldf">
-      <DependentUpon>URentDB.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -215,8 +211,9 @@
     <Content Include="Content\custom.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\Img\urent_altlogo.svg" />
-    <Content Include="Content\Img\urent_logo.svg" />
+    <Content Include="Content\Img\favicon.ico" />
+    <Content Include="Content\Img\urentlogo.svg" />
+    <Content Include="Content\Img\urentlogoalt.svg" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -393,8 +390,8 @@
     <Content Include="Views\SUPRequests\Edit.cshtml" />
     <Content Include="Views\SUPRequests\Index.cshtml" />
     <Content Include="Views\SUPItems\Search.cshtml" />
-    <Content Include="Views\SUPTransactions\getRentersTransactions.cshtml" />
-    <Content Include="Views\SUPRequests\getRentersRequests.cshtml" />
+    <Content Include="Views\SUPTransactions\GetRentersTransactions.cshtml" />
+    <Content Include="Views\SUPRequests\GetRentersRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Resources\" />
