@@ -15,12 +15,20 @@ namespace URent.Controllers
     {
         private SUPContext db = new SUPContext();
 
+        /// <summary>
+        /// Retrieves user ID of current user from AspNetUsers table.
+        /// </summary>
+        /// <returns>User ID of current user from AspNetUsers table.</returns>
         [Authorize]
         private string getIdentityID()
         {
             return User.Identity.GetUserId();
         }
 
+        /// <summary>
+        /// Retrieves user ID of current user from SUPUsers table that is associated with user ID from AspNetUsers table.
+        /// </summary>
+        /// <returns>User ID of current user from SUPUsers table associated with user ID from AspNetUsers table.</returns>
         [Authorize]
         private int getSUPUserID()
         {
@@ -37,20 +45,25 @@ namespace URent.Controllers
         //}
 
         // GET: SUPUsers/Details/5
+        /// <summary>
+        /// Displays user account info of a user.
+        /// </summary>
+        /// <param name="id">ID of a user account</param>
+        /// <returns>User account info of a user.</returns>
         [Authorize]
         public ActionResult Details(int? id)
         {
-            SUPUser sUPUser = db.SUPUsers.Find(id);
+            SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
             if (User.Identity.IsAuthenticated)
             {
                 sUPUser = db.SUPUsers.Find(getSUPUserID());
                 return View(sUPUser);
             }
-            if (id == null)
+            if (id == null) //No user ID?
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            if (sUPUser == null)
+            if (sUPUser == null) //Does a user account exist?
             {
                 return HttpNotFound();
             }
@@ -81,6 +94,11 @@ namespace URent.Controllers
         //}
 
         // GET: SUPUsers/Edit/5
+        /// <summary>
+        /// Displays user account edit page.
+        /// </summary>
+        /// <param name="id">ID of a user account</param>
+        /// <returns>User account edit page</returns>
         [Authorize]
         public ActionResult Edit(int? id)
         {
@@ -108,21 +126,33 @@ namespace URent.Controllers
         // POST: SUPUsers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Edits user account
+        /// </summary>
+        /// <param name="sUPUser">User account to edit.</param>
+        /// <returns>Whether edits to a user account was successful.</returns>
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,StreetAddress,CityAddress,StateAddress,ZipCode,TimeStamp")] SUPUser sUPUser)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //Are required fields filled out?
             {
                 db.Entry(sUPUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details", new {id = sUPUser.Id });
             }
+
+            //If not, send user back to edit page to make corrections.
             return View(sUPUser);
         }
 
         // GET: SUPUsers/Delete/5
+        /// <summary>
+        /// Displays user account delete page.
+        /// </summary>
+        /// <param name="id">ID of a user account</param>
+        /// <returns>User account delete page</returns>
         [Authorize]
         public ActionResult Delete(int? id)
         {
@@ -139,6 +169,11 @@ namespace URent.Controllers
         }
 
         // POST: SUPUsers/Delete/5
+        /// <summary>
+        /// Deletes user account
+        /// </summary>
+        /// <param name="id">ID of a user account</param>
+        /// <returns>Successful deletion of a user account.</returns>
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -159,6 +194,10 @@ namespace URent.Controllers
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Displays error page
+        /// </summary>
+        /// <returns>View of Error.cshtml</returns>
         [Authorize]
         public ActionResult Error()
         {

@@ -390,8 +390,8 @@
     <Content Include="Views\SUPRequests\Edit.cshtml" />
     <Content Include="Views\SUPRequests\Index.cshtml" />
     <Content Include="Views\SUPItems\Search.cshtml" />
-    <Content Include="Views\SUPTransactions\getRentersTransactions.cshtml" />
-    <Content Include="Views\SUPRequests\getRentersRequests.cshtml" />
+    <Content Include="Views\SUPTransactions\GetRentersTransactions.cshtml" />
+    <Content Include="Views\SUPRequests\GetRentersRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Resources\" />

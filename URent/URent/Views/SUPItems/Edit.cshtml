@@ -1,11 +1,11 @@
 ﻿@model URent.Models.SUPItem
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Revise your listing";
     Layout = "~/Views/Shared/_UserPageLayout.cshtml";
 }
 
-<h2>Edit your listing</h2>
+<h2>Revise your listing</h2>
 
 @using (Html.BeginForm())
 {
@@ -34,14 +34,6 @@
         </div>
     </div>
 
-    @* <div class="form-group">
-            @Html.LabelFor(model => model.TimeStamp, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeStamp, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TimeStamp, "", new { @class = "text-danger" })
-            </div>
-        </div> *@
-
     <div class="form-group">
         @Html.LabelFor(model => model.IsAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -58,8 +50,8 @@
         <div class="col-md-2">
             <div class="input-group-prepend">
                 <div class="input-group-text">$</div>
-                @Html.EditorFor(model => model.DailyPrice, new { htmlAttributes = new { @class = "form-control form-inline",
-                @placeholder = "i.e. 12.49" } })
+                @Html.TextBoxFor(model => model.DailyPrice, new { @class = "form-control form-inline",
+                    @placeholder = "i.e. 12.49", @type = "number", @min = "0.01", @step = "0.01" })
                 @Html.ValidationMessageFor(model => model.DailyPrice, "", new { @class = "text-danger" })
             </div>
         </div>

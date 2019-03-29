@@ -65,8 +65,8 @@
             <div class="col-md-2">
                 <div class="input-group-prepend">
                     <div class="input-group-text">$</div>
-                    @Html.EditorFor(model => model.DailyPrice, new { htmlAttributes = new { @class = "form-control form-inline",
-                    @placeholder = "i.e. 12.49" } })
+                    @Html.TextBoxFor(model => model.DailyPrice, new { @class = "form-control form-inline",
+                        @placeholder = "i.e. 12.49", @type = "number", @min = "0.01", @step = "0.01" })
                     @Html.ValidationMessageFor(model => model.DailyPrice, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -77,7 +77,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create listing" class="btn btn-primary" />
             </div>
         </div>
     </div>
