@@ -12,6 +12,10 @@ namespace URent.Controllers
     {
         private SUPContext db = new SUPContext();
 
+        /// <summary>
+        /// Displays the Index page with all listings
+        /// </summary>
+        /// <returns>List of all listings to the view</returns>
         [HttpGet]
         public ActionResult Index()
         {

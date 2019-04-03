@@ -1,12 +1,19 @@
-﻿html {
+﻿@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+html {
     /* Footer styling */
     position: relative;
     min-height: 100%;
 }
 
+nav {
+    font-family: 'Nunito', sans-serif;
+}
+
 body {
     /*Minimum distance from footer*/
     margin-bottom: 120px;
+    font-family: Arial, sans-serif;
 }
 
 footer {
