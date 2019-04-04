@@ -35,7 +35,7 @@
                             <img class="card-img-top" src="https://via.placeholder.com/450x250?text=No+photo+to+display" alt="Listing photo">
                         </a>
                         <div class="card-body">
-                            <h5 class="card-title">@Html.ActionLink(Model[i].ItemName, "Details", "SUPItems", new { id = Model[i].Id })</h5>
+                            <h5 class="card-title">@Html.ActionLink(Model[i].ItemName, "Details", "SUPItems", new { id = Model[i].Id }, null)</h5>
                             <p class="card-text">@Model[i].SUPUser.CityAddress, @Model[i].SUPUser.StateAddress</p>
                             <p class="card-subtitle"><b>@String.Format("{0:C}", Model[i].DailyPrice)/day</b></p>
                             @if (Model[i].IsAvailable)
