@@ -100,23 +100,50 @@ namespace URent.Controllers
         [Authorize]
         public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TotalPrice,RenterID,ItemID")] SUPTransaction sUPTransaction)
         {
+            //DateTime startDate = DateTime.TryParse(sUPTransaction.StartDate.ToString(), out DateTime output);
+            //var endDate = new DateTime(sUPTransaction.EndDate.Ticks);
+            //var areValidDates = IsValidDate(DateTime.TryParse(sUPTransaction.StartDate.Ticks));
+
             if (ModelState.IsValid) //Are required fields filled out?
             {
-                SUPItem i = db.SUPItems.Find(sUPTransaction.ItemID);
-                i.IsAvailable = false;
-                db.Entry(i).State = EntityState.Modified;
-                sUPTransaction.RenterID = getSUPUserID();
-                sUPTransaction.TimeStamp = DateTime.Now;
-                db.SUPTransactions.Add(sUPTransaction);
-                //db.Entry(sUPTransaction).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("GetRentersTransactions");
+                //Are start and end date inputs in the proper format?
+                if (DateTime.TryParse(sUPTransaction.StartDate.ToString(), out DateTime outputStartDate) && DateTime.TryParse(sUPTransaction.EndDate.ToString(), out DateTime outputEndDate))
+                {
+                    //Are start and end dates valid?
+                    if(IsValidDate(sUPTransaction.StartDate, sUPTransaction.EndDate))
+                    {
+
+                        var totalDays = (sUPTransaction.EndDate - sUPTransaction.StartDate).TotalDays;
+                        var dailyRate = db.SUPItems.Where(x => x.Id == sUPTransaction.ItemID).Select(x => x.DailyPrice).FirstOrDefault();
+                        var totalPrice = dailyRate * (decimal)totalDays;
+
+                        //verify total price are the same client and server side.
+                        if(totalPrice == sUPTransaction.TotalPrice)
+                        {
+                            SUPItem i = db.SUPItems.Find(sUPTransaction.ItemID);
+                            i.IsAvailable = false;
+                            db.Entry(i).State = EntityState.Modified;
+                            sUPTransaction.RenterID = getSUPUserID();
+                            db.SUPTransactions.Add(sUPTransaction);
+                            //db.Entry(sUPTransaction).State = EntityState.Modified;
+                            db.SaveChanges();
+                            return RedirectToAction("GetRentersTransactions");
+                        }
+
+                    }
+                }
             }
 
-            //If not, send the user back to the Create transaction page to make corrections.
+            //If any of the above statements are false, send the user back to the Create transaction page to make corrections.
             ViewBag.ItemID = new SelectList(db.SUPItems, "Id", "ItemName", sUPTransaction.ItemID);
             ViewBag.RenterID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPTransaction.RenterID);
             return View(sUPTransaction);
+        }
+
+        public static bool IsValidDate(DateTime startDate, DateTime endDate)
+        {
+            var current = DateTime.Today;
+            return startDate >= current && endDate > startDate;
         }
 
         //// GET: SUPTransactions/Edit/5

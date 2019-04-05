@@ -16,18 +16,23 @@ $(function () {
         maxDate: '+1Y+6M',
         onSelect: function (dateStr) {
             var min = $(this).datepicker('getDate'); // Get selected date
-            $("#EndDate").datepicker('option', 'minDate', min || '0'); // Set other min, default to today
+            $("#EndDate").datepicker('option', 'minDate', min || '+1D'); // Set other min, default to today
             totalDays();
         }
     });
 
     $("#EndDate").datepicker({
-        minDate: 0,
+        minDate: '+1D',
         maxDate: '+1Y+6M',
         onSelect: function (dateStr) {
-            var max = $(this).datepicker('getDate'); // Get selected date
-            $('#datepicker').datepicker('option', 'maxDate', max || '+1Y+6M'); // Set other max, default to +18 months
-            totalDays();
+            var startDate = $('#StartDate').datepicker('getDate');
+            if (startDate != null) {
+                startDate.setDate(startDate.getDay() + 1)
+                $('#StartDate').datepicker('option', 'minDate', startDate); // Set other max, default to +18 months
+                totalDays();
+
+            }
+            
         }
     });
 });
