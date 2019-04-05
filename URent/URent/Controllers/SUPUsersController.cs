@@ -203,5 +203,13 @@ namespace URent.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public ActionResult Notifications()
+        {
+            int id = getSUPUserID(); //Retrieve ID of current user.
+            var notifications = db.SUPTransactions.Where(u => u.OwnerID == id); //Find all item listings that is requested/rented from other users
+            return View(notifications.ToList()); // return list of transactions that have this owner's id
+        }
     }
 }
