@@ -18,7 +18,7 @@ namespace URent.Models
         [Display(Name = "End date")]
         public DateTime EndDate { get; set; }
 
-        public DateTime TimeStamp { get; set; }
+        public DateTime TimeStamp { get; set; } = DateTime.Now;
 
         [Display(Name = "Total price")]
         public decimal? TotalPrice { get; set; }
