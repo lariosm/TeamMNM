@@ -45,6 +45,7 @@ CREATE TABLE [dbo].[SUPTransactions]
     [TimeStamp]     DATETIME                NOT NULL,
 	[TotalPrice]	DECIMAL					NOT NULL,
     [RenterID]      INT FOREIGN KEY REFERENCES SUPUsers(Id) NOT NULL,
+	[OwnerID]		INT FOREIGN KEY REFERENCES SUPUsers(Id)	NOT NULL,
 	[ItemID]		INT FOREIGN KEY REFERENCES SUPItems(Id)	NOT NULL
 
 	CONSTRAINT [PK_dbo.SUPTransactions] PRIMARY KEY CLUSTERED ([Id] ASC)

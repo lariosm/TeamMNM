@@ -393,6 +393,7 @@
     <Content Include="Views\SUPItems\Search.cshtml" />
     <Content Include="Views\SUPTransactions\GetRentersTransactions.cshtml" />
     <Content Include="Views\SUPRequests\GetRentersRequests.cshtml" />
+    <Content Include="Views\SUPUsers\Notifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PayPal\" />

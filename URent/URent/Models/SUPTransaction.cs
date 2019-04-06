@@ -25,6 +25,8 @@ namespace URent.Models
 
         public int RenterID { get; set; }
 
+        public int OwnerID { get; set; }
+
         public int? ItemID { get; set; }
 
         public virtual SUPItem SUPItem { get; set; }

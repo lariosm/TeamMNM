@@ -98,7 +98,7 @@ namespace URent.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TotalPrice,RenterID,ItemID")] SUPTransaction sUPTransaction)
+        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TotalPrice,RenterID,OwnerID,ItemID")] SUPTransaction sUPTransaction)
         {
             //DateTime startDate = DateTime.TryParse(sUPTransaction.StartDate.ToString(), out DateTime output);
             //var endDate = new DateTime(sUPTransaction.EndDate.Ticks);
@@ -123,6 +123,7 @@ namespace URent.Controllers
                             i.IsAvailable = false;
                             db.Entry(i).State = EntityState.Modified;
                             sUPTransaction.RenterID = getSUPUserID();
+                            sUPTransaction.OwnerID = i.OwnerID;
                             db.SUPTransactions.Add(sUPTransaction);
                             //db.Entry(sUPTransaction).State = EntityState.Modified;
                             db.SaveChanges();
