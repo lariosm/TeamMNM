@@ -57,3 +57,30 @@ $(document).ready(function () {
             maxDate: "3Y"
         });
 });
+
+//$(function () {
+//    $(".datepicker").datepicker({
+//        inline: true,
+//        altField: "#myDatePicker",
+//        dateFormat: 'yy-mm-dd'
+//    })
+//        .datepicker("setDate", "0");
+//});
+
+//$("#dateHidden").on('input propertychange paste', function () {
+
+//    var Loc = $("#Cafe").val();
+//    var PDate = $("#datePicker").val();
+////------Functions you call or actions you perform--------//
+////GetLoc(Loc,PDate);
+
+//});
+
+$('#z').datepicker({
+        inline: true,
+        altField: '#d'
+    });
+
+$('#d').change(function () {
+    $('#z').datepicker('option', $(this).val());
+});
