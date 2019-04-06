@@ -180,6 +180,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PayPalController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\SUPItemsController.cs" />
     <Compile Include="Controllers\SUPRequestsController.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PaypalConfiguration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -398,6 +400,7 @@
     <Content Include="Views\SUPUsers\Notifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\PayPal\" />
     <Folder Include="Views\Resources\" />
   </ItemGroup>
   <ItemGroup>

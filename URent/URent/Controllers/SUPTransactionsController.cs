@@ -112,7 +112,6 @@ namespace URent.Controllers
                     //Are start and end dates valid?
                     if(IsValidDate(sUPTransaction.StartDate, sUPTransaction.EndDate))
                     {
-
                         var totalDays = (sUPTransaction.EndDate - sUPTransaction.StartDate).TotalDays;
                         var dailyRate = db.SUPItems.Where(x => x.Id == sUPTransaction.ItemID).Select(x => x.DailyPrice).FirstOrDefault();
                         var totalPrice = dailyRate * (decimal)totalDays;
@@ -130,7 +129,6 @@ namespace URent.Controllers
                             db.SaveChanges();
                             return RedirectToAction("GetRentersTransactions");
                         }
-
                     }
                 }
             }

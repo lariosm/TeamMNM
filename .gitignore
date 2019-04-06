@@ -5,6 +5,7 @@ Documents/DiscussionHub/DiscussionHub/.DiscussionHub.csproj.swp
 
 #Ignore secret files
 URent/URent/Web_deploy.config
+URent/URent/Secrets.config
 
 # User-specific files
 *.suo
