@@ -1,18 +1,15 @@
-using NUnit.Framework;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Tests
+namespace URent_test
 {
-    public class Tests
+    [TestClass]
+    public class UnitTest1
     {
-        [SetUp]
-        public void Setup()
+        [TestMethod]
+        public void Photo_ShouldReturnImageObjectFromGivenID()
         {
-        }
 
-        [Test]
-        public void Photo_ShouldReturnImageObjectOfRequestedID()
-        {
-            Assert.Pass();
         }
     }
 }
