@@ -10,7 +10,7 @@ namespace Tests
         }
 
         [Test]
-        public void Photo_ShouldReturnImageObjectFromGivenID()
+        public void Test1()
         {
             Assert.Pass();
         }

@@ -16,8 +16,12 @@ $(function () {
         maxDate: '+1Y+6M',
         onSelect: function (dateStr) {
             var min = $(this).datepicker('getDate'); // Get selected date
-            $("#EndDate").datepicker('option', 'minDate', min || '+1D'); // Set other min, default to today
-            totalDays();
+            var startDate = $('#StartDate').datepicker('getDate');
+            if (startDate != null) {
+                startDate.setDate(startDate.getDate() + 1)
+                $("#EndDate").datepicker('option', 'minDate', startDate); // Set other min, default to today
+                totalDays();
+            }
         }
     });
 
@@ -27,8 +31,8 @@ $(function () {
         onSelect: function (dateStr) {
             var startDate = $('#StartDate').datepicker('getDate');
             if (startDate != null) {
-                startDate.setDate(startDate.getDay() + 1)
-                $('#StartDate').datepicker('option', 'minDate', startDate); // Set other max, default to +18 months
+                //startDate.setDate(startDate.getDate() + 1 )
+                $('#StartDate').datepicker('option', 'minDate'); // Set other max, default to +18 months
                 totalDays();
 
             }

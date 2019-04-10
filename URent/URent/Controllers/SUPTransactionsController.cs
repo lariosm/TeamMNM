@@ -139,6 +139,17 @@ namespace URent.Controllers
             return View(sUPTransaction);
         }
 
+        //Check that start and end dates are in the proper format.
+        public bool checkDateFormat(DateTime startDate, DateTime endDate)
+        {
+            return DateTime.TryParse(startDate.ToString(), out DateTime outputStartDate) && DateTime.TryParse(endDate.ToString(), out DateTime outputEndDate);
+        }
+
+        public bool checkTotalPrice(int totalPrice, SUPTransaction transaction)
+        {
+            return totalPrice == transaction.TotalPrice;
+        }
+
         public static bool IsValidDate(DateTime startDate, DateTime endDate)
         {
             var current = DateTime.Today;
