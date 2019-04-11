@@ -1,5 +1,5 @@
 ﻿function notificationRequest() {
-    var source = "/Resources/NotificationRequest"
+    var source = "/Resources/NotificationRequest/"
 
     $.ajax({
         type: "GET",
@@ -11,6 +11,7 @@
 }
 
 function showNotifications(notificationList) {
+    console.log("In show notifications method");
     if (notificationList.length == 0) {
         $("#message").empty();
         $("#message").append("No notifications to display.")
