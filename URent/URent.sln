@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URent", "URent\URent.csproj", "{7060655C-92E3-40A2-B895-ACCA9014E56F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URent_Test_NUnit", "URent_Test_NUnit\URent_Test_NUnit.csproj", "{D5521E01-5547-4BB9-A6D8-E2193459B557}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URentTests", "URentTests\URentTests.csproj", "{3D0759B0-80D2-439C-A629-4A834509C6CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{7060655C-92E3-40A2-B895-ACCA9014E56F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7060655C-92E3-40A2-B895-ACCA9014E56F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7060655C-92E3-40A2-B895-ACCA9014E56F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5521E01-5547-4BB9-A6D8-E2193459B557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5521E01-5547-4BB9-A6D8-E2193459B557}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5521E01-5547-4BB9-A6D8-E2193459B557}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5521E01-5547-4BB9-A6D8-E2193459B557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D0759B0-80D2-439C-A629-4A834509C6CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D0759B0-80D2-439C-A629-4A834509C6CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D0759B0-80D2-439C-A629-4A834509C6CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D0759B0-80D2-439C-A629-4A834509C6CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

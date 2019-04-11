@@ -51,7 +51,9 @@ namespace URent.Controllers
         public JsonResult NotificationRequest()
         {
             int id = getSUPUserID(); //Retrieve ID of current user.
+            Console.WriteLine(id);
             var notifications = db.SUPTransactions.Where(u => u.OwnerID == id).OrderBy(b => b.TimeStamp).ToList(); //Find all item listings that is requested/rented from other users
+            Console.WriteLine(notifications);
             return Json(notifications, JsonRequestBehavior.AllowGet);
         }
 
