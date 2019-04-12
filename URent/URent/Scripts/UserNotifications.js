@@ -20,7 +20,7 @@ function showNotifications(notificationList) {
         $("#message").empty();
         $(".notification-info").remove();
         for (var i = 0; i < notificationList.length; i++) {
-            $("#notificationTable").prepend("<tr class=\notification-info\"><td>" + notificationList[i] + "</td></tr>");
+            $("#notiftable").prepend("<tr class=\notification-info\"><td>" + notificationList[i].item + "</td></td>" + notificationList[i.renter] + "</td></td>" + notificationList[i].start + "</td></td>" + notificationList[i].end + "</td></td>" + notificationList[i].time + "</td></td>" + notificationList.price + "</td></tr>");
         }
     }
 }

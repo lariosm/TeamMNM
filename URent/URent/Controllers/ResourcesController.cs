@@ -52,9 +52,24 @@ namespace URent.Controllers
         {
             int id = getSUPUserID(); //Retrieve ID of current user.
             Console.WriteLine(id);
-            var notifications = db.SUPTransactions.Where(u => u.OwnerID == id).OrderBy(b => b.TimeStamp).ToList(); //Find all item listings that is requested/rented from other users
+            var notifications = db.SUPTransactions.Where(u => u.OwnerID == id)
+                                                  .Select(i => new {  item = GetItemName(i.ItemID), renter = GetRenterName(i.RenterID), start = i.StartDate, end = i.EndDate, time = i.TimeStamp, price = i.TotalPrice})
+                                                  .OrderBy(b => b.time)
+                                                  .ToList(); //Find all item listings that is requested/rented from other users
             Console.WriteLine(notifications);
             return Json(notifications, JsonRequestBehavior.AllowGet);
+        }
+
+        public IQueryable<string> GetItemName(int? id)
+        {
+            var name = db.SUPItems.Where(x => x.Id == id).Select(y => y.ItemName);
+            return (name);
+        }
+
+        public IQueryable<string> GetRenterName(int? id)
+        {
+            var name = db.SUPUsers.Where(x => x.Id == id).Select(y => y.FirstName);
+            return (name);
         }
 
     }
