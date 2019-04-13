@@ -127,7 +127,7 @@ namespace URent.Controllers
                             db.SUPTransactions.Add(sUPTransaction);
                             //db.Entry(sUPTransaction).State = EntityState.Modified;
                             db.SaveChanges();
-                            return RedirectToAction("GetRentersTransactions");
+                            return RedirectToAction("PaymentWithPaypal", "PayPal", new {transactionId = sUPTransaction.Id, itemId = sUPTransaction.ItemID});
                         }
                     }
                 }
