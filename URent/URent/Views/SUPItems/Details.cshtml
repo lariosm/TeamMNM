@@ -90,7 +90,7 @@
     else
     {
         //If not, we show a "Request" button.
-        @Html.ActionLink("Request", "Create", "SUPRequests", new { itemId = Model.Id }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Set Available", "makeAvailable", "SUPItems",  new { itemId = Model.Id }, new { @class = "btn btn-primary" })
     }
 
     @if (Request.IsAuthenticated) //Is a logged in user viewing this page?

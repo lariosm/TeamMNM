@@ -4,20 +4,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using URent.Models;
 using URent.Helpers;
 
 namespace URent.Controllers
 {
     public class PayPalController : Controller
     {
+        private SUPContext db = new SUPContext();
+        private int transactionId;
+        private int itemId;
+        
+        private int getTransactionId()
+        {
+            return transactionId;
+        }
+
+        private void setTransactionId(int id)
+        {
+            transactionId = id;
+        }
+
+        private int getItemId()
+        {
+            return itemId;
+        }
+
+        private void setItemId(int id)
+        {
+            itemId = id;
+        }
+
+        private void printIDs()
+        {
+            Console.WriteLine(transactionId);
+            Console.WriteLine(itemId);
+        }
+
         // GET: PayPal
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult PaymentWithPaypal(string Cancel = null)
+        public ActionResult PaymentWithPaypal(int transactionId, int itemId, string Cancel = null)
         {
+            //call to helper method
+            setTransactionId(transactionId);
+            setItemId(itemId);
+
             //getting the apiContext  
             APIContext apiContext = PayPalConfiguration.GetAPIContext();
             try
@@ -31,7 +66,7 @@ namespace URent.Controllers
                     //it is returned by the create function call of the payment class  
                     // Creating a payment  
                     // baseURL is the url on which paypal sendsback the data.  
-                    string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/Home/PaymentWithPayPal?";
+                    string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/SUPTransactions/GetRentersTransactions?";
                     //here we are generating guid for storing the paymentID received in session  
                     //which will be used in the payment execution  
                     var guid = Convert.ToString((new Random()).Next(100000));
@@ -88,6 +123,13 @@ namespace URent.Controllers
         }
         private Payment CreatePayment(APIContext apiContext, string redirectUrl)
         {
+            var itID = getItemId();
+            var transID = getTransactionId();
+            printIDs();
+            var itemName = db.SUPItems.Where(y => y.Id == itID).Select(x => x.ItemName).FirstOrDefault().ToString();
+            var price = db.SUPTransactions.Where(y => y.Id == transID).Select(x => x.TotalPrice).FirstOrDefault().ToString();
+            var sku = itID.ToString();
+
             //create itemlist and add item objects to it  
             var itemList = new ItemList()
             {
@@ -96,11 +138,11 @@ namespace URent.Controllers
             //Adding Item Details like name, currency, price etc  
             itemList.items.Add(new Item()
             {
-                name = "Item Name comes here",
+                name = itemName,
                 currency = "USD",
-                price = "1",
+                price = price,
                 quantity = "1",
-                sku = "sku"
+                sku = sku
             });
             var payer = new Payer()
             {
@@ -115,23 +157,25 @@ namespace URent.Controllers
             // Adding Tax, shipping and Subtotal details  
             var details = new Details()
             {
-                tax = "1",
-                shipping = "1",
-                subtotal = "1"
+                tax = "0",
+                shipping = "0",
+                subtotal = price
+                // added price
             };
             //Final amount with details  
             var amount = new Amount()
             {
                 currency = "USD",
-                total = "3", // Total must be equal to sum of tax, shipping and subtotal.  
+                // added price
+                total = price, // Total must be equal to sum of tax, shipping and subtotal.  
                 details = details
             };
             var transactionList = new List<Transaction>();
             // Adding description about the transaction  
             transactionList.Add(new Transaction()
             {
-                description = "Transaction description",
-                invoice_number = "your generated invoice number", //Generate an Invoice No  
+                description = "URent transaction No.: " + transID.ToString(),
+                invoice_number = transID.ToString(), //Generate an Invoice No  
                 amount = amount,
                 item_list = itemList
             });
