@@ -324,6 +324,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\UserNotifications.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

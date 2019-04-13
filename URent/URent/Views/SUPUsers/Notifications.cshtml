@@ -4,11 +4,9 @@
     ViewBag.Title = "Notifications";
 }
 
-<h2>Notifications</h2>
+<h2>My Notifications...</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -32,32 +30,64 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SUPItem.ItemName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeStamp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalPrice)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SUPItem.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeStamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+        </tr>
+    }
 
 </table>
+
+@*<div>
+    Bids table (where bids will show up via JavaScript)
+    <table class="notiftable">
+        <tr>
+            <th>
+                ItemName
+            </th>
+            <th>
+                Renter Name
+            </th>
+            <th>
+                Transaction Start Date
+            </th>
+            <th>
+                Transaction End Date
+            </th>
+            <th>
+                Timestamp
+            </th>
+            <th>
+                Total Price
+            </th>
+        </tr>
+    </table>
+
+    Displays message if there are no bids on this item
+    <h5 id="message" style="text-align:center"></h5>
+    <br />
+</div>
+
+JS script to be executed on this page
+@section Scripts
+{
+    <script type="text/javascript" src="~/Scripts/UserNotifications.js"></script>
+}*@
