@@ -100,24 +100,21 @@ namespace URent.Controllers
         [Authorize]
         public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TotalPrice,RenterID,OwnerID,ItemID")] SUPTransaction sUPTransaction)
         {
-            //DateTime startDate = DateTime.TryParse(sUPTransaction.StartDate.ToString(), out DateTime output);
-            //var endDate = new DateTime(sUPTransaction.EndDate.Ticks);
-            //var areValidDates = IsValidDate(DateTime.TryParse(sUPTransaction.StartDate.Ticks));
-
             if (ModelState.IsValid) //Are required fields filled out?
             {
+                DateTime outputStartDate, outputEndDate;
                 //Are start and end date inputs in the proper format?
-                if (DateTime.TryParse(sUPTransaction.StartDate.ToString(), out DateTime outputStartDate) && DateTime.TryParse(sUPTransaction.EndDate.ToString(), out DateTime outputEndDate))
+                if (DateTime.TryParse(sUPTransaction.StartDate.ToString(), out outputStartDate) && DateTime.TryParse(sUPTransaction.EndDate.ToString(), out outputEndDate))
                 {
                     //Are start and end dates valid?
-                    if(IsValidDate(sUPTransaction.StartDate, sUPTransaction.EndDate))
+                    if (IsValidDate(sUPTransaction.StartDate, sUPTransaction.EndDate))
                     {
                         var totalDays = (sUPTransaction.EndDate - sUPTransaction.StartDate).TotalDays;
                         var dailyRate = db.SUPItems.Where(x => x.Id == sUPTransaction.ItemID).Select(x => x.DailyPrice).FirstOrDefault();
                         var totalPrice = dailyRate * (decimal)totalDays;
 
                         //verify total price are the same client and server side.
-                        if(totalPrice == sUPTransaction.TotalPrice)
+                        if (totalPrice == sUPTransaction.TotalPrice)
                         {
                             SUPItem i = db.SUPItems.Find(sUPTransaction.ItemID);
                             i.IsAvailable = false;
@@ -127,10 +124,20 @@ namespace URent.Controllers
                             db.SUPTransactions.Add(sUPTransaction);
                             //db.Entry(sUPTransaction).State = EntityState.Modified;
                             db.SaveChanges();
-                            return RedirectToAction("PaymentWithPaypal", "PayPal", new {transactionId = sUPTransaction.Id, itemId = sUPTransaction.ItemID});
+                            return RedirectToAction("PaymentWithPaypal", "PayPal", new { transactionId = sUPTransaction.Id, itemId = sUPTransaction.ItemID });
                         }
                     }
                 }
+
+                //SUPItem i = db.SUPItems.Find(sUPTransaction.ItemID);
+                //i.IsAvailable = false;
+                //db.Entry(i).State = EntityState.Modified;
+                //sUPTransaction.RenterID = getSUPUserID();
+                //sUPTransaction.OwnerID = i.OwnerID;
+                //db.SUPTransactions.Add(sUPTransaction);
+                ////db.Entry(sUPTransaction).State = EntityState.Modified;
+                //db.SaveChanges();
+                //return RedirectToAction("PaymentWithPaypal", "PayPal", new { transactionId = sUPTransaction.Id, itemId = sUPTransaction.ItemID });
             }
 
             //If any of the above statements are false, send the user back to the Create transaction page to make corrections.
@@ -140,10 +147,10 @@ namespace URent.Controllers
         }
 
         //Check that start and end dates are in the proper format.
-        public bool checkDateFormat(DateTime startDate, DateTime endDate)
-        {
-            return DateTime.TryParse(startDate.ToString(), out DateTime outputStartDate) && DateTime.TryParse(endDate.ToString(), out DateTime outputEndDate);
-        }
+        //public bool checkDateFormat(DateTime startDate, DateTime endDate)
+        //{
+        //    return DateTime.TryParse(startDate.ToString(), out DateTime outputStartDate) && DateTime.TryParse(endDate.ToString(), out DateTime outputEndDate);
+        //}
 
         public bool checkTotalPrice(int totalPrice, SUPTransaction transaction)
         {
