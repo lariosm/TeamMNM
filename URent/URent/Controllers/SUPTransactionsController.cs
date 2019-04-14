@@ -136,10 +136,10 @@ namespace URent.Controllers
         }
 
         //Check that start and end dates are in the proper format.
-        public bool checkDateFormat(DateTime startDate, DateTime endDate)
-        {
-            return DateTime.TryParse(startDate.ToString(), out DateTime outputStartDate) && DateTime.TryParse(endDate.ToString(), out DateTime outputEndDate);
-        }
+        //public bool checkDateFormat(DateTime startDate, DateTime endDate)
+        //{
+        //    return DateTime.TryParse(startDate.ToString(), out DateTime outputStartDate) && DateTime.TryParse(endDate.ToString(), out DateTime outputEndDate);
+        //}
 
         public bool checkTotalPrice(int totalPrice, SUPTransaction transaction)
         {
