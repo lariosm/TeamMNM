@@ -102,8 +102,9 @@ namespace URent.Controllers
         {
             if (ModelState.IsValid) //Are required fields filled out?
             {
+                DateTime outputStartDate, outputEndDate;
                 //Are start and end date inputs in the proper format?
-                if (DateTime.TryParse(sUPTransaction.StartDate.ToString(), out DateTime outputStartDate) && DateTime.TryParse(sUPTransaction.EndDate.ToString(), out DateTime outputEndDate))
+                if (DateTime.TryParse(sUPTransaction.StartDate.ToString(), out outputStartDate) && DateTime.TryParse(sUPTransaction.EndDate.ToString(), out outputEndDate))
                 {
                     //Are start and end dates valid?
                     if (IsValidDate(sUPTransaction.StartDate, sUPTransaction.EndDate))
