@@ -150,6 +150,12 @@ namespace URent.Controllers
             return totalPrice == transaction.TotalPrice;
         }
 
+        public int calculateTotalPrice(int days, int price)
+        {
+            int answer = days * price;
+            return(answer);
+        }
+
         public static bool IsValidDate(DateTime startDate, DateTime endDate)
         {
             var current = DateTime.Today;
