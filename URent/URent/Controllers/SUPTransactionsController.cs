@@ -100,10 +100,6 @@ namespace URent.Controllers
         [Authorize]
         public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TotalPrice,RenterID,OwnerID,ItemID")] SUPTransaction sUPTransaction)
         {
-            //DateTime startDate = DateTime.TryParse(sUPTransaction.StartDate.ToString(), out DateTime output);
-            //var endDate = new DateTime(sUPTransaction.EndDate.Ticks);
-            //var areValidDates = IsValidDate(DateTime.TryParse(sUPTransaction.StartDate.Ticks));
-
             if (ModelState.IsValid) //Are required fields filled out?
             {
                 //Are start and end date inputs in the proper format?
