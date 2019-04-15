@@ -100,24 +100,23 @@ namespace URent.Controllers
         [Authorize]
         public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TotalPrice,RenterID,OwnerID,ItemID")] SUPTransaction sUPTransaction)
         {
-            //DateTime startDate = DateTime.TryParse(sUPTransaction.StartDate.ToString(), out DateTime output);
-            //var endDate = new DateTime(sUPTransaction.EndDate.Ticks);
-            //var areValidDates = IsValidDate(DateTime.TryParse(sUPTransaction.StartDate.Ticks));
-
             if (ModelState.IsValid) //Are required fields filled out?
             {
+                var startDate = sUPTransaction.StartDate.ToString();
+                var endDate = sUPTransaction.EndDate.ToString();
+
                 //Are start and end date inputs in the proper format?
-                if (DateTime.TryParse(sUPTransaction.StartDate.ToString(), out DateTime outputStartDate) && DateTime.TryParse(sUPTransaction.EndDate.ToString(), out DateTime outputEndDate))
+                if (checkDateFormat(startDate, endDate))
                 {
                     //Are start and end dates valid?
-                    if(IsValidDate(sUPTransaction.StartDate, sUPTransaction.EndDate))
+                    if (IsValidDate(sUPTransaction.StartDate, sUPTransaction.EndDate))
                     {
                         var totalDays = (sUPTransaction.EndDate - sUPTransaction.StartDate).TotalDays;
                         var dailyRate = db.SUPItems.Where(x => x.Id == sUPTransaction.ItemID).Select(x => x.DailyPrice).FirstOrDefault();
                         var totalPrice = dailyRate * (decimal)totalDays;
 
                         //verify total price are the same client and server side.
-                        if(totalPrice == sUPTransaction.TotalPrice)
+                        if (totalPrice == sUPTransaction.TotalPrice)
                         {
                             SUPItem i = db.SUPItems.Find(sUPTransaction.ItemID);
                             i.IsAvailable = false;
@@ -127,7 +126,7 @@ namespace URent.Controllers
                             db.SUPTransactions.Add(sUPTransaction);
                             //db.Entry(sUPTransaction).State = EntityState.Modified;
                             db.SaveChanges();
-                            return RedirectToAction("PaymentWithPaypal", "PayPal", new {transactionId = sUPTransaction.Id, itemId = sUPTransaction.ItemID});
+                            return RedirectToAction("PaymentWithPaypal", "PayPal", new { transactionId = sUPTransaction.Id, itemId = sUPTransaction.ItemID });
                         }
                     }
                 }
@@ -139,15 +138,27 @@ namespace URent.Controllers
             return View(sUPTransaction);
         }
 
-        //Check that start and end dates are in the proper format.
-        public bool checkDateFormat(DateTime startDate, DateTime endDate)
+        /// <summary>
+        /// Checks that start and end dates are in the proper format.
+        /// </summary>
+        /// <param name="startDate">The start date to check</param>
+        /// <param name="endDate">The end date to check</param>
+        /// <returns>Whether both dates are properly formatted.</returns>
+        public bool checkDateFormat(String startDate, String endDate)
         {
-            return DateTime.TryParse(startDate.ToString(), out DateTime outputStartDate) && DateTime.TryParse(endDate.ToString(), out DateTime outputEndDate);
+            DateTime outputStartDate, outputEndDate; //This line is so that continuous deployment doesn't fail.
+            return DateTime.TryParse(startDate, out outputStartDate) && DateTime.TryParse(endDate, out outputEndDate);
         }
 
         public bool checkTotalPrice(int totalPrice, SUPTransaction transaction)
         {
             return totalPrice == transaction.TotalPrice;
+        }
+
+        public int calculateTotalPrice(int days, int price)
+        {
+            int answer = days * price;
+            return(answer);
         }
 
         public static bool IsValidDate(DateTime startDate, DateTime endDate)
