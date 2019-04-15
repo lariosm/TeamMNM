@@ -7,7 +7,7 @@ using NUnit;
 namespace URentTests.UnitTests
 {
     [TestClass]
-    public class CheckDateFormatTest
+    public class CheckDateFormatTests
     {
         private SUPTransactionsController getTestObject()
         {
