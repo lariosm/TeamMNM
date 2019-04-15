@@ -26,7 +26,37 @@ namespace URentTests.UnitTests
             bool actualResult = transaction.checkDateFormat(dateFormatToCheck, "04/29/19");
 
             //assert
-            Assert.AreEqual(actualResult, areFormattedProperly);
+            Assert.AreEqual(areFormattedProperly, actualResult);
+        }
+
+        [TestMethod]
+        public void CheckDashedDateFormat_Should_BeProperlyFormatted()
+        {
+            //arrange
+            SUPTransactionsController transaction = getTestObject();
+            String dateFormatToCheck = "04-25-19";
+            bool areFormattedProperly = true;
+
+            //act
+            bool actualResult = transaction.checkDateFormat(dateFormatToCheck, "04/29/19");
+
+            //assert
+            Assert.AreEqual(areFormattedProperly, actualResult);
+        }
+
+        [TestMethod]
+        public void CheckDifferentDateFormat_Should_BeProperlyFormatted()
+        {
+            //arrange
+            SUPTransactionsController transaction = getTestObject();
+            String dateFormatToCheck = "04/25/2019";
+            bool areFormattedProperly = true;
+
+            //act
+            bool actualResult = transaction.checkDateFormat(dateFormatToCheck, "04/29/19");
+
+            //assert
+            Assert.AreEqual(areFormattedProperly, actualResult);
         }
 
         [TestMethod]
@@ -41,7 +71,37 @@ namespace URentTests.UnitTests
             bool actualResult = transaction.checkDateFormat(dateFormatToCheck, "04/29/19");
 
             //assert
-            Assert.AreEqual(actualResult, areFormattedProperly);
+            Assert.AreEqual(areFormattedProperly, actualResult);
+        }
+
+        [TestMethod]
+        public void CheckDifferentCultureSpelledDateFormat_Should_BeProperlyFormatted()
+        {
+            //arrange
+            SUPTransactionsController transaction = getTestObject();
+            String dateFormatToCheck = "25 April 2019";
+            bool areFormattedProperly = true;
+
+            //act
+            bool actualResult = transaction.checkDateFormat(dateFormatToCheck, "04/29/19");
+
+            //assert
+            Assert.AreEqual(areFormattedProperly, actualResult);
+        }
+
+        [TestMethod]
+        public void CheckDifferentCultureDateFormatStartingWithYear_Should_BeProperlyFormatted()
+        {
+            //arrange
+            SUPTransactionsController transaction = getTestObject();
+            String dateFormatToCheck = "2019-04-25";
+            bool areFormattedProperly = true;
+
+            //act
+            bool actualResult = transaction.checkDateFormat(dateFormatToCheck, "04/29/19");
+
+            //assert
+            Assert.AreEqual(areFormattedProperly, actualResult);
         }
 
         [TestMethod]
@@ -56,7 +116,7 @@ namespace URentTests.UnitTests
             bool actualResult = transaction.checkDateFormat(dateFormatToCheck, "04/29/19");
 
             //assert
-            Assert.AreEqual(actualResult, areFormattedProperly);
+            Assert.AreEqual(areFormattedProperly, actualResult);
         }
     }
 }

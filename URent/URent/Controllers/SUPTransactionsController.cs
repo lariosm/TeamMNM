@@ -102,9 +102,11 @@ namespace URent.Controllers
         {
             if (ModelState.IsValid) //Are required fields filled out?
             {
-                DateTime outputStartDate, outputEndDate;
+                var startDate = sUPTransaction.StartDate.ToString();
+                var endDate = sUPTransaction.EndDate.ToString();
+
                 //Are start and end date inputs in the proper format?
-                if (DateTime.TryParse(sUPTransaction.StartDate.ToString(), out outputStartDate) && DateTime.TryParse(sUPTransaction.EndDate.ToString(), out outputEndDate))
+                if (checkDateFormat(startDate, endDate))
                 {
                     //Are start and end dates valid?
                     if (IsValidDate(sUPTransaction.StartDate, sUPTransaction.EndDate))
@@ -128,16 +130,6 @@ namespace URent.Controllers
                         }
                     }
                 }
-
-                //SUPItem i = db.SUPItems.Find(sUPTransaction.ItemID);
-                //i.IsAvailable = false;
-                //db.Entry(i).State = EntityState.Modified;
-                //sUPTransaction.RenterID = getSUPUserID();
-                //sUPTransaction.OwnerID = i.OwnerID;
-                //db.SUPTransactions.Add(sUPTransaction);
-                ////db.Entry(sUPTransaction).State = EntityState.Modified;
-                //db.SaveChanges();
-                //return RedirectToAction("PaymentWithPaypal", "PayPal", new { transactionId = sUPTransaction.Id, itemId = sUPTransaction.ItemID });
             }
 
             //If any of the above statements are false, send the user back to the Create transaction page to make corrections.
@@ -146,7 +138,12 @@ namespace URent.Controllers
             return View(sUPTransaction);
         }
 
-        //Check that start and end dates are in the proper format.
+        /// <summary>
+        /// Checks that start and end dates are in the proper format.
+        /// </summary>
+        /// <param name="startDate">The start date to check</param>
+        /// <param name="endDate">The end date to check</param>
+        /// <returns>Whether both dates are properly formatted.</returns>
         public bool checkDateFormat(String startDate, String endDate)
         {
             DateTime outputStartDate, outputEndDate; //This line is so that continuous deployment doesn't fail.
