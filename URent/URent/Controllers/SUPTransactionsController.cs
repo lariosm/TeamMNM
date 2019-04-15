@@ -161,7 +161,7 @@ namespace URent.Controllers
             return(answer);
         }
 
-        public static bool IsValidDate(DateTime startDate, DateTime endDate)
+        public bool IsValidDate(DateTime startDate, DateTime endDate)
         {
             var current = DateTime.Today;
             return startDate >= current && endDate > startDate;
