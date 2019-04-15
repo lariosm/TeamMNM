@@ -239,5 +239,17 @@ namespace URent.Controllers
             var transactions = db.SUPTransactions.Where(u => u.RenterID == id); //Find all item listings the user has rented out from.
             return View(transactions.ToList());
         }
+
+        /// <summary>
+        /// Query the db for all of the start and end dates any transaction.
+        /// </summary>
+        /// <returns>List of all the start and end dates of transaction for a given item</returns>
+        public JsonResult ExcludeTransactionDates(int? id)
+        {
+            var current = DateTime.Today;
+            var dates = db.SUPTransactions.Where(x => x.ItemID == id && x.StartDate >= current && x.EndDate > x.StartDate).Select(x => new { x.StartDate, x.EndDate }).ToList();
+            
+            return Json(dates, JsonRequestBehavior.AllowGet);
+        }
     }
 }
