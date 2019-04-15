@@ -410,7 +410,6 @@
   <ItemGroup>
     <Folder Include="Views\PayPal\" />
     <Folder Include="Views\Resources\" />
-    <Folder Include="Views\Twilio\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

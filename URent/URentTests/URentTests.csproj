@@ -78,6 +78,8 @@
   <ItemGroup>
     <Compile Include="UnitTests\TotalPriceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\CheckDateFormatTest.cs" />
+    <Compile Include="UnitTests\UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
