@@ -355,5 +355,17 @@ namespace URent.Controllers
                 return View();
             }
         }
+
+        public ActionResult makeAvailable(int itemId)
+        {
+            SUPItem i = db.SUPItems.Find(itemId);
+            if(i.IsAvailable == false) {
+                i.IsAvailable = true;
+                db.Entry(i).State = EntityState.Modified;
+                //db.Entry(sUPTransaction).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Details", new { id = itemId});
+        }
     }
 }

@@ -98,25 +98,73 @@ namespace URent.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TotalPrice,RenterID,ItemID")] SUPTransaction sUPTransaction)
+        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TotalPrice,RenterID,OwnerID,ItemID")] SUPTransaction sUPTransaction)
         {
             if (ModelState.IsValid) //Are required fields filled out?
             {
-                SUPItem i = db.SUPItems.Find(sUPTransaction.ItemID);
-                i.IsAvailable = false;
-                db.Entry(i).State = EntityState.Modified;
-                sUPTransaction.RenterID = getSUPUserID();
-                sUPTransaction.TimeStamp = DateTime.Now;
-                db.SUPTransactions.Add(sUPTransaction);
-                //db.Entry(sUPTransaction).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("GetRentersTransactions");
+                var startDate = sUPTransaction.StartDate.ToString();
+                var endDate = sUPTransaction.EndDate.ToString();
+
+                //Are start and end date inputs in the proper format?
+                if (checkDateFormat(startDate, endDate))
+                {
+                    //Are start and end dates valid?
+                    if (IsValidDate(sUPTransaction.StartDate, sUPTransaction.EndDate))
+                    {
+                        var totalDays = (sUPTransaction.EndDate - sUPTransaction.StartDate).TotalDays;
+                        var dailyRate = db.SUPItems.Where(x => x.Id == sUPTransaction.ItemID).Select(x => x.DailyPrice).FirstOrDefault();
+                        var totalPrice = dailyRate * (decimal)totalDays;
+
+                        //verify total price are the same client and server side.
+                        if (totalPrice == sUPTransaction.TotalPrice)
+                        {
+                            SUPItem i = db.SUPItems.Find(sUPTransaction.ItemID);
+                            i.IsAvailable = false;
+                            db.Entry(i).State = EntityState.Modified;
+                            sUPTransaction.RenterID = getSUPUserID();
+                            sUPTransaction.OwnerID = i.OwnerID;
+                            db.SUPTransactions.Add(sUPTransaction);
+                            //db.Entry(sUPTransaction).State = EntityState.Modified;
+                            db.SaveChanges();
+                            return RedirectToAction("PaymentWithPaypal", "PayPal", new { transactionId = sUPTransaction.Id, itemId = sUPTransaction.ItemID });
+                        }
+                    }
+                }
             }
 
-            //If not, send the user back to the Create transaction page to make corrections.
+            //If any of the above statements are false, send the user back to the Create transaction page to make corrections.
             ViewBag.ItemID = new SelectList(db.SUPItems, "Id", "ItemName", sUPTransaction.ItemID);
             ViewBag.RenterID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPTransaction.RenterID);
             return View(sUPTransaction);
+        }
+
+        /// <summary>
+        /// Checks that start and end dates are in the proper format.
+        /// </summary>
+        /// <param name="startDate">The start date to check</param>
+        /// <param name="endDate">The end date to check</param>
+        /// <returns>Whether both dates are properly formatted.</returns>
+        public bool checkDateFormat(String startDate, String endDate)
+        {
+            DateTime outputStartDate, outputEndDate; //This line is so that continuous deployment doesn't fail.
+            return DateTime.TryParse(startDate, out outputStartDate) && DateTime.TryParse(endDate, out outputEndDate);
+        }
+
+        public bool checkTotalPrice(int totalPrice, SUPTransaction transaction)
+        {
+            return totalPrice == transaction.TotalPrice;
+        }
+
+        public int calculateTotalPrice(int days, int price)
+        {
+            int answer = days * price;
+            return(answer);
+        }
+
+        public bool IsValidDate(DateTime startDate, DateTime endDate)
+        {
+            var current = DateTime.Today;
+            return startDate >= current && endDate > startDate;
         }
 
         //// GET: SUPTransactions/Edit/5
@@ -201,6 +249,18 @@ namespace URent.Controllers
             int id = getSUPUserID(); //Retrieve ID of current user.
             var transactions = db.SUPTransactions.Where(u => u.RenterID == id); //Find all item listings the user has rented out from.
             return View(transactions.ToList());
+        }
+
+        /// <summary>
+        /// Query the db for all of the start and end dates any transaction.
+        /// </summary>
+        /// <returns>List of all the start and end dates of transaction for a given item</returns>
+        public JsonResult ExcludeTransactionDates(int? id)
+        {
+            var current = DateTime.Today;
+            var dates = db.SUPTransactions.Where(x => x.ItemID == id && x.StartDate >= current && x.EndDate > x.StartDate).Select(x => new { x.StartDate, x.EndDate }).ToList();
+            
+            return Json(dates, JsonRequestBehavior.AllowGet);
         }
     }
 }

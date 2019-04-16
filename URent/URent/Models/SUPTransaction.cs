@@ -18,12 +18,14 @@ namespace URent.Models
         [Display(Name = "End date")]
         public DateTime EndDate { get; set; }
 
-        public DateTime TimeStamp { get; set; }
+        public DateTime TimeStamp { get; set; } = DateTime.Now;
 
         [Display(Name = "Total price")]
         public decimal? TotalPrice { get; set; }
 
         public int RenterID { get; set; }
+
+        public int OwnerID { get; set; }
 
         public int? ItemID { get; set; }
 

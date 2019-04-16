@@ -4,11 +4,11 @@
     ViewBag.Title = Html.DisplayFor(model => model.ItemName);
 }
 
-@if (Request.IsAuthenticated) //Is a logged in user viewing this page?
+@*@if (Request.IsAuthenticated) //Is a logged in user viewing this page?
 {
     //If so, show the user sidebar.
     Layout = "~/Views/Shared/_UserPageLayout.cshtml";
-}
+}*@
 
 <div class="container">
     <!-- Item name -->
@@ -36,7 +36,7 @@
     <hr />
 
     <!-- Item details -->
-    <div class="row">     
+    <div class="row">
         <div class="col-sm-3">
             <dt>Owner name</dt>
             <dd>
@@ -90,7 +90,7 @@
     else
     {
         //If not, we show a "Request" button.
-        @Html.ActionLink("Request", "Create", "SUPRequests", new { itemId = Model.Id }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Set Available", "makeAvailable", "SUPItems",  new { itemId = Model.Id }, new { @class = "btn btn-primary" })
     }
 
     @if (Request.IsAuthenticated) //Is a logged in user viewing this page?
@@ -98,4 +98,26 @@
         //Show an "Edit listing" button.
         @Html.ActionLink("Edit listing", "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-primary" })
     }
+    <div type="hidden" id="itemId" data-id="@Model.Id"></div>
+    <br>
+
+    <label>Dates</label>
+    <p>
+        @*<div id="myDatePicker" class="DateBox datepicker" style="width:100%;height:200px;"></div>
+            <input class="form-group form-control col-md-2" type="hidden" id="dateHidden" name="datePicker" placeholder="MM/DD/YYYY" />*@
+        <input type="text" id="d"/>
+        <div id="z"></div>
+    </p>
+
+    @*<p>
+        <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" readonly />
+    </p>*@
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqueryui")
+    @Scripts.Render("~/Scripts/Calendar.js")
+    @Scripts.Render("~/Scripts/transactionPriceCalculator.js")
+}
