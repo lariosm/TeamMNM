@@ -21,7 +21,7 @@ namespace URent.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("MasonLocal", throwIfV1Schema: false)
+            : base("URentDB", throwIfV1Schema: false)
         {
         }
 
