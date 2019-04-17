@@ -211,5 +211,20 @@ namespace URent.Controllers
             var notifications = db.SUPTransactions.Where(u => u.OwnerID == id).OrderByDescending(x => x.TimeStamp); //Find all item listings that is requested/rented from other users
             return View(notifications.ToList()); // return list of transactions that have this owner's id
         }
+
+        public new ActionResult Profile(int? id)
+        {
+            SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
+            //if the user is the
+            if (id == null) //No user ID?
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (sUPUser == null) //Does a user account exist?
+            {
+                return HttpNotFound();
+            }
+            return View(sUPUser);
+        }
     }
 }
