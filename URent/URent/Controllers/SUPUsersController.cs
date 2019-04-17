@@ -215,7 +215,6 @@ namespace URent.Controllers
         public new ActionResult Profile(int? id)
         {
             SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
-            //if the user is the
             if (id == null) //No user ID?
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -224,6 +223,7 @@ namespace URent.Controllers
             {
                 return HttpNotFound();
             }
+            //returns the user with that SUPUser ID
             return View(sUPUser);
         }
     }
