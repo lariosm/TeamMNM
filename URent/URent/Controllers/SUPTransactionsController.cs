@@ -75,7 +75,7 @@ namespace URent.Controllers
         /// <param name="dailyPrice">Price on the item listing.</param>
         /// <returns>View of Create.cshtml</returns>
         [Authorize]
-        public ActionResult Create(int? itemId, decimal? dailyPrice)
+        public ActionResult Create(int itemId, decimal? dailyPrice)
         {
             SUPTransaction transaction = new SUPTransaction();
             transaction.ItemID = itemId;
