@@ -238,9 +238,11 @@
     <Compile Include="Models\SUPContext.cs" />
     <Compile Include="Models\SUPImage.cs" />
     <Compile Include="Models\SUPItem.cs" />
+    <Compile Include="Models\SUPItemReview.cs" />
     <Compile Include="Models\SUPRequest.cs" />
     <Compile Include="Models\SUPTransaction.cs" />
     <Compile Include="Models\SUPUser.cs" />
+    <Compile Include="Models\SUPUserReview.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

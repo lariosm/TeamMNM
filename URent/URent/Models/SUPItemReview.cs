@@ -6,21 +6,18 @@ namespace URent.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class SUPRequest
+    public partial class SUPItemReview
     {
         public int Id { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime StartDate { get; set; }
+        [Required]
+        public string Details { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime EndDate { get; set; }
+        public DateTime Timestamp { get; set; } = DateTime.Now;
 
-        public DateTime TimeStamp { get; set; } = DateTime.Now;
+        public int UserDoingReviewID { get; set; }
 
-        public int RenterID { get; set; }
-
-        public int ItemID { get; set; }
+        public int ItemBeingReviewedID { get; set; }
 
         public virtual SUPItem SUPItem { get; set; }
 

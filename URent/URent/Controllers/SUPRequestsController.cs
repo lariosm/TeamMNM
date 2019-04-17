@@ -73,7 +73,7 @@ namespace URent.Controllers
         /// <param name="itemId">ID of an item listing</param>
         /// <returns>View of Create.cshtml</returns>
         [Authorize]
-        public ActionResult Create(int? itemId)
+        public ActionResult Create(int itemId)
         {
             SUPRequest request = new SUPRequest();
             request.ItemID = itemId;

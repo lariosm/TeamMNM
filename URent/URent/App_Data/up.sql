@@ -63,6 +63,28 @@ CREATE TABLE [dbo].[SUPRequests]
 	CONSTRAINT [PK_dbo.SUPRequests] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
+CREATE TABLE [dbo].[SUPUserReviews]
+(
+	[Id]					INT IDENTITY (1,1)							NOT NULL,
+	[Details]				NVARCHAR(MAX)								NOT NULL,
+	[Timestamp]				DATETIME									NOT NULL,
+	[UserDoingReviewID]		INT FOREIGN KEY REFERENCES SUPUsers(Id)		NOT NULL,
+	[UserBeingReviewedID]	INT FOREIGN KEY REFERENCES SUPUsers(Id)		NOT NULL
+
+	CONSTRAINT [PK_dbo.SUPUserReviews] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[SUPItemReviews]
+(
+	[Id]					INT IDENTITY (1,1)							NOT NULL,
+	[Details]				NVARCHAR(MAX)								NOT NULL,
+	[Timestamp]				DATETIME									NOT NULL,
+	[UserDoingReviewID]		INT FOREIGN KEY REFERENCES SUPUsers(Id)		NOT NULL,
+	[ItemBeingReviewedID]	INT FOREIGN KEY REFERENCES SUPItems(Id)		NOT NULL
+
+	CONSTRAINT [PK_dbo.SUPItemReviews] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
 -- Identity tables
 
 
