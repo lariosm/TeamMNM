@@ -214,17 +214,19 @@ namespace URent.Controllers
 
         public new ActionResult Profile(int? id)
         {
-            SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
+            ProfileViewModel profile = new ProfileViewModel();
+            profile.sUPUser = db.SUPUsers.Find(id);
+            //SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
             if (id == null) //No user ID?
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            if (sUPUser == null) //Does a user account exist?
+            if (profile.sUPUser == null) //Does a user account exist?
             {
                 return HttpNotFound();
             }
             //returns the user with that SUPUser ID
-            return View(sUPUser);
+            return View(profile);
         }
     }
 }
