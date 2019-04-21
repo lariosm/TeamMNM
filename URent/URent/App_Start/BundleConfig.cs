@@ -8,6 +8,9 @@ namespace URent
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/addrautocomplete").Include(
+                        "~/Scripts/address-autofill.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jsessentials").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/bootstrap.bundle.min.js"));
