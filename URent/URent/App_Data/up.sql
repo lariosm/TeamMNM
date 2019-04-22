@@ -8,6 +8,8 @@ CREATE TABLE [dbo].[SUPUsers]
     [CityAddress]   NVARCHAR(128)           NOT NULL,
     [StateAddress]  NVARCHAR(128)           NOT NULL,
     [ZipCode]       NVARCHAR(128)           NOT NULL,
+	[Lat]			FLOAT					NOT NULL,
+	[Lng]			FLOAT					NOT NULL,
     [TimeStamp]     DATETIME                NOT NULL,
     [NetUserId]     NVARCHAR (128)          NULL
 
@@ -22,6 +24,8 @@ CREATE TABLE [dbo].[SUPItems]
     [TimeStamp]     DATETIME                NOT NULL,
     [IsAvailable]   BIT                     NOT NULL,
 	[DailyPrice]	DECIMAL					NOT NULL,
+	[Lat]			FLOAT					NOT NULL,
+	[Lng]			FLOAT					NOT NULL,
     [OwnerID]       INT FOREIGN KEY REFERENCES SUPUsers(Id) NOT NULL
 
 	CONSTRAINT [PK_dbo.SUPItems] PRIMARY KEY CLUSTERED ([Id] ASC)

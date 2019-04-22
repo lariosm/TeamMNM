@@ -24,39 +24,36 @@ namespace URent.Models
 
         [Required]
         [StringLength(100)]
-        [Display(Name = "First name")]
         public string FirstName { get; set; }
 
         [Required]
         [StringLength(100)]
-        [Display(Name = "Last name")]
         public string LastName { get; set; }
 
         [Column(TypeName = "date")]
-        [Display(Name = "Date of birth")]
         public DateTime DateOfBirth { get; set; }
 
         [Required]
         [StringLength(128)]
-        [Display(Name = "Street address")]
         public string StreetAddress { get; set; }
 
         [Required]
         [StringLength(128)]
-        [Display(Name = "City")]
         public string CityAddress { get; set; }
 
         [Required]
         [StringLength(128)]
-        [Display(Name = "State")]
         public string StateAddress { get; set; }
 
         [Required]
         [StringLength(128)]
-        [Display(Name = "Zip code")]
         public string ZipCode { get; set; }
 
-        public DateTime TimeStamp { get; set; } = DateTime.Now;
+        public double Lat { get; set; }
+
+        public double Lng { get; set; }
+
+        public DateTime TimeStamp { get; set; }
 
         [StringLength(128)]
         public string NetUserId { get; set; }
