@@ -13,7 +13,7 @@ namespace URent.Models
         [Required]
         public string Details { get; set; }
 
-        public DateTime Timestamp { get; set; }
+        public DateTime Timestamp { get; set; } = DateTime.Now;
 
         public int UserDoingReviewID { get; set; }
 

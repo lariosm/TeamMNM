@@ -48,28 +48,33 @@ namespace URent.Controllers
             sUPItems = db.SUPItems.Include(s => s.SUPUser).ToList();
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                sUPItems = GetItemWithinRange();
-                if(sUPItems == null)
+                if(GetItemWithinRange() != null)
                 {
-                    
+                    sUPItems = GetItemWithinRange();
+                    return View(sUPItems);
                 }
+                else
+                {
+                    return View(sUPItems);
+                }
+            }
+            else
+            {
                 return View(sUPItems);
             }
-                return View(sUPItems);
-            
         }
 
         public List<SUPItem> GetItemWithinRange()
         {
             var sampleDistance = 40000;
-            List<SUPItem> newList = null;
+            List<SUPItem> newList = new List<SUPItem>();
             GeoCoordinate itemLocation;
             var supUser = getSUPUserID();
             var userLat = db.SUPUsers.Where(x => x.Id.Equals(supUser)).Select(x => x.Lat).FirstOrDefault();
-            var userLng = db.SUPUsers.Where(x => x.Id.Equals(supUser)).Select(x => x.Lat).FirstOrDefault();
+            var userLng = db.SUPUsers.Where(x => x.Id.Equals(supUser)).Select(x => x.Lng).FirstOrDefault();
             var userLocation = new GeoCoordinate((double)userLat, (double)userLng);
             var sUPItems = db.SUPItems.Include(s => s.SUPUser).ToList();
-            for(int i = 0; i < sUPItems.Count() - 1; i++)
+            for(int i = 0; i < sUPItems.Count(); i++)
             {
                 itemLocation = new GeoCoordinate(sUPItems[i].Lat, sUPItems[i].Lng);
                 if(userLocation.GetDistanceTo(itemLocation) <= sampleDistance)

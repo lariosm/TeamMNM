@@ -53,7 +53,7 @@ namespace URent.Models
 
         public double Lng { get; set; }
 
-        public DateTime TimeStamp { get; set; }
+        public DateTime TimeStamp { get; set; } = DateTime.Now;
 
         [StringLength(128)]
         public string NetUserId { get; set; }
