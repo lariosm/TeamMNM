@@ -62,7 +62,7 @@
                 <div>
                     @Html.TextBoxFor(m => m.StateAddress, new { @class = "form-control", id = "administrative_area_level_1", @readonly = "readonly" })
                 </div>
-            </div>
+            </div>,
             <div class="form-group col-md-2">
                 @Html.LabelFor(m => m.ZipCode, "Zip code", new { @class = "control-label" })
                 <div>
@@ -70,11 +70,13 @@
                 </div>
             </div>
         </div>
-        <div>
-            <input class="form-group" id="lat" hidden />
-        </div>
-        <div>
-            <input class="form-group" id="lng" hidden />
+        <div class="container form-row">
+            <div class="form-group">
+                @Html.HiddenFor(m => m.Lat, new { id = "lat" })
+            </div>
+            <div class="form-group">
+                @Html.HiddenFor(m => m.Lng, new { id = "lng" })
+            </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })

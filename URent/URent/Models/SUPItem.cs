@@ -21,19 +21,20 @@ namespace URent.Models
 
         [Required]
         [StringLength(100)]
-        [Display(Name = "Item name")]
         public string ItemName { get; set; }
 
         [Required]
         public string Description { get; set; }
 
-        public DateTime TimeStamp { get; set; } = DateTime.Now;
+        public DateTime TimeStamp { get; set; }
 
-        [Display(Name = "Item availability")]
         public bool IsAvailable { get; set; }
 
-        [Display(Name = "Daily rate")]
         public decimal DailyPrice { get; set; }
+
+        public double Lat { get; set; }
+
+        public double Lng { get; set; }
 
         public int OwnerID { get; set; }
 

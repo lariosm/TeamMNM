@@ -74,7 +74,7 @@ function codeAddress() {
     geocoder.geocode({ 'address': address }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             document.getElementById("lat").value = results[0].geometry.location.lat();
-            document.getElementById("lng").value = results[0].geometry.location.lat();
+            document.getElementById("lng").value = results[0].geometry.location.lng();
             console.log("Latitude: " + results[0].geometry.location.lat());
             console.log("Longitude: " + results[0].geometry.location.lng());
         }
