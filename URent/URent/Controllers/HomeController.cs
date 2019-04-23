@@ -48,9 +48,9 @@ namespace URent.Controllers
             sUPItems = db.SUPItems.Include(s => s.SUPUser).ToList();
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                if(GetItemWithinRange() != null)
+                if(GetItemsWithinRange() != null)
                 {
-                    sUPItems = GetItemWithinRange();
+                    sUPItems = GetItemsWithinRange();
                     return View(sUPItems);
                 }
                 else
@@ -64,7 +64,11 @@ namespace URent.Controllers
             }
         }
 
-        public List<SUPItem> GetItemWithinRange()
+        /// <summary>
+        /// Displays item listings that are within a specified radius
+        /// </summary>
+        /// <returns>Items listings within a specified radius</returns>
+        public List<SUPItem> GetItemsWithinRange()
         {
             var sampleDistance = 40000;
             List<SUPItem> newList = new List<SUPItem>();
