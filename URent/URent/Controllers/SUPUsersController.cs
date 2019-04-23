@@ -212,6 +212,7 @@ namespace URent.Controllers
             return View(notifications.ToList()); // return list of transactions that have this owner's id
         }
 
+        [HttpGet]
         public new ActionResult Profile(int? id)
         {
             ProfileViewModel profile = new ProfileViewModel();
@@ -227,6 +228,12 @@ namespace URent.Controllers
             }
             //returns the user with that SUPUser ID
             return View(profile);
+        }
+
+        [HttpPost]
+        public ActionResult Profile()
+        {
+            return View();
         }
     }
 }
