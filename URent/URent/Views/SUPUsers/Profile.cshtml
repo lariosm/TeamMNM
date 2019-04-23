@@ -1,0 +1,28 @@
+﻿@model URent.Models.ProfileViewModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2>Profile</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sUPUser.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUPUser.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUPUser.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUPUser.LastName)
+        </dd>
+    </dl>
+</div>

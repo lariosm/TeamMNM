@@ -8,6 +8,8 @@ CREATE TABLE [dbo].[SUPUsers]
     [CityAddress]   NVARCHAR(128)           NOT NULL,
     [StateAddress]  NVARCHAR(128)           NOT NULL,
     [ZipCode]       NVARCHAR(128)           NOT NULL,
+	[Lat]			FLOAT					NOT NULL,
+	[Lng]			FLOAT					NOT NULL,
     [TimeStamp]     DATETIME                NOT NULL,
     [NetUserId]     NVARCHAR (128)          NULL
 
@@ -22,6 +24,8 @@ CREATE TABLE [dbo].[SUPItems]
     [TimeStamp]     DATETIME                NOT NULL,
     [IsAvailable]   BIT                     NOT NULL,
 	[DailyPrice]	DECIMAL					NOT NULL,
+	[Lat]			FLOAT					NOT NULL,
+	[Lng]			FLOAT					NOT NULL,
     [OwnerID]       INT FOREIGN KEY REFERENCES SUPUsers(Id) NOT NULL
 
 	CONSTRAINT [PK_dbo.SUPItems] PRIMARY KEY CLUSTERED ([Id] ASC)
@@ -61,6 +65,28 @@ CREATE TABLE [dbo].[SUPRequests]
 	[ItemID]		INT FOREIGN KEY REFERENCES SUPItems(Id)	NOT NULL
 
 	CONSTRAINT [PK_dbo.SUPRequests] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[SUPUserReviews]
+(
+	[Id]					INT IDENTITY (1,1)							NOT NULL,
+	[Details]				NVARCHAR(MAX)								NOT NULL,
+	[Timestamp]				DATETIME									NOT NULL,
+	[UserDoingReviewID]		INT FOREIGN KEY REFERENCES SUPUsers(Id)		NOT NULL,
+	[UserBeingReviewedID]	INT FOREIGN KEY REFERENCES SUPUsers(Id)		NOT NULL
+
+	CONSTRAINT [PK_dbo.SUPUserReviews] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[SUPItemReviews]
+(
+	[Id]					INT IDENTITY (1,1)							NOT NULL,
+	[Details]				NVARCHAR(MAX)								NOT NULL,
+	[Timestamp]				DATETIME									NOT NULL,
+	[UserDoingReviewID]		INT FOREIGN KEY REFERENCES SUPUsers(Id)		NOT NULL,
+	[ItemBeingReviewedID]	INT FOREIGN KEY REFERENCES SUPItems(Id)		NOT NULL
+
+	CONSTRAINT [PK_dbo.SUPItemReviews] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 -- Identity tables

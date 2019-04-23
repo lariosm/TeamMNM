@@ -95,6 +95,14 @@ namespace URent.Models
         public virtual string ZipCode { get; set; }
 
         [Required]
+        [Display(Name = "Latitude")]
+        public virtual decimal Lat { get; set; }
+
+        [Required]
+        [Display(Name = "Longitude")]
+        public virtual decimal Lng { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

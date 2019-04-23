@@ -14,16 +14,16 @@
             @Html.DisplayNameFor(model => model.SUPItem.ItemName)
         </th>
         <th>
-            Renter Name
+            Renter name
+        </th>
+        <th>
+            Renter location
         </th>
         <th>
             @Html.DisplayNameFor(model => model.StartDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeStamp)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TotalPrice)
@@ -33,26 +33,28 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SUPItem.ItemName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeStamp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SUPItem.ItemName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
+            @Html.DisplayFor(modelItem => item.SUPUser.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SUPUser.CityAddress),
+            @Html.DisplayFor(modelItem => item.SUPUser.StateAddress)
+        </td>
+        <td>
+            @String.Format("{0:MM/dd/yyyy}", item.StartDate)
+        </td>
+        <td>
+            @String.Format("{0:MM/dd/yyyy}", item.EndDate)
+        </td>
+        <td>
+            @String.Format("{0:C}", item.TotalPrice)
+        </td>
+    </tr>
     }
 
 </table>

@@ -1,3 +1,5 @@
+DROP TABLE [dbo].[SUPUserReviews]
+DROP TABLE [dbo].[SUPItemReviews]
 DROP TABLE [dbo].[SUPTransactions]
 DROP TABLE [dbo].[SUPRequests]
 DROP TABLE [dbo].[SUPImages]

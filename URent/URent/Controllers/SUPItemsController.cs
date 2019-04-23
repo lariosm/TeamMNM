@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Device.Location;
 using Microsoft.AspNet.Identity;
 using URent.Models;
 
@@ -130,8 +131,11 @@ namespace URent.Controllers
             if (ModelState.IsValid) //Are all required fields filled out and valid?
             {
                 sUPItem.OwnerID = getSUPUserID(); //Retrieve ID of current user to bind to item listing.
+                sUPItem.Lat = db.SUPUsers.Where(x => x.Id.Equals(sUPItem.OwnerID)).Select(x => x.Lat).FirstOrDefault();
+                sUPItem.Lng = db.SUPUsers.Where(x => x.Id.Equals(sUPItem.OwnerID)).Select(x => x.Lng).FirstOrDefault();
+                
 
-                if(photoElementID != null) //is a photo ID value present?
+                if (photoElementID != null) //is a photo ID value present?
                 {
                     //Add the item listing to the database
                     db.SUPItems.Add(sUPItem);
