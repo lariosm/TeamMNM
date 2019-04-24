@@ -230,10 +230,20 @@ namespace URent.Controllers
             return View(profile);
         }
 
-        [HttpPost]
-        public ActionResult Profile()
+        [HttpPost, Authorize]
+        public new ActionResult Profile([Bind(Include = "Id,Details,TimeStamp,UserDoingReviewID,UserBeingReviewedID")] SUPUserReview sUPUserReview, [Bind(Include = "FirstName,LastName")] SUPUser sUPuser)
         {
-            return View();
+            ProfileViewModel profile = new ProfileViewModel();
+            profile.sUPUser = db.SUPUsers.Where(x => x.Id == sUPUserReview.UserBeingReviewedID).Single();
+
+            if (ModelState.IsValid) //Are all required fields filled out and valid?
+            {
+                //Add the item listing to the database
+                db.SUPUserReviews.Add(sUPUserReview);
+                db.SaveChanges();
+            }
+
+            return View(profile);
         }
     }
 }
