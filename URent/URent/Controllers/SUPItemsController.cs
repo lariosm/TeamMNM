@@ -10,12 +10,20 @@ using System.Web.Mvc;
 using System.Device.Location;
 using Microsoft.AspNet.Identity;
 using URent.Models;
+using URent.Abstract;
 
 namespace URent.Controllers
 {
     public class SUPItemsController : Controller
     {
         private SUPContext db = new SUPContext();
+
+        //private ISUPRepository db;
+
+        //public SUPItemsController(ISUPRepository itemsRepository)
+        //{
+        //    db = itemsRepository;
+        //}
 
         /// <summary>
         /// Retrieves user ID of current user from AspNetUsers table.
