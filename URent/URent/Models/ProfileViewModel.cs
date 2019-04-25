@@ -17,10 +17,10 @@ namespace URent.Models
         public virtual string LastName { get; set; }
 
         [Required]
-        public virtual int? UserBeingReviewedId { get; set; }
+        public virtual int? UserBeingReviewedID { get; set; }
 
-        //[Required]
-        //public virtual string UserDoingReviewId { get; set; }
+        [Required]
+        public virtual int? UserDoingReviewID { get; set; }
 
         [Required]
         [Display(Name = "Review Details")]
