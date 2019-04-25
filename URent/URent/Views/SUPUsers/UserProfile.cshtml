@@ -45,14 +45,16 @@
             @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
         </div>
 
-        @Html.HiddenFor(model => model.UserBeingReviewedId)
+        @Html.HiddenFor(model => model.UserBeingReviewedID)
+        @Html.HiddenFor(model => model.UserDoingReviewID)
+
 
     </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            @*<input type="submit" value="Submit Review" class="btn btn-primary" />*@
-            @Html.ActionLink("Submit Review", "addUserReview", new { @class = "btn btn-primary" })
+            <input type="submit" value="Submit Review" class="btn btn-primary" />
+            @*@Html.ActionLink("Submit Review", "addUserReview",new { reviewer = Model.UserDoingReviewId, reviewed = Model.UserBeingReviewedId , details = Model.Details}, new { @class = "btn btn-primary" })*@
         </div>
     </div>
  }

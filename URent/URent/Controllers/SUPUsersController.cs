@@ -216,7 +216,8 @@ namespace URent.Controllers
         public ActionResult UserProfile(int? id)
         {
             ProfileViewModel profile = new ProfileViewModel();
-            profile.UserBeingReviewedId = id;
+            profile.UserBeingReviewedID = id;
+            profile.UserDoingReviewID = getSUPUserID();
             profile.FirstName = db.SUPUsers.Where(x => x.Id == id).Select(y => y.FirstName).FirstOrDefault();
             profile.LastName = db.SUPUsers.Where(x => x.Id == id).Select(y => y.LastName).FirstOrDefault();
 
@@ -225,7 +226,7 @@ namespace URent.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            if (profile.UserBeingReviewedId == null) //Does a user account exist?
+            if (profile.UserBeingReviewedID == null) //Does a user account exist?
             {
                 return HttpNotFound();
             }
@@ -250,12 +251,13 @@ namespace URent.Controllers
         //    return RedirectToAction("UserProfile", new { id = sUPUserReview.UserBeingReviewedID} );
         //}
 
-        public ActionResult addUserReview(ProfileViewModel profile)
+        [HttpPost]
+        public ActionResult UserProfile([Bind(Include = "Details, UserBeingReviewedID, UserDoingReviewID")]ProfileViewModel userReview)
         {
-            SUPUserReview r = new SUPUserReview { Details = profile.Details, UserBeingReviewedID = profile.UserBeingReviewedId, UserDoingReviewID = getSUPUserID()};
+            SUPUserReview r = new SUPUserReview { Details = userReview.Details, UserBeingReviewedID = userReview.UserBeingReviewedID, UserDoingReviewID = userReview.UserDoingReviewID};
             db.SUPUserReviews.Add(r);
             db.SaveChanges();
-            return RedirectToAction("UserProfile", new { id = profile.UserBeingReviewedId});
+            return RedirectToAction("UserProfile", new { id = userReview.UserBeingReviewedID});
         }
     }
 }
