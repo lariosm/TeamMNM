@@ -18,12 +18,12 @@ namespace URent.Controllers
     {
         private SUPContext db = new SUPContext();
 
-        //private ISUPRepository db;
+        private ISUPRepository repo;
 
-        //public SUPItemsController(ISUPRepository itemsRepository)
-        //{
-        //    db = itemsRepository;
-        //}
+        public SUPItemsController(ISUPRepository itemsRepository)
+        {
+            repo = itemsRepository;
+        }
 
         /// <summary>
         /// Retrieves user ID of current user from AspNetUsers table.
