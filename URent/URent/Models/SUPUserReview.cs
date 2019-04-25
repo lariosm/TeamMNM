@@ -15,9 +15,9 @@ namespace URent.Models
 
         public DateTime Timestamp { get; set; } = DateTime.Now;
 
-        public int UserDoingReviewID { get; set; }
+        public int? UserDoingReviewID { get; set; }
 
-        public int UserBeingReviewedID { get; set; }
+        public int? UserBeingReviewedID { get; set; }
 
         public virtual SUPUser SUPUser { get; set; }
 

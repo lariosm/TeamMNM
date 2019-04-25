@@ -213,16 +213,19 @@ namespace URent.Controllers
         }
 
         [HttpGet]
-        public new ActionResult Profile(int? id)
+        public ActionResult UserProfile(int? id)
         {
             ProfileViewModel profile = new ProfileViewModel();
-            profile.sUPUser = db.SUPUsers.Find(id);
+            profile.UserBeingReviewedId = id;
+            profile.FirstName = db.SUPUsers.Where(x => x.Id == id).Select(y => y.FirstName).FirstOrDefault();
+            profile.LastName = db.SUPUsers.Where(x => x.Id == id).Select(y => y.LastName).FirstOrDefault();
+
             //SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
             if (id == null) //No user ID?
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            if (profile.sUPUser == null) //Does a user account exist?
+            if (profile.UserBeingReviewedId == null) //Does a user account exist?
             {
                 return HttpNotFound();
             }
@@ -230,20 +233,29 @@ namespace URent.Controllers
             return View(profile);
         }
 
-        [HttpPost, Authorize]
-        public new ActionResult Profile([Bind(Include = "Id,Details,TimeStamp,UserDoingReviewID,UserBeingReviewedID")] SUPUserReview sUPUserReview, [Bind(Include = "FirstName,LastName")] SUPUser sUPuser)
+        //[HttpPost, Authorize]
+        //public ActionResult UserProfile([Bind(Include = "Details, UserBeingReviewedId")] SUPUserReview sUPUserReview)
+        //{
+        //    var userDoingReview = getSUPUserID();
+        //    sUPUserReview.UserDoingReviewID = userDoingReview;
+        //    //profile.sUPUser = db.SUPUsers.Where(x => x.Id == sUPUserReview.UserBeingReviewedID).FirstOrDefault();
+
+        //    if (ModelState.IsValid) //Are all required fields filled out and valid?
+        //    {
+        //        //Add the item listing to the database
+        //        db.SUPUserReviews.Add(sUPUserReview);
+        //        db.SaveChanges();
+        //    }
+
+        //    return RedirectToAction("UserProfile", new { id = sUPUserReview.UserBeingReviewedID} );
+        //}
+
+        public ActionResult addUserReview(ProfileViewModel profile)
         {
-            ProfileViewModel profile = new ProfileViewModel();
-            profile.sUPUser = db.SUPUsers.Where(x => x.Id == sUPUserReview.UserBeingReviewedID).Single();
-
-            if (ModelState.IsValid) //Are all required fields filled out and valid?
-            {
-                //Add the item listing to the database
-                db.SUPUserReviews.Add(sUPUserReview);
-                db.SaveChanges();
-            }
-
-            return View(profile);
+            SUPUserReview r = new SUPUserReview { Details = profile.Details, UserBeingReviewedID = profile.UserBeingReviewedId, UserDoingReviewID = getSUPUserID()};
+            db.SUPUserReviews.Add(r);
+            db.SaveChanges();
+            return RedirectToAction("UserProfile", new { id = profile.UserBeingReviewedId});
         }
     }
 }

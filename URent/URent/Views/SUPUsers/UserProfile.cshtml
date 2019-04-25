@@ -1,0 +1,58 @@
+﻿@model URent.Models.ProfileViewModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2>Profile</h2>
+
+
+@using (Html.BeginForm())
+ {
+    @Html.AntiForgeryToken()
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+        </dl>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Details, new
+       {
+           @class = "form-control",
+           @rows = 10,
+           @placeholder = "Review this user..."
+       })
+            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.HiddenFor(model => model.UserBeingReviewedId)
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @*<input type="submit" value="Submit Review" class="btn btn-primary" />*@
+            @Html.ActionLink("Submit Review", "addUserReview", new { @class = "btn btn-primary" })
+        </div>
+    </div>
+ }
