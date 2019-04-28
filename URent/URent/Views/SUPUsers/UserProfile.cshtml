@@ -8,7 +8,7 @@
 
 
 @using (Html.BeginForm())
- {
+{
     @Html.AntiForgeryToken()
     <div>
         <hr />
@@ -57,4 +57,24 @@
             @*@Html.ActionLink("Submit Review", "addUserReview",new { reviewer = Model.UserDoingReviewId, reviewed = Model.UserBeingReviewedId , details = Model.Details}, new { @class = "btn btn-primary" })*@
         </div>
     </div>
- }
+}
+
+<table class="table">
+
+    @foreach (var item in Model.sUPUserReviews)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Timestamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserDoingReviewID)
+            </td>
+        </tr>
+    }
+
+</table>
+
