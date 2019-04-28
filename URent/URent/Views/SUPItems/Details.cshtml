@@ -1,18 +1,18 @@
-﻿ @model URent.Models.SUPItem
+﻿@model URent.Models.ItemDetailsViewModel
 
 @{
-    ViewBag.Title = Html.DisplayFor(model => model.ItemName);
+    ViewBag.Title = Html.DisplayFor(model => model.sUPItem.ItemName);
 }
 
 @*@if (Request.IsAuthenticated) //Is a logged in user viewing this page?
-{
-    //If so, show the user sidebar.
-    Layout = "~/Views/Shared/_UserPageLayout.cshtml";
-}*@
+    {
+        //If so, show the user sidebar.
+        Layout = "~/Views/Shared/_UserPageLayout.cshtml";
+    }*@
 
 <div class="container">
     <!-- Item name -->
-    <h2>@Html.DisplayFor(model => model.ItemName)</h2>
+    <h2>@Html.DisplayFor(model => model.sUPItem.ItemName)</h2>
     <br />
 
     <!-- Item photo -->
@@ -40,27 +40,27 @@
         <div class="col-sm-3">
             <dt>Owner name</dt>
             <dd>
-                @Html.DisplayFor(model => model.SUPUser.FirstName)
-                @Html.DisplayFor(model => model.SUPUser.LastName)
-                @Html.ActionLink("Name","UserProfile", "SUPUsers",new { id = Model.SUPUser.Id}, null)
+                @Html.DisplayFor(model => model.sUPItem.SUPUser.FirstName)
+                @Html.DisplayFor(model => model.sUPItem.SUPUser.LastName)
+                @Html.ActionLink("Name", "UserProfile", "SUPUsers", new { id = Model.sUPItem.SUPUser.Id }, null)
             </dd>
         </div>
         <div class="col-sm-3">
             <dt>Item location</dt>
             <dd>
-                @Html.DisplayFor(model => model.SUPUser.CityAddress),
-                @Html.DisplayFor(model => model.SUPUser.StateAddress)
+                @Html.DisplayFor(model => model.sUPItem.SUPUser.CityAddress),
+                @Html.DisplayFor(model => model.sUPItem.SUPUser.StateAddress)
             </dd>
         </div>
         <div class="col-sm-3">
-            <dt>@Html.DisplayNameFor(model => model.DailyPrice)</dt>
+            <dt>@Html.DisplayNameFor(model => model.sUPItem.DailyPrice)</dt>
             <dd>
-                @String.Format("{0:C}", Model.DailyPrice)/day
+                @String.Format("{0:C}", Model.sUPItem.DailyPrice)/day
             </dd>
         </div>
         <div class="col-sm-3">
-            <dt>@Html.DisplayNameFor(model => model.IsAvailable)</dt>
-            @if (Model.IsAvailable == true)
+            <dt>@Html.DisplayNameFor(model => model.sUPItem.IsAvailable)</dt>
+            @if (Model.sUPItem.IsAvailable == true)
             {
                 <dd style="color:green">Available</dd>
             }
@@ -75,45 +75,93 @@
     <div class="row">
         <div class="col-sm-12">
             <dl>
-                <dt>@Html.DisplayNameFor(model => model.Description)</dt>
-                <dd>@Html.DisplayFor(model => model.Description)</dd>
+                <dt>@Html.DisplayNameFor(model => model.sUPItem.Description)</dt>
+                <dd>@Html.DisplayFor(model => model.sUPItem.Description)</dd>
             </dl>
         </div>
     </div>
 
     <br />
 
-    @if (Model.IsAvailable == true) //Is the item available?
+    @if (Model.sUPItem.IsAvailable == true) //Is the item available?
     {
         //If so, then we show a "Rent" button.
-        @Html.ActionLink("Rent", "Create", "SUPTransactions", new { itemId = Model.Id, dailyPrice = Model.DailyPrice }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Rent", "Create", "SUPTransactions", new { itemId = Model.sUPItem.Id, dailyPrice = Model.sUPItem.DailyPrice }, new { @class = "btn btn-primary" })
     }
     else
     {
         //If not, we show a "Request" button.
-        @Html.ActionLink("Set Available", "makeAvailable", "SUPItems",  new { itemId = Model.Id }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Set Available", "makeAvailable", "SUPItems", new { itemId = Model.sUPItem.Id }, new { @class = "btn btn-primary" })
     }
 
     @if (Request.IsAuthenticated) //Is a logged in user viewing this page?
     {
         //Show an "Edit listing" button.
-        @Html.ActionLink("Edit listing", "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-primary" })
+        @Html.ActionLink("Edit listing", "Edit", new { id = Model.sUPItem.Id }, new { @class = "btn btn-outline-primary" })
     }
-    <div type="hidden" id="itemId" data-id="@Model.Id"></div>
+    <div type="hidden" id="itemId" data-id="@Model.sUPItem.Id"></div>
     <br>
 
     <label>Dates</label>
     <p>
         @*<div id="myDatePicker" class="DateBox datepicker" style="width:100%;height:200px;"></div>
             <input class="form-group form-control col-md-2" type="hidden" id="dateHidden" name="datePicker" placeholder="MM/DD/YYYY" />*@
-        <input type="text" id="d"/>
+        <input type="text" id="d" />
         <div id="z"></div>
     </p>
 
     @*<p>
-        <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" readonly />
-    </p>*@
+            <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" readonly />
+        </p>*@
 </div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @*@Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label col-md-2" })*@
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Details, new
+       {
+           @class = "form-control",
+           @rows = 5,
+           @placeholder = "Review this item..."
+       })
+            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.HiddenFor(model => model.ItemBeingReviewedID)
+        @Html.HiddenFor(model => model.UserDoingReviewID)
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Submit Review" class="btn btn-primary" />
+            @*@Html.ActionLink("Submit Review", "addUserReview",new { reviewer = Model.UserDoingReviewId, reviewed = Model.UserBeingReviewedId , details = Model.Details}, new { @class = "btn btn-primary" })*@
+        </div>
+    </div>
+}
+
+<table class="table">
+
+    @foreach (var item in Model.sUPItemReviews)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Timestamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserDoingReviewID)
+            </td>
+        </tr>
+    }
+
+</table>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
