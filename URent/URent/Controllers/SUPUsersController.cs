@@ -220,6 +220,7 @@ namespace URent.Controllers
             profile.UserDoingReviewID = getSUPUserID();
             profile.FirstName = db.SUPUsers.Where(x => x.Id == id).Select(y => y.FirstName).FirstOrDefault();
             profile.LastName = db.SUPUsers.Where(x => x.Id == id).Select(y => y.LastName).FirstOrDefault();
+            profile.sUPUserReviews = db.SUPUserReviews.Include(x => x.SUPUser).ToList();
 
             //SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
             if (id == null) //No user ID?

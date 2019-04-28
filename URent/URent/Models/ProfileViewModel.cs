@@ -30,6 +30,6 @@ namespace URent.Models
 
         //public SUPUserReview sUPUserReview { get; set; }
 
-        //public IEnumerable<SUPUserReview> sUPUserReviews { get; set; }
+        public IEnumerable<SUPUserReview> sUPUserReviews { get; set; }
     }
 }
