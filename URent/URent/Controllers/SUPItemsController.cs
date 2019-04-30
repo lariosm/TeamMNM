@@ -296,8 +296,14 @@ namespace URent.Controllers
         public ActionResult GetUserItems()
         {
             int userId = getSUPUserID(); //Retrieves ID of current user.
-            var myItems = db.SUPItems.Where(u => u.OwnerID == userId); //Find all listings created by that user.
+            var myItems = GetItemsByUserId(userId); //Find all listings created by that user.
             return View(myItems.ToList());
+        }
+
+        public List<SUPItem> GetItemsByUserId(int id)
+        {
+            List<SUPItem> myItems = repo.SUPItems.Where(u => u.OwnerID == id).ToList();
+            return myItems;
         }
 
         /* DropZone Method called from Form element in View */
@@ -397,7 +403,7 @@ namespace URent.Controllers
 
         public List<SUPItem> GetListOfItemsWithQueryString(string query)
         {
-            var sUPItems = db.SUPItems.Where(s => s.ItemName.Contains(query)); //Performs the query
+            var sUPItems = repo.SUPItems.Where(s => s.ItemName.Contains(query)); //Performs the query
 
             return sUPItems.ToList();
         }
