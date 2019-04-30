@@ -144,24 +144,26 @@
     </div>
 }
 
-<table class="table">
+    <table class="table">
+        @if (Model.sUPItemReviews != null)
+        {
+            foreach (var item in Model.sUPItemReviews)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Timestamp)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Details)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserDoingReviewID)
+                    </td>
+                </tr>
+            }
+        }
 
-    @foreach (var item in Model.sUPItemReviews)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Timestamp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Details)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserDoingReviewID)
-            </td>
-        </tr>
-    }
-
-</table>
+    </table>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
