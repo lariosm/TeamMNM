@@ -42,7 +42,8 @@
             <dd>
                 @Html.DisplayFor(model => model.sUPItem.SUPUser.FirstName)
                 @Html.DisplayFor(model => model.sUPItem.SUPUser.LastName)
-                @Html.ActionLink("Name", "UserProfile", "SUPUsers", new { id = Model.sUPItem.SUPUser.Id }, null)
+            <br />
+                @Html.ActionLink("Visit the owner's profile", "UserProfile", "SUPUsers", new { id = Model.sUPItem.SUPUser.Id }, null)
             </dd>
         </div>
         <div class="col-sm-3">
@@ -143,7 +144,7 @@
         </div>
     </div>
 }
-
+<h5>This Item's Reviews...</h5>
     <table class="table">
         @if (Model.sUPItemReviews != null)
         {
@@ -156,9 +157,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Details)
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.UserDoingReviewID)
-                    </td>
+                    </td>*@
                 </tr>
             }
         }

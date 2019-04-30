@@ -58,7 +58,7 @@
         </div>
     </div>
 }
-
+<h5>This User's Reviews...</h5>
 <table class="table">
 
     @foreach (var item in Model.sUPUserReviews)
@@ -70,9 +70,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Details)
             </td>
-            <td>
+            @*<td>
+                @ViewBag.ReviewerName
                 @Html.DisplayFor(modelItem => item.UserDoingReviewID)
-            </td>
+            </td>*@
         </tr>
     }
 

@@ -239,6 +239,7 @@ namespace URent.Controllers
                 return HttpNotFound();
             }
             //returns the user with that SUPUser ID
+            ViewBag.ReviewerName = db.SUPUsers.Where(x => x.Id == profile.UserDoingReviewID).Select(y => y.FirstName).ToString();
             return View(profile);
         }
 
