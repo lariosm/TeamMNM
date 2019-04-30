@@ -11,7 +11,7 @@
         @Html.AntiForgeryToken()
         <h4>Create an account</h4>
         <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger"})
+        @Html.ValidationSummary("", new { @class = "text-danger" })
 
         <div class="form-group">
             @Html.LabelFor(m => m.FirstName, "First name", new { @class = "col-md-2 control-label" })
@@ -37,17 +37,22 @@
                 @Html.EditorFor(m => m.DateOfBirth, new { htmlAttributes = new { @class = "form-control", placeholder = "MM/DD/YYYY", id = "dob" } })
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-md-6" id="locationField">
+                <input class="col-md-12" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text" />
+            </div>
+        </div>
         <div class="container form-row">
             <div class="form-group col-md-3">
                 @Html.LabelFor(m => m.StreetAddress, "Street address", new { @class = "control-label" })
                 <div>
-                    @Html.TextBoxFor(m => m.StreetAddress, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.StreetAddress, new { @class = "form-control", id = "address", @readonly = "readonly" })
                 </div>
             </div>
             <div class="form-group col-md-3">
                 @Html.LabelFor(m => m.CityAddress, "City", new { @class = "control-label" })
                 <div>
-                    @Html.TextBoxFor(m => m.CityAddress, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.CityAddress, new { @class = "form-control", id = "locality", @readonly = "readonly" })
                 </div>
             </div>
         </div>
@@ -55,14 +60,22 @@
             <div class="form-group col-md-3">
                 @Html.LabelFor(m => m.StateAddress, "State", new { @class = "control-label" })
                 <div>
-                    @Html.TextBoxFor(m => m.StateAddress, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.StateAddress, new { @class = "form-control", id = "administrative_area_level_1", @readonly = "readonly" })
                 </div>
-            </div>
+            </div>,
             <div class="form-group col-md-2">
                 @Html.LabelFor(m => m.ZipCode, "Zip code", new { @class = "control-label" })
                 <div>
-                    @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control", id = "postal_code", @readonly = "readonly" })
                 </div>
+            </div>
+        </div>
+        <div class="container form-row">
+            <div class="form-group">
+                @Html.HiddenFor(m => m.Lat, new { id = "lat" })
+            </div>
+            <div class="form-group">
+                @Html.HiddenFor(m => m.Lng, new { id = "lng" })
             </div>
         </div>
         <div class="form-group">
@@ -90,4 +103,8 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/cssjqueryui")
     @Scripts.Render("~/Scripts/Calendar.js")
+    @Scripts.Render("~/bundles/addrautocomplete")
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8V4o6X0N4uHMly3XtqY4lZjBOHwOHxSE&libraries=places&callback=initAutocomplete"
+            async defer></script>
 }

@@ -1,0 +1,72 @@
+﻿@model URent.Models.ProfileViewModel
+
+@{
+    ViewBag.Title = "User profile";
+}
+
+<div class="container">
+    <h2>User Profile</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FirstName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LastName)
+                </dd>
+
+            </dl>
+
+        </div>
+
+        <br />
+        <br />
+
+        <h3>User reviews for this user</h3>
+
+        <table class="table">
+            <tr>
+                @*<th>User ID</th>*@
+                <th>Review</th>
+                <th>Posted on</th>
+            </tr>
+
+            @foreach (var item in Model.sUPUserReviews)
+            {
+                <tr>
+                    @*<td>@Html.DisplayFor(modelItem => item.UserDoingReviewID)</td>*@
+                    <td>@Html.DisplayFor(modelItem => item.Details)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
+                </tr>
+            }
+        </table>
+
+        <br />
+        <br />
+
+        <h3>Leave a review for this user</h3>
+        <hr />
+        <div class="form-group">
+            @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 5, @placeholder = "Review this user..." })
+            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+
+
+            @Html.HiddenFor(model => model.UserBeingReviewedID)
+            @Html.HiddenFor(model => model.UserDoingReviewID)
+        </div>
+        <input type="submit" value="Submit Review" class="btn btn-primary" />
+    }
+</div>

@@ -3,6 +3,29 @@
     ViewBag.Title = "Search results";
 }
 <div class="container">
+
+    <form action="/SUPItems/Search" method="get">
+        <label for="distanceSelect">Show item listings within</label>
+        <div class="input-group">
+            <input name="query" id="geoCoordinate" value="@ViewBag.ResultString" hidden />
+            <select name="radius" class="form-control col-sm-2" id="distanceSelect">
+                <option>--Select a radius--</option>
+                <option>5</option>
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+                <option>100</option>
+            </select>
+            <div class="input-group-append">
+                <div class="input-group-text">mi</div>
+                <button class="btn btn-outline-primary search-btn-outline" type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </form>
+
+    <br />
+    <br />
+
     @if (ViewBag.ShowError)
     {
         <p>Your search didn't return any matches.</p>
@@ -27,7 +50,7 @@
                                 <img class="card-img-top" src="https://via.placeholder.com/450x250?text=No+photo+to+display" alt="Listing photo">
                             </a>
                             <div class="card-body">
-                                <h5 class="card-title">@Html.ActionLink(Model[i].ItemName, "Details", "SUPItems", new { id = Model[i].Id })</h5>
+                                <h5 class="card-title">@Html.ActionLink(Model[i].ItemName, "Details", "SUPItems", new { id = Model[i].Id }, null)</h5>
                                 <p class="card-text">@Model[i].SUPUser.CityAddress, @Model[i].SUPUser.StateAddress</p>
                                 <p class="card-subtitle"><b>@String.Format("{0:C}", Model[i].DailyPrice)/day</b></p>
                                 @if (Model[i].IsAvailable)
@@ -39,7 +62,7 @@
                                     <p class="card-text" style="color:red">Not available</p>
                                 }
                                 <br />
-                                @Html.ActionLink("View listing", "Details", "SUPItems", new { id = Model[i].Id }, new { @class = "btn btn-primary"})
+                                @Html.ActionLink("View listing", "Details", "SUPItems", new { id = Model[i].Id }, new { @class = "btn btn-primary" })
                             </div>
                         </div>
                     </div>

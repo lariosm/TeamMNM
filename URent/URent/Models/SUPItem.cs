@@ -12,6 +12,7 @@ namespace URent.Models
         public SUPItem()
         {
             SUPImages = new HashSet<SUPImage>();
+            SUPItemReviews = new HashSet<SUPItemReview>();
             SUPRequests = new HashSet<SUPRequest>();
             SUPTransactions = new HashSet<SUPTransaction>();
         }
@@ -31,13 +32,20 @@ namespace URent.Models
         [Display(Name = "Item availability")]
         public bool IsAvailable { get; set; }
 
-        [Display(Name = "Daily rate")]
+        [Display(Name = "Daily price ($/day)")]
         public decimal DailyPrice { get; set; }
+
+        public double Lat { get; set; }
+
+        public double Lng { get; set; }
 
         public int OwnerID { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SUPImage> SUPImages { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SUPItemReview> SUPItemReviews { get; set; }
 
         public virtual SUPUser SUPUser { get; set; }
 

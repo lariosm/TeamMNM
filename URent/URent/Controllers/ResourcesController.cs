@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -72,5 +73,28 @@ namespace URent.Controllers
             return (name);
         }
 
+        /// <summary>
+        /// Returns client's current location information in JSON form.
+        /// </summary>
+        /// <returns>Client's current location info</returns>
+        public JsonResult CurrentLocation()
+        {
+            //URI to contact IPLocate's servers using client's current IP address
+            string uri = "https://www.iplocate.io/api/lookup/" + Request.UserHostAddress;
+
+            //Create a web request
+            WebRequest dataRequest = WebRequest.Create(uri);
+
+            //Get JSON data 
+            Stream dataStream = dataRequest.GetResponse().GetResponseStream();
+
+            //Parse the received JSON data
+            var parsedData = new System.Web.Script.Serialization.JavaScriptSerializer()
+                                  .DeserializeObject(new StreamReader(dataStream)
+                                  .ReadToEnd());
+
+            //return JSON data
+            return Json(parsedData, JsonRequestBehavior.AllowGet);
+        }
     }
 }

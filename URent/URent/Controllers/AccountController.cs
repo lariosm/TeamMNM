@@ -156,7 +156,7 @@ namespace URent.Controllers
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
-                var myuser = new SUPUser { FirstName = model.FirstName, LastName = model.LastName, DateOfBirth = model.DateOfBirth, StreetAddress = model.StreetAddress, CityAddress = model.CityAddress, StateAddress = model.StateAddress, ZipCode = model.ZipCode, TimeStamp = DateTime.Now, NetUserId = user.Id };
+                var myuser = new SUPUser { FirstName = model.FirstName, LastName = model.LastName, DateOfBirth = model.DateOfBirth, StreetAddress = model.StreetAddress, CityAddress = model.CityAddress, StateAddress = model.StateAddress, ZipCode = model.ZipCode, Lat = (Double)model.Lat, Lng = (Double)model.Lng, TimeStamp = DateTime.Now, NetUserId = user.Id };
                 db.SUPUsers.Add(myuser);
                 db.SaveChanges();
 

@@ -7,7 +7,7 @@
 
 <div class="container">
     <div class="jumbotron">
-        <img src="~/Content/Img/urentlogoalt.svg" width="150" height="64"></img>
+        <img src="~/Content/Img/urentlogoalt.svg" width="150" height="64">
         <p class="lead">A peer to peer transaction website where you can rent items and/or rent out items to make some extra money.</p>
         <h4>Getting started</h4>
         <ol>
@@ -21,6 +21,27 @@
             <li>You're done!</li>
         </ol>
     </div>
+
+    <form action="/Home/Index" method="get">
+        <label for="distanceSelect">Show item listings within</label>
+        <div class="input-group" id="geoCoordinate">
+            <select name="radius" class="form-control col-sm-2" id="distanceSelect">
+                <option>--Select a radius--</option>
+                <option>5</option>
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+                <option>100</option>
+            </select>
+            <div class="input-group-append">
+                <div class="input-group-text">mi</div>
+                <button class="btn btn-outline-primary search-btn-outline" type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </form>
+
+    <br />
+    <br />
 
     <!-- Displays all listings in two-column format -->
     @for (var i = 0; i < Model.Count; i++)

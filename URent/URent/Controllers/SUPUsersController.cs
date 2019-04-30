@@ -8,12 +8,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using URent.Models;
+using URent.Abstract;
 
 namespace URent.Controllers
 {
     public class SUPUsersController : Controller
     {
         private SUPContext db = new SUPContext();
+
+
+        private ISUPRepository repo;
+
+        public SUPUsersController(ISUPRepository itemsRepository)
+        {
+            repo = itemsRepository;
+        }
 
         /// <summary>
         /// Retrieves user ID of current user from AspNetUsers table.
@@ -210,6 +219,62 @@ namespace URent.Controllers
             int id = getSUPUserID(); //Retrieve ID of current user.
             var notifications = db.SUPTransactions.Where(u => u.OwnerID == id).OrderByDescending(x => x.TimeStamp); //Find all item listings that is requested/rented from other users
             return View(notifications.ToList()); // return list of transactions that have this owner's id
+        }
+
+        [HttpGet]
+        public ActionResult UserProfile(int? id)
+        {
+            ProfileViewModel profile = new ProfileViewModel();
+            profile = ProfileHelper(profile, id);
+            profile.UserDoingReviewID = getSUPUserID();
+            profile.sUPUserReviews = db.SUPUserReviews.Include(y => y.SUPUser).ToList();
+
+            //SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
+            if (id == null) //No user ID?
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (profile.UserBeingReviewedID == null) //Does a user account exist?
+            {
+                return HttpNotFound();
+            }
+            //returns the user with that SUPUser ID
+            ViewBag.ReviewerName = db.SUPUsers.Where(x => x.Id == profile.UserDoingReviewID).Select(y => y.FirstName).ToString();
+            return View(profile);
+        }
+
+        public ProfileViewModel ProfileHelper(ProfileViewModel profile, int? id)
+        {
+            profile.UserBeingReviewedID = id;
+            profile.FirstName = repo.SUPUsers.Where(x => x.Id == id).Select(y => y.FirstName).FirstOrDefault();
+            profile.LastName = repo.SUPUsers.Where(x => x.Id == id).Select(y => y.LastName).FirstOrDefault();
+            return (profile);
+        }
+
+        //[HttpPost, Authorize]
+        //public ActionResult UserProfile([Bind(Include = "Details, UserBeingReviewedId")] SUPUserReview sUPUserReview)
+        //{
+        //    var userDoingReview = getSUPUserID();
+        //    sUPUserReview.UserDoingReviewID = userDoingReview;
+        //    //profile.sUPUser = db.SUPUsers.Where(x => x.Id == sUPUserReview.UserBeingReviewedID).FirstOrDefault();
+
+        //    if (ModelState.IsValid) //Are all required fields filled out and valid?
+        //    {
+        //        //Add the item listing to the database
+        //        db.SUPUserReviews.Add(sUPUserReview);
+        //        db.SaveChanges();
+        //    }
+
+        //    return RedirectToAction("UserProfile", new { id = sUPUserReview.UserBeingReviewedID} );
+        //}
+
+        [HttpPost]
+        public ActionResult UserProfile([Bind(Include = "Details, UserBeingReviewedID, UserDoingReviewID")]ProfileViewModel userReview)
+        {
+            SUPUserReview r = new SUPUserReview { Details = userReview.Details, UserBeingReviewedID = userReview.UserBeingReviewedID, UserDoingReviewID = userReview.UserDoingReviewID};
+            db.SUPUserReviews.Add(r);
+            db.SaveChanges();
+            return RedirectToAction("UserProfile", new { id = userReview.UserBeingReviewedID});
         }
     }
 }

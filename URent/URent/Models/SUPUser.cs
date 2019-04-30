@@ -11,9 +11,13 @@ namespace URent.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SUPUser()
         {
+            SUPItemReviews = new HashSet<SUPItemReview>();
             SUPItems = new HashSet<SUPItem>();
             SUPRequests = new HashSet<SUPRequest>();
             SUPTransactions = new HashSet<SUPTransaction>();
+            SUPTransactions1 = new HashSet<SUPTransaction>();
+            SUPUserReviews = new HashSet<SUPUserReview>();
+            SUPUserReviews1 = new HashSet<SUPUserReview>();
         }
 
         public int Id { get; set; }
@@ -52,10 +56,17 @@ namespace URent.Models
         [Display(Name = "Zip code")]
         public string ZipCode { get; set; }
 
+        public double Lat { get; set; }
+
+        public double Lng { get; set; }
+
         public DateTime TimeStamp { get; set; } = DateTime.Now;
 
         [StringLength(128)]
         public string NetUserId { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SUPItemReview> SUPItemReviews { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SUPItem> SUPItems { get; set; }
@@ -65,5 +76,14 @@ namespace URent.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SUPTransaction> SUPTransactions { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SUPTransaction> SUPTransactions1 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SUPUserReview> SUPUserReviews { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SUPUserReview> SUPUserReviews1 { get; set; }
     }
 }
