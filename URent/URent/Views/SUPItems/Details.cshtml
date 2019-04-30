@@ -112,26 +112,10 @@
         <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" readonly />
       </p>*@
 
-<<<<<<< HEAD
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Submit Review" class="btn btn-primary" />
-            @*@Html.ActionLink("Submit Review", "addUserReview",new { reviewer = Model.UserDoingReviewId, reviewed = Model.UserBeingReviewedId , details = Model.Details}, new { @class = "btn btn-primary" })*@
-        </div>
-    </div>
-}
-<h5>This Item's Reviews...</h5>
-=======
-    <br />
-    <br />
-
     <h3>User reviews for this item</h3>
->>>>>>> develop
     <table class="table">
         <tr>
-            <th>User ID</th>
+            @*<th>User ID</th>*@
             <th>Review</th>
             <th>Posted on</th>
         </tr>
@@ -140,25 +124,11 @@
         {
             foreach (var item in Model.sUPItemReviews)
             {
-<<<<<<< HEAD
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Timestamp)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Details)
-                    </td>
-                    @*<td>
-                        @Html.DisplayFor(modelItem => item.UserDoingReviewID)
-                    </td>*@
-                </tr>
-=======
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.UserDoingReviewID)</td>
+            @*<td>@Html.DisplayFor(modelItem => item.UserDoingReviewID)</td>*@
             <td>@Html.DisplayFor(modelItem => item.Details)</td>
             <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
         </tr>
->>>>>>> develop
             }
         }
 
