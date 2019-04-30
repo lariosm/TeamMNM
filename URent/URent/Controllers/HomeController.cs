@@ -8,12 +8,20 @@ using URent.Models;
 using System.Device.Location;
 using Microsoft.AspNet.Identity;
 using System.Diagnostics;
+using URent.Abstract;
 
 namespace URent.Controllers
 {
     public class HomeController : Controller
     {
         private SUPContext db = new SUPContext();
+
+        private ISUPRepository repo;
+
+        public HomeController(ISUPRepository itemsRepository)
+        {
+            repo = itemsRepository;
+        }
 
         /// <summary>
         /// Retrieves user ID of current user from AspNetUsers table.
@@ -33,7 +41,7 @@ namespace URent.Controllers
         private int getSUPUserID()
         {
             string id = getIdentityID();
-            SUPUser supUser = db.SUPUsers.Where(u => u.NetUserId.Equals(id)).FirstOrDefault();
+            SUPUser supUser = repo.SUPUsers.Where(u => u.NetUserId.Equals(id)).FirstOrDefault();
             int supUserid = supUser.Id;
             return supUserid;
         }
