@@ -14,7 +14,7 @@ namespace URentTests.UnitTests
     {
 
         [TestMethod]
-        public void GetListOfItemsTrue()
+        public void Get_List_Of_Items_True()
         {
             Mock<ISUPRepository> newMock = new Mock<ISUPRepository>();
             newMock.Setup(m => m.SUPItems).Returns(new SUPItem[]
@@ -29,8 +29,20 @@ namespace URentTests.UnitTests
             List<SUPItem> items = controller.GetListOfItems();
 
             Assert.AreEqual(items.Count, 3);
-            //Assert.AreEqual(items.First().ItemName, "Ipad");
-            //Assert.AreEqual(items.Skip(1).First().ItemName, "Lawn Mower");
+            Assert.AreEqual(items.First().ItemName, "Ipad");
+            Assert.AreEqual(items.Skip(1).First().ItemName, "Lawn Mower");
+        }
+
+        [TestMethod]
+        public void Calculate_Radius_True()
+        {
+            Mock<ISUPRepository> newMock = new Mock<ISUPRepository>();
+            HomeController controller = new HomeController(newMock.Object);
+            var miles = 5;
+            var meterConversion = 1609.344;
+
+            Assert.AreEqual(controller.CalculateRadius(5), miles * meterConversion);
+            Assert.AreNotEqual(controller.CalculateRadius(7), (miles + 1) * meterConversion);
         }
     }
 }

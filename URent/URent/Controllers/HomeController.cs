@@ -71,7 +71,8 @@ namespace URent.Controllers
         public List<SUPItem> GetListOfItems()
         {
             List<SUPItem> newList = new List<SUPItem>(); //List of filtered item listings to return
-            var sUPItems = db.SUPItems.Include(s => s.SUPUser).ToList(); //Gets all item listings
+            // Deleted .Include(s => s.SUPUser)
+            var sUPItems = repo.SUPItems.Select(x => x).ToList(); //Gets all item listings
 
             return sUPItems;
         }
