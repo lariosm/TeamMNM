@@ -8,12 +8,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using URent.Models;
+using URent.Abstract;
 
 namespace URent.Controllers
 {
     public class SUPUsersController : Controller
     {
         private SUPContext db = new SUPContext();
+
+
+        private ISUPRepository repo;
+
+        public SUPUsersController(ISUPRepository itemsRepository)
+        {
+            repo = itemsRepository;
+        }
 
         /// <summary>
         /// Retrieves user ID of current user from AspNetUsers table.
@@ -216,10 +225,7 @@ namespace URent.Controllers
         public ActionResult UserProfile(int? id)
         {
             ProfileViewModel profile = new ProfileViewModel();
-            profile.UserBeingReviewedID = id;
-            profile.UserDoingReviewID = getSUPUserID();
-            profile.FirstName = db.SUPUsers.Where(x => x.Id == id).Select(y => y.FirstName).FirstOrDefault();
-            profile.LastName = db.SUPUsers.Where(x => x.Id == id).Select(y => y.LastName).FirstOrDefault();
+            profile = ProfileHelper(profile, id);
             profile.sUPUserReviews = db.SUPUserReviews.Include(y => y.SUPUser).ToList();
 
             //SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
@@ -233,6 +239,15 @@ namespace URent.Controllers
             }
             //returns the user with that SUPUser ID
             return View(profile);
+        }
+
+        public ProfileViewModel ProfileHelper(ProfileViewModel profile, int? id)
+        {
+            profile.UserBeingReviewedID = id;
+            profile.UserDoingReviewID = getSUPUserID();
+            profile.FirstName = repo.SUPUsers.Where(x => x.Id == id).Select(y => y.FirstName).FirstOrDefault();
+            profile.LastName = repo.SUPUsers.Where(x => x.Id == id).Select(y => y.LastName).FirstOrDefault();
+            return (profile);
         }
 
         //[HttpPost, Authorize]
