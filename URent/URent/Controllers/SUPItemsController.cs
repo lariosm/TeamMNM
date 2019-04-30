@@ -100,7 +100,8 @@ namespace URent.Controllers
             }
             model.sUPItem = db.SUPItems.Find(id); //Finds the item listing associated with that ID.
             model.sUPItemReviews = db.SUPItemReviews.Include(x => x.SUPUser).ToList();
-            model.ItemBeingReviewedID = id;
+            model = DetailsHelper(model, id);
+            //model.ItemBeingReviewedID = id;
             model.UserDoingReviewID = getSUPUserID();
             if (model.sUPItem == null) //Does the item listing exist?
             {
@@ -112,6 +113,12 @@ namespace URent.Controllers
                 ViewBag.Send = pid.Id;
             }
             return View(model);
+        }
+
+        public ItemDetailsViewModel DetailsHelper(ItemDetailsViewModel model, int? id)
+        {
+            model.ItemBeingReviewedID = id;
+            return (model);
         }
 
         [HttpPost]

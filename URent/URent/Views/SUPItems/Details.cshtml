@@ -112,13 +112,10 @@
         <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" readonly />
       </p>*@
 
-    <br />
-    <br />
-
     <h3>User reviews for this item</h3>
     <table class="table">
         <tr>
-            <th>User ID</th>
+            @*<th>User ID</th>*@
             <th>Review</th>
             <th>Posted on</th>
         </tr>
@@ -128,7 +125,7 @@
             foreach (var item in Model.sUPItemReviews)
             {
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.UserDoingReviewID)</td>
+            @*<td>@Html.DisplayFor(modelItem => item.UserDoingReviewID)</td>*@
             <td>@Html.DisplayFor(modelItem => item.Details)</td>
             <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
         </tr>
