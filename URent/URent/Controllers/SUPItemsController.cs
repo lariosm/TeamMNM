@@ -54,11 +54,11 @@ namespace URent.Controllers
         /// <param name="listingId">ID of an item listing</param>
         /// <returns>Whether a user is the owner of a listing.</returns>
         [Authorize]
-        private bool checkUser(int ?listingId)
+        private bool checkUser(int? listingId)
         {
             int userId = getSUPUserID(); //Retrieves ID of current user
             int listingOwnerId = db.SUPItems.Find(listingId).OwnerID; //Finds owner of the listing
-            if(userId == listingOwnerId) //checks if current user is the owner of the listing
+            if (userId == listingOwnerId) //checks if current user is the owner of the listing
             {
                 return true;
             }
@@ -107,7 +107,7 @@ namespace URent.Controllers
                 return HttpNotFound();
             }
             SUPImage pid = db.SUPImages.Where(a => a.ItemID == id).FirstOrDefault(); //Finds an image associated with the listing.
-            if(pid != null) //Display an image if it exists in the table.
+            if (pid != null) //Display an image if it exists in the table.
             {
                 ViewBag.Send = pid.Id;
             }
@@ -155,7 +155,7 @@ namespace URent.Controllers
                 sUPItem.OwnerID = getSUPUserID(); //Retrieve ID of current user to bind to item listing.
                 sUPItem.Lat = db.SUPUsers.Where(x => x.Id.Equals(sUPItem.OwnerID)).Select(x => x.Lat).FirstOrDefault();
                 sUPItem.Lng = db.SUPUsers.Where(x => x.Id.Equals(sUPItem.OwnerID)).Select(x => x.Lng).FirstOrDefault();
-                
+
 
                 if (photoElementID != null) //is a photo ID value present?
                 {
@@ -177,7 +177,7 @@ namespace URent.Controllers
                 }
 
                 return RedirectToAction("GetUserItems");
-                
+
             }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
 
@@ -358,22 +358,35 @@ namespace URent.Controllers
         /// <param name="query">Keywords to search</param>
         /// <returns>A list of item listings matching keywords entered</returns>
         [HttpGet]
-        public ActionResult Search(string query)
+        public ActionResult Search(string query, double? lat, double? lng, int? radius)
         {
             ViewBag.ShowError = false;
 
-            if(!string.IsNullOrWhiteSpace(query)) //Makes sure query is not blank or contains only whitespaces.
+            if (!string.IsNullOrWhiteSpace(query)) //Makes sure query is not blank or contains only whitespaces.
             {
-                var sUPItems = db.SUPItems.Where(s => s.ItemName.Contains(query)); //Performs the query
-                if(!sUPItems.Any()) //No matching results? The search was unsuccessful.
+                List<SUPItem> sUPItems = new List<SUPItem>();
+                sUPItems = GetListOfItemsWithQueryString(query);
+
+                if (!sUPItems.Any()) //No matching results? The search was unsuccessful.
                 {
                     ViewBag.ShowError = true; //Display unsuccessful search message.
+                    return View();
+
                 }
-                else //We got matching results. The search was a success!
+                else if ((lat != null && lng != null) && radius != null) //We got matching results. The search was a success!
+                {
+                    GeoCoordinate userLocation = GetGeoCoordinateForCurrentUserLocation(lat, lng);
+                    sUPItems = GetItemsWithinRange(sUPItems, userLocation, radius);
+                    ViewBag.ResultString = query; //Keywords to display to the view.
+                    return View(sUPItems);
+                }
+                else
                 {
                     ViewBag.ResultString = query; //Keywords to display to the view.
+                    return View(sUPItems);
+
                 }
-                return View(sUPItems.ToList());
+
             }
             else
             {
@@ -382,16 +395,56 @@ namespace URent.Controllers
             }
         }
 
+        public List<SUPItem> GetListOfItemsWithQueryString(string query)
+        {
+            var sUPItems = db.SUPItems.Where(s => s.ItemName.Contains(query)); //Performs the query
+
+            return sUPItems.ToList();
+        }
+
+        public GeoCoordinate GetGeoCoordinateForCurrentUserLocation(double? lat, double? lng)
+        {
+            var userLocation = new GeoCoordinate((double)lat, (double)lng);
+            return userLocation;
+        }
+
+        public double CalculateRadius(int? radiusInMiles)
+        {
+            double meters = 1609.344;
+            double radiusInMeters = (double)radiusInMiles * meters;
+            return radiusInMeters;
+        }
+
+        public List<SUPItem> GetItemsWithinRange(List<SUPItem> itemList, GeoCoordinate userLocation, int? radius)
+        {
+            GeoCoordinate itemLocation;
+            double calculatedRadius = CalculateRadius(radius);
+            List<SUPItem> sUPItems = itemList;
+            List<SUPItem> newList = new List<SUPItem>();
+
+            //Traverse through sUPItems list
+            for (int i = 0; i < sUPItems.Count(); i++)
+            {
+                itemLocation = new GeoCoordinate(sUPItems[i].Lat, sUPItems[i].Lng);
+                if (userLocation.GetDistanceTo(itemLocation) <= calculatedRadius) //Is an item within specified radius?
+                {
+                    newList.Add(sUPItems[i]); //If so, add to list.
+                }
+            }
+            return newList;
+        }
+
         public ActionResult makeAvailable(int itemId)
         {
             SUPItem i = db.SUPItems.Find(itemId);
-            if(i.IsAvailable == false) {
+            if (i.IsAvailable == false)
+            {
                 i.IsAvailable = true;
                 db.Entry(i).State = EntityState.Modified;
                 //db.Entry(sUPTransaction).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            return RedirectToAction("Details", new { id = itemId});
+            return RedirectToAction("Details", new { id = itemId });
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using URent.Models;
 using System.Device.Location;
 using Microsoft.AspNet.Identity;
+using System.Diagnostics;
 
 namespace URent.Controllers
 {
@@ -42,21 +43,16 @@ namespace URent.Controllers
         /// </summary>
         /// <returns>List of all listings to the view</returns>
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(double? lat, double? lng, int? radius)
         {
             List<SUPItem> sUPItems = null;
-            sUPItems = db.SUPItems.Include(s => s.SUPUser).ToList();
-            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            sUPItems = GetListOfItems();
+
+            if ((lat != null && lng != null) && radius != null)
             {
-                if(GetItemsWithinRange() != null)
-                {
-                    sUPItems = GetItemsWithinRange();
-                    return View(sUPItems);
-                }
-                else
-                {
-                    return View(sUPItems);
-                }
+                GeoCoordinate userLocation = GetGeoCoordinateForCurrentUserLocation(lat, lng);
+                sUPItems = GetItemsWithinRange(userLocation, radius);
+                return View(sUPItems);
             }
             else
             {
@@ -64,26 +60,41 @@ namespace URent.Controllers
             }
         }
 
-        /// <summary>
-        /// Displays item listings that are within a specified radius
-        /// </summary>
-        /// <returns>Items listings within a specified radius</returns>
-        public List<SUPItem> GetItemsWithinRange()
+        public List<SUPItem> GetListOfItems()
         {
-            var sampleDistance = 40000;
-            List<SUPItem> newList = new List<SUPItem>();
+            List<SUPItem> newList = new List<SUPItem>(); //List of filtered item listings to return
+            var sUPItems = db.SUPItems.Include(s => s.SUPUser).ToList(); //Gets all item listings
+
+            return sUPItems;
+        }
+
+        public GeoCoordinate GetGeoCoordinateForCurrentUserLocation(double? lat, double? lng)
+        {
+            var userLocation = new GeoCoordinate((double)lat, (double)lng);
+            return userLocation;
+        }
+
+        public double CalculateRadius(int? radiusInMiles)
+        {
+            double meters = 1609.344;
+            double radiusInMeters = (double)radiusInMiles * meters;
+            return radiusInMeters;
+        }
+
+        public List<SUPItem> GetItemsWithinRange(GeoCoordinate userLocation, int? radius)
+        {
             GeoCoordinate itemLocation;
-            var supUser = getSUPUserID();
-            var userLat = db.SUPUsers.Where(x => x.Id.Equals(supUser)).Select(x => x.Lat).FirstOrDefault();
-            var userLng = db.SUPUsers.Where(x => x.Id.Equals(supUser)).Select(x => x.Lng).FirstOrDefault();
-            var userLocation = new GeoCoordinate((double)userLat, (double)userLng);
-            var sUPItems = db.SUPItems.Include(s => s.SUPUser).ToList();
-            for(int i = 0; i < sUPItems.Count(); i++)
+            double calculatedRadius = CalculateRadius(radius);
+            List<SUPItem> sUPItems = GetListOfItems();
+            List<SUPItem> newList = new List<SUPItem>();
+
+            //Traverse through sUPItems list
+            for (int i = 0; i < sUPItems.Count(); i++)
             {
                 itemLocation = new GeoCoordinate(sUPItems[i].Lat, sUPItems[i].Lng);
-                if(userLocation.GetDistanceTo(itemLocation) <= sampleDistance)
+                if (userLocation.GetDistanceTo(itemLocation) <= calculatedRadius) //Is an item within specified radius?
                 {
-                    newList.Add(sUPItems[i]);
+                    newList.Add(sUPItems[i]); //If so, add to list.
                 }
             }
             return newList;
