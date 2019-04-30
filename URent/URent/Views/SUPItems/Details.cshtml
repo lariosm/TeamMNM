@@ -40,9 +40,7 @@
         <div class="col-sm-3">
             <dt>Owner name</dt>
             <dd>
-                @Html.DisplayFor(model => model.sUPItem.SUPUser.FirstName)
-                @Html.DisplayFor(model => model.sUPItem.SUPUser.LastName)
-                @Html.ActionLink("Name", "UserProfile", "SUPUsers", new { id = Model.sUPItem.SUPUser.Id }, null)
+                @Html.ActionLink(Model.sUPItem.SUPUser.FirstName + " " + Model.sUPItem.SUPUser.LastName, "UserProfile", "SUPUsers", new { id = Model.sUPItem.SUPUser.Id }, null)
             </dd>
         </div>
         <div class="col-sm-3">
@@ -111,59 +109,57 @@
     </p>
 
     @*<p>
-            <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" readonly />
-        </p>*@
-</div>
+        <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" readonly />
+      </p>*@
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+    <br />
+    <br />
 
-    <div class="form-group">
-        @*@Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label col-md-2" })*@
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.Details, new
-       {
-           @class = "form-control",
-           @rows = 5,
-           @placeholder = "Review this item..."
-       })
-            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
-        </div>
-
-        @Html.HiddenFor(model => model.ItemBeingReviewedID)
-        @Html.HiddenFor(model => model.UserDoingReviewID)
-
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Submit Review" class="btn btn-primary" />
-            @*@Html.ActionLink("Submit Review", "addUserReview",new { reviewer = Model.UserDoingReviewId, reviewed = Model.UserBeingReviewedId , details = Model.Details}, new { @class = "btn btn-primary" })*@
-        </div>
-    </div>
-}
-
+    <h3>User reviews for this item</h3>
     <table class="table">
+        <tr>
+            <th>User ID</th>
+            <th>Review</th>
+            <th>Posted on</th>
+        </tr>
+
         @if (Model.sUPItemReviews != null)
         {
             foreach (var item in Model.sUPItemReviews)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Timestamp)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Details)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserDoingReviewID)
-                    </td>
-                </tr>
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.UserDoingReviewID)</td>
+            <td>@Html.DisplayFor(modelItem => item.Details)</td>
+            <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
+        </tr>
             }
         }
 
     </table>
+
+    <br />
+    <br />
+
+    <h3>Leave a review for this item</h3>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        @*@Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label col-md-2" })*@
+
+        @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 5, @placeholder = "Review this item..." })
+        @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.ItemBeingReviewedID)
+        @Html.HiddenFor(model => model.UserDoingReviewID)
+
+        <br />
+
+        <input type="submit" value="Submit Review" class="btn btn-primary" />
+        @*@Html.ActionLink("Submit Review", "addUserReview",new { reviewer = Model.UserDoingReviewId, reviewed = Model.UserBeingReviewedId , details = Model.Details}, new { @class = "btn btn-primary" })*@
+    }
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
