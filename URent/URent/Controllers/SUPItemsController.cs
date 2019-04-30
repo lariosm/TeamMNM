@@ -94,13 +94,15 @@ namespace URent.Controllers
         public ActionResult Details(int? id)
         {
             ItemDetailsViewModel model = new ItemDetailsViewModel();
-
             if (id == null) //No item listing ID?
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SUPItem sUPItem = db.SUPItems.Find(id); //Finds the item listing associated with that ID.
-            if (sUPItem == null) //Does the item listing exist?
+            model.sUPItem = db.SUPItems.Find(id); //Finds the item listing associated with that ID.
+            model.sUPItemReviews = db.SUPItemReviews.Include(x => x.SUPUser).ToList();
+            model.ItemBeingReviewedID = id;
+            model.UserDoingReviewID = getSUPUserID();
+            if (model.sUPItem == null) //Does the item listing exist?
             {
                 return HttpNotFound();
             }
@@ -109,9 +111,18 @@ namespace URent.Controllers
             {
                 ViewBag.Send = pid.Id;
             }
-            model.sUPItem = sUPItem;
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult Details([Bind(Include = "Details, ItemBeingReviewedID, UserDoingReviewID")]ItemDetailsViewModel itemReview)
+        {
+            SUPItemReview r = new SUPItemReview { Details = itemReview.Details, ItemBeingReviewedID = itemReview.ItemBeingReviewedID, UserDoingReviewID = itemReview.UserDoingReviewID };
+            db.SUPItemReviews.Add(r);
+            db.SaveChanges();
+            return RedirectToAction("Details", new { id = itemReview.ItemBeingReviewedID });
+        }
+
 
         // GET: SUPItems/Create
         /// <summary>
