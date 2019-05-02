@@ -9,6 +9,7 @@ using System.Device.Location;
 using Microsoft.AspNet.Identity;
 using System.Diagnostics;
 using URent.Abstract;
+using URent.Controllers;
 
 namespace URent.Controllers
 {

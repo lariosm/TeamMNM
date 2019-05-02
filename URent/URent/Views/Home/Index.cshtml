@@ -44,22 +44,20 @@
     <br />
 
     <!-- Displays all listings in two-column format -->
-    @for (var i = 0; i < Model.Count; i++)
+    @foreach (var item in Model)
     {
         <div class="row">
-            @do //displays each listing in a column of a given row.
-            {
                 <div class="col-md-6">
                     <div class="card mx-auto">
                         <!-- Adds hyperlink to image of a listing -->
-                        <a href="@Url.Action("Details", "SUPItems", new { id = Model[i].Id})">
-                            <img class="card-img-top" src="https://via.placeholder.com/450x250?text=No+photo+to+display" alt="Listing photo">
+                        <a href="@Url.Action("Details", "SUPItems", new { id = item.Id})">
+                                <img class="card-img-top" src="/Resources/HomePhoto/@item.Id">
                         </a>
                         <div class="card-body">
-                            <h5 class="card-title">@Html.ActionLink(Model[i].ItemName, "Details", "SUPItems", new { id = Model[i].Id }, null)</h5>
-                            <p class="card-text">@Model[i].SUPUser.CityAddress, @Model[i].SUPUser.StateAddress</p>
-                            <p class="card-subtitle"><b>@String.Format("{0:C}", Model[i].DailyPrice)/day</b></p>
-                            @if (Model[i].IsAvailable)
+                            <h5 class="card-title">@Html.ActionLink(item.ItemName, "Details", "SUPItems", new { id = item.Id }, null)</h5>
+                            <p class="card-text">@item.SUPUser.CityAddress, @item.SUPUser.StateAddress</p>
+                            <p class="card-subtitle"><b>@String.Format("{0:C}", item.DailyPrice)/day</b></p>
+                            @if (item.IsAvailable)
                             {
                                 <p class="card-text" style="color:green">Available</p>
                             }
@@ -68,21 +66,10 @@
                                 <p class="card-text" style="color:red">Not available</p>
                             }
                             <br />
-                            @Html.ActionLink("View listing", "Details", "SUPItems", new { id = Model[i].Id }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("View listing", "Details", "SUPItems", new { id = item.Id }, new { @class = "btn btn-primary" })
                         </div>
                     </div>
                 </div>
-
-                i++; //Increment counter by 1
-
-                if (i >= Model.Count) //Have we reached end of list?
-                {
-                    break;
-                }
-            }
-            while (i % 2 != 0);
-            @{i--;}
-
         </div>
     }
 </div>
