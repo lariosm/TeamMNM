@@ -7,90 +7,26 @@
 
 <h2>My Notifications...</h2>
 
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.SUPItem.ItemName)
-        </th>
-        <th>
-            Renter name
-        </th>
-        <th>
-            Renter location
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TotalPrice)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SUPItem.ItemName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
-            @Html.DisplayFor(modelItem => item.SUPUser.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SUPUser.CityAddress),
-            @Html.DisplayFor(modelItem => item.SUPUser.StateAddress)
-        </td>
-        <td>
-            @String.Format("{0:MM/dd/yyyy}", item.StartDate)
-        </td>
-        <td>
-            @String.Format("{0:MM/dd/yyyy}", item.EndDate)
-        </td>
-        <td>
-            @String.Format("{0:C}", item.TotalPrice)
-        </td>
-    </tr>
-    }
-
-</table>
-
-@*<div>
-    Bids table (where bids will show up via JavaScript)
-    <table class="notiftable">
+<div>
+    @*Transactions table (where transactions will show up via JavaScript)*@
+    <table class="table">
         <tr>
-            <th>
-                ItemName
-            </th>
-            <th>
-                Renter Name
-            </th>
-            <th>
-                Transaction Start Date
-            </th>
-            <th>
-                Transaction End Date
-            </th>
-            <th>
-                Timestamp
-            </th>
-            <th>
-                Total Price
-            </th>
+            <th>Item name</th>
+            <th>Renter name</th>
+            <th>Transaction start date</th>
+            <th>Transaction end date</th>
+            <th>Received on</th>
+            <th>Total price</th>
         </tr>
     </table>
 
-    Displays message if there are no bids on this item
+    @*Displays message if there are no rental notifications*@
     <h5 id="message" style="text-align:center"></h5>
     <br />
 </div>
 
-JS script to be executed on this page
+
 @section Scripts
 {
-    <script type="text/javascript" src="~/Scripts/UserNotifications.js"></script>
-}*@
+    @Scripts.Render("~/Scripts/UserNotifications.js")
+}

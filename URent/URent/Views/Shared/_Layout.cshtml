@@ -9,6 +9,7 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/fontawesome")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jsessentials")
 
 </head>
 <body>
@@ -74,7 +75,6 @@
         <p>&copy; @DateTime.Now.Year - MNM Solutions</p>
     </footer>
 
-    @Scripts.Render("~/bundles/jsessentials")
     @Scripts.Render("~/Scripts/location.js")
     @RenderSection("Scripts", required: false)
 </body>
