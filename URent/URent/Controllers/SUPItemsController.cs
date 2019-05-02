@@ -281,6 +281,11 @@ namespace URent.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             SUPItem sUPItem = db.SUPItems.Find(id);
+            SUPImage sUPImage = db.SUPImages.Where(x => x.ItemID == id).FirstOrDefault();
+            if (sUPImage != null)
+            {
+                db.SUPImages.Remove(sUPImage);
+            }
             db.SUPItems.Remove(sUPItem);
             db.SaveChanges();
             return RedirectToAction("GetUserItems");
