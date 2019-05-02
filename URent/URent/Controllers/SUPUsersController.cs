@@ -216,9 +216,7 @@ namespace URent.Controllers
         [Authorize]
         public ActionResult Notifications()
         {
-            int id = getSUPUserID(); //Retrieve ID of current user.
-            var notifications = db.SUPTransactions.Where(u => u.OwnerID == id).OrderByDescending(x => x.TimeStamp); //Find all item listings that is requested/rented from other users
-            return View(notifications.ToList()); // return list of transactions that have this owner's id
+            return View(); // return list of transactions that have this owner's id
         }
 
         [HttpGet]
