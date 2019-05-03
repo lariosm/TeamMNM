@@ -66,25 +66,14 @@ namespace URent.Controllers
         public JsonResult NotificationRequest()
         {
             int id = getSUPUserID(); //Retrieve ID of current user.
-            Console.WriteLine(id);
-            var notifications = db.SUPTransactions.Where(u => u.OwnerID == id)
-                                                  .Select(i => new {  item = GetItemName(i.ItemID), renter = GetRenterName(i.RenterID), start = i.StartDate, end = i.EndDate, time = i.TimeStamp, price = i.TotalPrice})
-                                                  .OrderBy(b => b.time)
-                                                  .ToList(); //Find all item listings that is requested/rented from other users
-            Console.WriteLine(notifications);
+
+            var notifications = db.SUPTransactions.Join(db.SUPUsers, t => t.RenterID, u => u.Id, (t, u) => new { t, u })
+                                                   .Join(db.SUPItems, x => x.t.ItemID, i => i.Id, (x, i) => new { x.t, x.u, i })
+                                                   .Where(x => x.t.OwnerID == id)
+                                                   .Select(y => new { y.i.ItemName, y.u.FirstName, y.u.LastName, y.t.StartDate, y.t.EndDate, y.t.TotalPrice, y.t.TimeStamp }).ToList();
+
+
             return Json(notifications, JsonRequestBehavior.AllowGet);
-        }
-
-        public IQueryable<string> GetItemName(int? id)
-        {
-            var name = db.SUPItems.Where(x => x.Id == id).Select(y => y.ItemName);
-            return (name);
-        }
-
-        public IQueryable<string> GetRenterName(int? id)
-        {
-            var name = db.SUPUsers.Where(x => x.Id == id).Select(y => y.FirstName);
-            return (name);
         }
 
         /// <summary>

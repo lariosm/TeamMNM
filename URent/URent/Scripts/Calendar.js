@@ -128,11 +128,12 @@ function showPreviousTransactions(dates) {
             // We are turning 
             splitStrings = JSON.stringify(dates[i]).split(',')
             //console.log(splitStrings);
-            for (var j = 0; j < dates.length - 1; j++) {
+            for (var j = 0; j < dates.length; j++) {
                 newList.push(new Date(parseInt(splitStrings[j].replace(/\D/g, ""))));
             }
             
         }
+        console.log(newList);
         //console.log(newList)
         for (i = 0; i < newList.length - 1; i += 2) {
             startDate = newList[i];

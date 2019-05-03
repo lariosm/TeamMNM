@@ -71,11 +71,20 @@ namespace URent.Controllers
 
         public List<SUPItem> GetListOfItems()
         {
+            
             List<SUPItem> newList = new List<SUPItem>(); //List of filtered item listings to return
             // Deleted .Include(s => s.SUPUser)
-            var sUPItems = repo.SUPItems.Select(x => x).ToList(); //Gets all item listings
+            if(User.Identity.IsAuthenticated)
+            {
+                var userId = getSUPUserID();
+                newList = repo.SUPItems.Where(x => x.OwnerID != userId).Select(x => x).ToList();
+            }
+            else
+            {
+                newList = repo.SUPItems.Select(x => x).ToList(); //Gets all item listings
+            }
 
-            return sUPItems;
+            return newList;
         }
 
         public GeoCoordinate GetGeoCoordinateForCurrentUserLocation(double? lat, double? lng)

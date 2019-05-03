@@ -24,12 +24,6 @@ function setLocation(locationData) {
     var state = locationData.subdivision;
     var zip = locationData.postal_code;
 
-    console.log("Lat: " + lat);
-    console.log("Lon: " + lon);
-    console.log("City: " + city);
-    console.log("State: " + state);
-    console.log("Zip: " + zip);
-
     $("#currentloc").remove()
     $("#location").append("<a class=\"nav-link\" id=\"currentloc\" href=\"#\"><i class=\"fa fa-map-marker\"></i> " + city + ", " + state + " " + zip + "</a>");
 

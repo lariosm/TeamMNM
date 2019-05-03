@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -99,10 +100,16 @@ namespace URent.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             model.sUPItem = db.SUPItems.Find(id); //Finds the item listing associated with that ID.
-            model.sUPItemReviews = db.SUPItemReviews.Include(x => x.SUPUser).ToList();
+            model.sUPItemReviews = db.SUPItemReviews.Where(x => x.ItemBeingReviewedID == id).ToList();
             model = DetailsHelper(model, id);
+            GetItemRatingStats(model, id);
             //model.ItemBeingReviewedID = id;
-            model.UserDoingReviewID = getSUPUserID();
+            if(User.Identity.IsAuthenticated)
+            {
+                model.UserDoingReviewID = getSUPUserID();
+
+            }
+            
             if (model.sUPItem == null) //Does the item listing exist?
             {
                 return HttpNotFound();
@@ -115,17 +122,44 @@ namespace URent.Controllers
             return View(model);
         }
 
+        public ItemDetailsViewModel GetItemRatingStats(ItemDetailsViewModel model, int? id)
+        {
+            int? ratingSum = 0;
+            int? ratingCount = 0;
+            double ratingAverage = 0;
+
+            var ratings = db.SUPItemReviews.Where(d => d.ItemBeingReviewedID == id).Select(y => y.Rating).ToList();
+            if (ratings.Count() > 0)
+            {
+                ratingSum = ratings.Sum(d => d);
+                
+                ratingCount = ratings.Count();
+
+                ratingAverage = (double) ratingSum / (double) ratingCount;
+                model.RatingAverage = ratingAverage;
+                model.RatingCount = ratingCount;
+
+                return model;
+            }
+            else
+            {
+                model.RatingAverage = 0;
+                model.RatingCount = 0;
+                return model;
+            }
+        }
+
         public ItemDetailsViewModel DetailsHelper(ItemDetailsViewModel model, int? id)
         {
             model.ItemBeingReviewedID = id;
             return (model);
         }
 
-        [HttpPost]
-        public ActionResult Details([Bind(Include = "Details, ItemBeingReviewedID, UserDoingReviewID")]ItemDetailsViewModel itemReview)
+        [Authorize, HttpPost]
+        public ActionResult Details([Bind(Include = "Details, Ratings, ItemBeingReviewedID, UserDoingReviewID")]ItemDetailsViewModel itemReview)
         {
-            SUPItemReview r = new SUPItemReview { Details = itemReview.Details, ItemBeingReviewedID = itemReview.ItemBeingReviewedID, UserDoingReviewID = itemReview.UserDoingReviewID };
-            db.SUPItemReviews.Add(r);
+            SUPItemReview review = new SUPItemReview { Details = itemReview.Details, Rating = itemReview.Ratings, ItemBeingReviewedID = itemReview.ItemBeingReviewedID, UserDoingReviewID = itemReview.UserDoingReviewID };
+            db.SUPItemReviews.Add(review);
             db.SaveChanges();
             return RedirectToAction("Details", new { id = itemReview.ItemBeingReviewedID });
         }
@@ -234,15 +268,32 @@ namespace URent.Controllers
         /// <returns>Whether edits to listing were successful.</returns>
         [HttpPost, Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ItemName,Description,TimeStamp,IsAvailable,DailyPrice")] SUPItem sUPItem)
+        public ActionResult Edit([Bind(Include = "Id,ItemName,Description,TimeStamp,IsAvailable,DailyPrice")] SUPItem sUPItem, int? photoElementID)
         {
             if (ModelState.IsValid) //Are all required fields filled out and valid?
             {
-                //Save edits of item listing to database.
-                sUPItem.OwnerID = getSUPUserID();
-                db.Entry(sUPItem).State = EntityState.Modified;
-                db.SaveChanges();
+                if (photoElementID != null) //is a photo ID value present?
+                {
+                    SUPImage sUPImage = db.SUPImages.Where(x => x.ItemID == sUPItem.Id).FirstOrDefault();
+                    if (sUPImage != null)
+                    {
+                        db.SUPImages.Remove(sUPImage);
+                    }
+                    //Fetch the photo matching passed photoElementID value and link it to this listing.
+                    SUPImage p = db.SUPImages.Find(photoElementID);
+                    p.ItemID = sUPItem.Id;
+                    db.Entry(p).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else //create a listing without any photos
+                {
+                    sUPItem.OwnerID = getSUPUserID();
+                    db.Entry(sUPItem).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("GetUserItems");
+
             }
             //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
 
