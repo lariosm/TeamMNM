@@ -14,6 +14,11 @@
     <!-- Item name -->
     <h2>@Html.DisplayFor(model => model.sUPItem.ItemName)</h2>
     <br />
+    @Html.Label("Rating Average:")
+    @Html.DisplayFor(model => model.RatingAverage)
+
+    @Html.Label("Total # of Ratings:")
+    @Html.DisplayFor(model => model.RatingCount)
 
     <!-- Item photo -->
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
@@ -109,8 +114,8 @@
     </p>
 
     @*<p>
-        <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" readonly />
-      </p>*@
+          <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" readonly />
+        </p>*@
 
     <br />
     <br />
@@ -120,6 +125,7 @@
         <tr>
             @*<th>User ID</th>*@
             <th>Review</th>
+            <th>Rating</th>
             <th>Posted on</th>
         </tr>
 
@@ -127,11 +133,21 @@
         {
             foreach (var item in Model.sUPItemReviews)
             {
-        <tr>
-            @*<td>@Html.DisplayFor(modelItem => item.UserDoingReviewID)</td>*@
-            <td>@Html.DisplayFor(modelItem => item.Details)</td>
-            <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
-        </tr>
+                <tr>
+                    @*<td>@Html.DisplayFor(modelItem => item.UserDoingReviewID)</td>*@
+                    <td>@Html.DisplayFor(modelItem => item.Details)</td>
+                    <td>
+                        @*@for (int i = 0; i < Int32.Parse(item.SUPItem.); i++)
+                        {
+                            <img src="~/Content/Img/EmptyStar.png" alt="Star Rating" align="middle" />
+                        }
+                        @for (int i = Int32.Parse(); i < 5; i++)
+                        {
+                            <img src="~/Content/Img/FilledStar.png" alt="Star Rating" align="middle" />
+                        }*@
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
+                </tr>
             }
         }
 
@@ -140,11 +156,23 @@
     <br />
     <br />
 
-    <h3>Leave a review for this item</h3>
-    <hr />
+    <div type="hidden" id="listingId" value="@Model.ItemBeingReviewedID" />
+
+
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
+
+        
+    <fieldset class="rating">
+        <legend>Please rate:</legend> 
+        @*<input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>*@
+        @Html.RadioButtonFor(model => model.Ratings, "5", new { id="star5", name="rating"})<label for="star5" title="Rocks!">5 stars</label>
+        @Html.RadioButtonFor(model => model.Ratings, "4", new { id="star4", name="rating"})<label for="star4" title="Pretty good">4 stars</label>
+        @Html.RadioButtonFor(model => model.Ratings, "3", new { id="star3", name="rating"})<label for="star3" title="Meh">3 stars</label>
+        @Html.RadioButtonFor(model => model.Ratings, "2", new { id="star2", name="rating"})<label for="star2" title="Kinda bad">2 stars</label>
+        @Html.RadioButtonFor(model => model.Ratings, "1", new { id="star1", name="rating"})<label for="star1" title="Sucks big time">1 star</label>
+</fieldset>
 
         @*@Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label col-md-2" })*@
 
@@ -167,4 +195,5 @@
     @Styles.Render("~/Content/cssjqueryui")
     @Scripts.Render("~/Scripts/Calendar.js")
     @Scripts.Render("~/Scripts/transactionPriceCalculator.js")
+    @Scripts.Render("~/Scripts/rating.js")
 }

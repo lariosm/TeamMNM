@@ -226,6 +226,7 @@ namespace URent.Controllers
             profile = ProfileHelper(profile, id);
             profile.UserDoingReviewID = getSUPUserID();
             profile.sUPUserReviews = db.SUPUserReviews.Include(y => y.SUPUser).ToList();
+            GetUserRatingStats(profile, id);
 
             //SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
             if (id == null) //No user ID?
@@ -249,6 +250,34 @@ namespace URent.Controllers
             return (profile);
         }
 
+        public ProfileViewModel GetUserRatingStats(ProfileViewModel model, int? id)
+        {
+            int? ratingSum = 0;
+            int? ratingCount = 0;
+            double ratingAverage = 0;
+
+            var ratings = db.SUPUserReviews.Where(d => d.UserBeingReviewedID == id).Select(d => d.Rating).ToList();
+            if (ratings.Count() > 0)
+            {
+                ratingSum = ratings.Sum(d => d);
+
+                ratingCount = ratings.Count();
+
+                ratingAverage = (double)ratingSum / (double)ratingCount;
+                model.RatingAverage = ratingAverage;
+                model.RatingCount = ratingCount;
+
+                return model;
+            }
+            else
+            {
+                model.RatingAverage = 0;
+                model.RatingCount = 0;
+                return model;
+            }
+        }
+
+
         //[HttpPost, Authorize]
         //public ActionResult UserProfile([Bind(Include = "Details, UserBeingReviewedId")] SUPUserReview sUPUserReview)
         //{
@@ -269,10 +298,11 @@ namespace URent.Controllers
         [HttpPost]
         public ActionResult UserProfile([Bind(Include = "Details, UserBeingReviewedID, UserDoingReviewID")]ProfileViewModel userReview)
         {
-            SUPUserReview r = new SUPUserReview { Details = userReview.Details, UserBeingReviewedID = userReview.UserBeingReviewedID, UserDoingReviewID = userReview.UserDoingReviewID};
-            db.SUPUserReviews.Add(r);
+            SUPUserReview review = new SUPUserReview { Details = userReview.Details, UserBeingReviewedID = userReview.UserBeingReviewedID, UserDoingReviewID = userReview.UserDoingReviewID};
+            db.SUPUserReviews.Add(review);
             db.SaveChanges();
             return RedirectToAction("UserProfile", new { id = userReview.UserBeingReviewedID});
         }
+
     }
 }
