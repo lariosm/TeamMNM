@@ -48,7 +48,7 @@ footer > p {
     padding-right: 15px;
 }
 
-.table tr:nth-child(odd) {
+.table tr:nth-child(1) {
     background-color: #D3D3D3;
 }
 
