@@ -33,11 +33,11 @@
     <br />
 
     <h3>User reviews for this user</h3>
-
     <table class="table">
         <tr>
             @*<th>User ID</th>*@
             <th>Review</th>
+            <th>Rating</th>
             <th>Posted on</th>
         </tr>
 
@@ -46,6 +46,16 @@
             <tr>
                 @*<td>@Html.DisplayFor(modelItem => item.UserDoingReviewID)</td>*@
                 <td>@Html.DisplayFor(modelItem => item.Details)</td>
+                <td>
+                    @for (int i = 0; i < Int32.Parse(item.Rating.ToString()); i++)
+                    {
+                        <img src="~/Content/Img/FilledStar.png" alt="Star Rating" align="middle" />
+                    }
+                    @for (int i = Int32.Parse(item.Rating.ToString()); i < 5; i++)
+                    {
+                        <img src="~/Content/Img/EmptyStar.png" alt="Star Rating" align="middle" />
+                    }
+                </td>
                 <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
             </tr>
         }
@@ -54,36 +64,36 @@
     <br />
     <br />
 
-    <div type="hidden" id="userId" value="@Model.UserBeingReviewedID" />
 
-    <h3>Leave a review for this user</h3>
-    <hr />
 
-    <p>
-        <img class="star" src="~/Content/Img/EmptyStar.png" alt="Star Rating" align="middle" id="1" />
-        <img class="star" src="~/Content/Img/EmptyStar.png" alt="Star Rating" align="middle" id="2" />
-        <img class="star" src="~/Content/Img/EmptyStar.png" alt="Star Rating" align="middle" id="3" />
-        <img class="star" src="~/Content/Img/EmptyStar.png" alt="Star Rating" align="middle" id="4" />
-        <img class="star" src="~/Content/Img/EmptyStar.png" alt="Star Rating" align="middle" id="5" />
-    </p>
-    <div id="result"></div>
-
-    @using (Html.BeginForm())
+    @if (Model.UserBeingReviewedID != Model.UserDoingReviewID && Request.IsAuthenticated)
     {
-        @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 5, @placeholder = "Review this user..." })
-            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+        <h3>Leave a review for this user</h3>
+        <hr />
+
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <fieldset class="rating">
+                <legend>Please rate:</legend>
+                @Html.RadioButtonFor(model => model.Ratings, "5", new { id = "star5", name = "rating" })<label for="star5">5 stars</label>
+                @Html.RadioButtonFor(model => model.Ratings, "4", new { id = "star4", name = "rating" })<label for="star4">4 stars</label>
+                @Html.RadioButtonFor(model => model.Ratings, "3", new { id = "star3", name = "rating" })<label for="star3">3 stars</label>
+                @Html.RadioButtonFor(model => model.Ratings, "2", new { id = "star2", name = "rating" })<label for="star2">2 stars</label>
+                @Html.RadioButtonFor(model => model.Ratings, "1", new { id = "star1", name = "rating" })<label for="star1">1 star</label>
+            </fieldset>
+
+            <div class="form-group">
+                @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 5, @placeholder = "Review this user..." })
+                @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
 
 
-            @Html.HiddenFor(model => model.UserBeingReviewedID)
-            @Html.HiddenFor(model => model.UserDoingReviewID)
-        </div>
-        <input type="submit" value="Submit Review" class="btn btn-primary" />
+                @Html.HiddenFor(model => model.UserBeingReviewedID)
+                @Html.HiddenFor(model => model.UserDoingReviewID)
+            </div>
+            <input type="submit" value="Submit Review" class="btn btn-primary" />
+        }
     }
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/Scripts/rating.js")
-}

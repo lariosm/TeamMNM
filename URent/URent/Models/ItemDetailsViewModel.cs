@@ -27,7 +27,6 @@ namespace URent.Models
 
         public virtual double? RatingAverage { get; set; }
 
-
         public IEnumerable<SUPItemReview> sUPItemReviews { get; set; }
 
     }

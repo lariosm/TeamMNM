@@ -100,11 +100,16 @@ namespace URent.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             model.sUPItem = db.SUPItems.Find(id); //Finds the item listing associated with that ID.
-            model.sUPItemReviews = db.SUPItemReviews.Include(x => x.SUPUser).ToList();
+            model.sUPItemReviews = db.SUPItemReviews.Where(x => x.ItemBeingReviewedID == id).ToList();
             model = DetailsHelper(model, id);
             GetItemRatingStats(model, id);
             //model.ItemBeingReviewedID = id;
-            model.UserDoingReviewID = getSUPUserID();
+            if(User.Identity.IsAuthenticated)
+            {
+                model.UserDoingReviewID = getSUPUserID();
+
+            }
+            
             if (model.sUPItem == null) //Does the item listing exist?
             {
                 return HttpNotFound();
@@ -150,7 +155,7 @@ namespace URent.Controllers
             return (model);
         }
 
-        [HttpPost]
+        [Authorize, HttpPost]
         public ActionResult Details([Bind(Include = "Details, Ratings, ItemBeingReviewedID, UserDoingReviewID")]ItemDetailsViewModel itemReview)
         {
             SUPItemReview review = new SUPItemReview { Details = itemReview.Details, Rating = itemReview.Ratings, ItemBeingReviewedID = itemReview.ItemBeingReviewedID, UserDoingReviewID = itemReview.UserDoingReviewID };
@@ -269,7 +274,11 @@ namespace URent.Controllers
             {
                 if (photoElementID != null) //is a photo ID value present?
                 {
-
+                    SUPImage sUPImage = db.SUPImages.Where(x => x.ItemID == sUPItem.Id).FirstOrDefault();
+                    if (sUPImage != null)
+                    {
+                        db.SUPImages.Remove(sUPImage);
+                    }
                     //Fetch the photo matching passed photoElementID value and link it to this listing.
                     SUPImage p = db.SUPImages.Find(photoElementID);
                     p.ItemID = sUPItem.Id;

@@ -11,6 +11,8 @@
     }*@
 
 <div class="container">
+    <div class="rateit" data-rateit-value="@Model.RatingAverage" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+
     <!-- Item name -->
     <h2>@Html.DisplayFor(model => model.sUPItem.ItemName)</h2>
     <br />
@@ -88,8 +90,12 @@
 
     @if (Model.sUPItem.IsAvailable == true) //Is the item available?
     {
-        //If so, then we show a "Rent" button.
-        @Html.ActionLink("Rent", "Create", "SUPTransactions", new { itemId = Model.sUPItem.Id, dailyPrice = Model.sUPItem.DailyPrice }, new { @class = "btn btn-primary" })
+        if (Model.sUPItem.OwnerID != Model.UserDoingReviewID)
+        {
+            //If so, then we show a "Rent" iftton.
+            @Html.ActionLink("Rent", "Create", "SUPTransactions", new { itemId = Model.sUPItem.Id, dailyPrice = Model.sUPItem.DailyPrice }, new { @class = "btn btn-primary" })
+        }
+
     }
     else
     {
@@ -113,10 +119,6 @@
         <div id="z"></div>
     </p>
 
-    @*<p>
-          <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" readonly />
-        </p>*@
-
     <br />
     <br />
 
@@ -134,17 +136,16 @@
             foreach (var item in Model.sUPItemReviews)
             {
                 <tr>
-                    @*<td>@Html.DisplayFor(modelItem => item.UserDoingReviewID)</td>*@
                     <td>@Html.DisplayFor(modelItem => item.Details)</td>
                     <td>
-                        @*@for (int i = 0; i < Int32.Parse(item.SUPItem.); i++)
+                        @for (int i = 0; i < Int32.Parse(item.Rating.ToString()); i++)
+                        {
+                            <img src="~/Content/Img/FilledStar.png" alt="Star Rating" align="middle" />
+                        }
+                        @for (int i = Int32.Parse(item.Rating.ToString()); i < 5; i++)
                         {
                             <img src="~/Content/Img/EmptyStar.png" alt="Star Rating" align="middle" />
                         }
-                        @for (int i = Int32.Parse(); i < 5; i++)
-                        {
-                            <img src="~/Content/Img/FilledStar.png" alt="Star Rating" align="middle" />
-                        }*@
                     </td>
                     <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
                 </tr>
@@ -156,36 +157,32 @@
     <br />
     <br />
 
-    <div type="hidden" id="listingId" value="@Model.ItemBeingReviewedID" />
-
-
-    @using (Html.BeginForm())
+    @if (Model.sUPItem.OwnerID != Model.UserDoingReviewID && Request.IsAuthenticated)
     {
-        @Html.AntiForgeryToken()
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        
-    <fieldset class="rating">
-        <legend>Please rate:</legend> 
-        @*<input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>*@
-        @Html.RadioButtonFor(model => model.Ratings, "5", new { id="star5", name="rating"})<label for="star5" title="Rocks!">5 stars</label>
-        @Html.RadioButtonFor(model => model.Ratings, "4", new { id="star4", name="rating"})<label for="star4" title="Pretty good">4 stars</label>
-        @Html.RadioButtonFor(model => model.Ratings, "3", new { id="star3", name="rating"})<label for="star3" title="Meh">3 stars</label>
-        @Html.RadioButtonFor(model => model.Ratings, "2", new { id="star2", name="rating"})<label for="star2" title="Kinda bad">2 stars</label>
-        @Html.RadioButtonFor(model => model.Ratings, "1", new { id="star1", name="rating"})<label for="star1" title="Sucks big time">1 star</label>
-</fieldset>
 
-        @*@Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <fieldset class="rating">
+                <legend>Please rate:</legend>
+                @Html.RadioButtonFor(model => model.Ratings, "5", new { id = "star5", name = "rating" })<label for="star5">5 stars</label>
+                @Html.RadioButtonFor(model => model.Ratings, "4", new { id = "star4", name = "rating" })<label for="star4">4 stars</label>
+                @Html.RadioButtonFor(model => model.Ratings, "3", new { id = "star3", name = "rating" })<label for="star3">3 stars</label>
+                @Html.RadioButtonFor(model => model.Ratings, "2", new { id = "star2", name = "rating" })<label for="star2">2 stars</label>
+                @Html.RadioButtonFor(model => model.Ratings, "1", new { id = "star1", name = "rating" })<label for="star1">1 star</label>
+            </fieldset>
 
-        @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 5, @placeholder = "Review this item..." })
-        @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+            @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 5, @placeholder = "Review this item..." })
+            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
 
-        @Html.HiddenFor(model => model.ItemBeingReviewedID)
-        @Html.HiddenFor(model => model.UserDoingReviewID)
+            @Html.HiddenFor(model => model.ItemBeingReviewedID)
+            @Html.HiddenFor(model => model.UserDoingReviewID)
 
-        <br />
+            <br />
 
-        <input type="submit" value="Submit Review" class="btn btn-primary" />
-        @*@Html.ActionLink("Submit Review", "addUserReview",new { reviewer = Model.UserDoingReviewId, reviewed = Model.UserBeingReviewedId , details = Model.Details}, new { @class = "btn btn-primary" })*@
+            <input type="submit" value="Submit Review" class="btn btn-primary" />
+        }
     }
 </div>
 
@@ -195,5 +192,6 @@
     @Styles.Render("~/Content/cssjqueryui")
     @Scripts.Render("~/Scripts/Calendar.js")
     @Scripts.Render("~/Scripts/transactionPriceCalculator.js")
-    @Scripts.Render("~/Scripts/rating.js")
+    @Styles.Render("~/Content/rateit.css")
+    @Scripts.Render("~/Scripts/jquery.rateit.js")
 }

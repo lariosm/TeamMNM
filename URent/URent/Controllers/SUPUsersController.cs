@@ -224,8 +224,11 @@ namespace URent.Controllers
         {
             ProfileViewModel profile = new ProfileViewModel();
             profile = ProfileHelper(profile, id);
-            profile.UserDoingReviewID = getSUPUserID();
-            profile.sUPUserReviews = db.SUPUserReviews.Include(y => y.SUPUser).ToList();
+            if (User.Identity.IsAuthenticated)
+            {
+                profile.UserDoingReviewID = getSUPUserID();
+            }
+            profile.sUPUserReviews = db.SUPUserReviews.Where(x => x.UserBeingReviewedID == id).ToList();
             GetUserRatingStats(profile, id);
 
             //SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
@@ -296,9 +299,9 @@ namespace URent.Controllers
         //}
 
         [HttpPost]
-        public ActionResult UserProfile([Bind(Include = "Details, UserBeingReviewedID, UserDoingReviewID")]ProfileViewModel userReview)
+        public ActionResult UserProfile([Bind(Include = "Details, Ratings, UserBeingReviewedID, UserDoingReviewID")]ProfileViewModel userReview)
         {
-            SUPUserReview review = new SUPUserReview { Details = userReview.Details, UserBeingReviewedID = userReview.UserBeingReviewedID, UserDoingReviewID = userReview.UserDoingReviewID};
+            SUPUserReview review = new SUPUserReview { Details = userReview.Details, Rating = userReview.Ratings, UserBeingReviewedID = userReview.UserBeingReviewedID, UserDoingReviewID = userReview.UserDoingReviewID};
             db.SUPUserReviews.Add(review);
             db.SaveChanges();
             return RedirectToAction("UserProfile", new { id = userReview.UserBeingReviewedID});

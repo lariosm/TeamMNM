@@ -52,6 +52,7 @@ footer > p {
     background-color: #D3D3D3;
 }
 
+/*Star Rating CSS*/
 .rating {
     float: left;
 }
@@ -61,7 +62,7 @@ footer > p {
    it doesn’t make the test unnecessarily selective */
     .rating:not(:checked) > input {
         position: absolute;
-        top: -9999px;
+        top: auto;
         clip: rect(0,0,0,0);
     }
 
