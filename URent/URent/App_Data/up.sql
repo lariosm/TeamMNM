@@ -71,6 +71,7 @@ CREATE TABLE [dbo].[SUPUserReviews]
 (
 	[Id]					INT IDENTITY (1,1)							NOT NULL,
 	[Details]				NVARCHAR(MAX)								NOT NULL,
+	[Rating]				INT											NOT NULL,
 	[Timestamp]				DATETIME									NOT NULL,
 	[UserDoingReviewID]		INT FOREIGN KEY REFERENCES SUPUsers(Id)		NOT NULL,
 	[UserBeingReviewedID]	INT FOREIGN KEY REFERENCES SUPUsers(Id)		NOT NULL
@@ -82,6 +83,7 @@ CREATE TABLE [dbo].[SUPItemReviews]
 (
 	[Id]					INT IDENTITY (1,1)							NOT NULL,
 	[Details]				NVARCHAR(MAX)								NOT NULL,
+	[Rating]				INT											NOT NULL,
 	[Timestamp]				DATETIME									NOT NULL,
 	[UserDoingReviewID]		INT FOREIGN KEY REFERENCES SUPUsers(Id)		NOT NULL,
 	[ItemBeingReviewedID]	INT FOREIGN KEY REFERENCES SUPItems(Id)		NOT NULL

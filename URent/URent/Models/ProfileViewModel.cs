@@ -26,6 +26,12 @@ namespace URent.Models
         [Display(Name = "Review Details")]
         public virtual string Details { get; set; }
 
+        public virtual int? Ratings { get; set; }
+
+        public virtual double? RatingAverage { get; set; }
+
+        public virtual int? RatingCount { get; set; }
+
         //public SUPUser sUPUser { get; set; }
 
         //public SUPUserReview sUPUserReview { get; set; }

@@ -13,6 +13,9 @@ namespace URent.Models
         [Required]
         public string Details { get; set; }
 
+        [Required]
+        public int? Rating { get; set; }
+
         public DateTime Timestamp { get; set; } = DateTime.Now;
 
         public int? UserDoingReviewID { get; set; }
