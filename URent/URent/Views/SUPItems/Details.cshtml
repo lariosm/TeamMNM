@@ -11,16 +11,18 @@
     }*@
 
 <div class="container">
-    <div class="rateit" data-rateit-value="@Model.RatingAverage" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
 
     <!-- Item name -->
     <h2>@Html.DisplayFor(model => model.sUPItem.ItemName)</h2>
-    <br />
-    @Html.Label("Rating Average:")
-    @Html.DisplayFor(model => model.RatingAverage)
 
-    @Html.Label("Total # of Ratings:")
-    @Html.DisplayFor(model => model.RatingCount)
+    <!-- Rating stats for this item -->
+    <div style="display: flex">
+        <h4 style="color: gold; padding-right: 5px;">@String.Format("{0:0.0}", Model.RatingAverage)</h4>
+        <div class="rateit" data-rateit-value="@Model.RatingAverage" data-rateit-ispreset="true" data-rateit-mode="font" data-rateit-readonly="true" style="font-size: 25px;"></div>
+        <h5 class="text-muted" style="padding-left: 10px">@Model.RatingCount review(s)</h5>
+    </div>
+
+    <br />
 
     <!-- Item photo -->
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
@@ -92,7 +94,7 @@
     {
         if (Model.sUPItem.OwnerID != Model.UserDoingReviewID)
         {
-            //If so, then we show a "Rent" iftton.
+            //If so, then we show a "Rent" button.
             @Html.ActionLink("Rent", "Create", "SUPTransactions", new { itemId = Model.sUPItem.Id, dailyPrice = Model.sUPItem.DailyPrice }, new { @class = "btn btn-primary" })
         }
 
@@ -123,49 +125,40 @@
     <br />
 
     <h3>User reviews for this item</h3>
-    <table class="table">
-        <tr>
-            @*<th>User ID</th>*@
-            <th>Review</th>
-            <th>Rating</th>
-            <th>Posted on</th>
-        </tr>
+    <hr />
 
-        @if (Model.sUPItemReviews != null)
+    @if (Model.sUPItemReviews.Any())
+    {
+        foreach (var item in Model.sUPItemReviews)
         {
-            foreach (var item in Model.sUPItemReviews)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Details)</td>
-                    <td>
-                        @for (int i = 0; i < Int32.Parse(item.Rating.ToString()); i++)
-                        {
-                            <img src="~/Content/Img/FilledStar.png" alt="Star Rating" align="middle" />
-                        }
-                        @for (int i = Int32.Parse(item.Rating.ToString()); i < 5; i++)
-                        {
-                            <img src="~/Content/Img/EmptyStar.png" alt="Star Rating" align="middle" />
-                        }
-                    </td>
-                    <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
-                </tr>
-            }
-        }
+            <h6><b>John Doe</b></h6>
+            <div style="display: flex">
+                <div class="rateit" data-rateit-value="@item.Rating" data-rateit-ispreset="true" data-rateit-mode="font" data-rateit-readonly="true" style="font-size: 25px;"></div>
+                <p class="text-muted" style="padding-left: 10px">@String.Format("{0:MM/dd/yyyy}", item.Timestamp)</p>
+            </div>
+            <p>@item.Details</p>
 
-    </table>
+            <br />
+        }
+    }
+    else
+    {
+        <h5 style="text-align: center">No reviews yet. Be the first to review this item.</h5>
+    }
 
     <br />
     <br />
 
     @if (Model.sUPItem.OwnerID != Model.UserDoingReviewID && Request.IsAuthenticated)
     {
+        <h3>Leave a review for this user</h3>
+        <hr />
+
         using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
-
             <fieldset class="rating">
-                <legend>Please rate:</legend>
                 @Html.RadioButtonFor(model => model.Ratings, "5", new { id = "star5", name = "rating" })<label for="star5">5 stars</label>
                 @Html.RadioButtonFor(model => model.Ratings, "4", new { id = "star4", name = "rating" })<label for="star4">4 stars</label>
                 @Html.RadioButtonFor(model => model.Ratings, "3", new { id = "star3", name = "rating" })<label for="star3">3 stars</label>

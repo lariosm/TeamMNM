@@ -18,6 +18,7 @@ namespace URent.Models
 
         public DateTime TimeStamp { get; set; } = DateTime.Now;
 
+        [Display(Name = "Total price")]
         public decimal TotalPrice { get; set; }
 
         public int? RenterID { get; set; }
