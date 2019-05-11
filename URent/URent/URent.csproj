@@ -586,6 +586,7 @@
     <Content Include="Views\SUPRequests\GetRentersRequests.cshtml" />
     <Content Include="Views\SUPUsers\Notifications.cshtml" />
     <Content Include="Views\SUPUsers\UserProfile.cshtml" />
+    <Content Include="Views\SUPTransactions\GetAllOwnersItemsThatHaveBeenRented.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PayPal\" />
