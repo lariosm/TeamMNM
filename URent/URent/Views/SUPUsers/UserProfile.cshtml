@@ -58,6 +58,8 @@
                 @Html.RadioButtonFor(model => model.Ratings, "2", new { id = "star2", name = "rating" })<label for="star2">2 stars</label>
                 @Html.RadioButtonFor(model => model.Ratings, "1", new { id = "star1", name = "rating" })<label for="star1">1 star</label>
             </fieldset>
+            @Html.ValidationMessageFor(model => model.Ratings, "", new { @class = "text-danger" })
+
 
 
             @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 5, @placeholder = "Review this user..." })

@@ -23,7 +23,7 @@ namespace URent.Models
         public virtual int? UserDoingReviewID { get; set; }
 
         [Required]
-        [Display(Name = "Reviews")]
+        [Display(Name = "Review Details")]
         public virtual string Details { get; set; }
 
         [Required]
