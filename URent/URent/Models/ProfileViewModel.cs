@@ -23,10 +23,12 @@ namespace URent.Models
         public virtual int? UserDoingReviewID { get; set; }
 
         [Required]
-        [Display(Name = "Review Details")]
+        [Display(Name = "Reviews")]
         public virtual string Details { get; set; }
 
-        public virtual int? Ratings { get; set; }
+        [Required]
+        [Display(Name = "Rating")]
+        public virtual int Ratings { get; set; }
 
         public virtual double? RatingAverage { get; set; }
 
