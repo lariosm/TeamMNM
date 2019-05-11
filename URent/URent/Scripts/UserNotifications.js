@@ -53,7 +53,7 @@ function formatJSONDate(jsonDate) {
 
 function main() {
     notificationRequest();
-    var interval = 1000 * 5;
+    var interval = 1000 * 5; //Used to call notificationRequest() every 5 seconds.
     window.setInterval(notificationRequest, interval);
 }
 
