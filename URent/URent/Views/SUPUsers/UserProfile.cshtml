@@ -58,21 +58,27 @@
                 @Html.RadioButtonFor(model => model.Ratings, "2", new { id = "star2", name = "rating" })<label for="star2">2 stars</label>
                 @Html.RadioButtonFor(model => model.Ratings, "1", new { id = "star1", name = "rating" })<label for="star1">1 star</label>
             </fieldset>
-
-            <div class="form-group">
-                @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 5, @placeholder = "Review this user..." })
-                @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Ratings, "", new { @class = "text-danger" })
 
 
-                @Html.HiddenFor(model => model.UserBeingReviewedID)
-                @Html.HiddenFor(model => model.UserDoingReviewID)
-            </div>
+
+            @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 5, @placeholder = "Review this user..." })
+            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+
+
+            @Html.HiddenFor(model => model.UserBeingReviewedID)
+            @Html.HiddenFor(model => model.UserDoingReviewID)
+
+            <br />
             <input type="submit" value="Submit Review" class="btn btn-primary" />
         }
     }
 </div>
 
 @section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqueryui")
     @Styles.Render("~/Content/rateit.css")
     @Scripts.Render("~/Scripts/jquery.rateit.js")
 }
