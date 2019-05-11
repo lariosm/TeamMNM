@@ -99,13 +99,13 @@
         }
 
     }
-    else
+    else if(Request.IsAuthenticated && Model.sUPItem.OwnerID != Model.UserDoingReviewID)
     {
         //If not, we show a "Request" button.
         @Html.ActionLink("Set Available", "makeAvailable", "SUPItems", new { itemId = Model.sUPItem.Id }, new { @class = "btn btn-primary" })
     }
 
-    @if (Request.IsAuthenticated) //Is a logged in user viewing this page?
+    @if (Request.IsAuthenticated && Model.sUPItem.OwnerID == Model.UserDoingReviewID) //Is a logged in user viewing this page?
     {
         //Show an "Edit listing" button.
         @Html.ActionLink("Edit listing", "Edit", new { id = Model.sUPItem.Id }, new { @class = "btn btn-outline-primary" })
