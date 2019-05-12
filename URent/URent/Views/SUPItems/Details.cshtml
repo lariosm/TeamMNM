@@ -131,7 +131,8 @@
     {
         foreach (var item in Model.sUPItemReviews)
         {
-            <h6><b>John Doe</b></h6>
+            @Html.ActionLink(item.SUPUser.FirstName + " " + item.SUPUser.LastName, "UserProfile", "SUPUsers", new { id = item.UserDoingReviewID }, null)
+            <h6 src="/Resources/getUserNameById/@item.UserDoingReviewID"></h6>
             <div style="display: flex">
                 <div class="rateit" data-rateit-value="@item.Rating" data-rateit-ispreset="true" data-rateit-mode="font" data-rateit-readonly="true" style="font-size: 25px;"></div>
                 <p class="text-muted" style="padding-left: 10px">@String.Format("{0:MM/dd/yyyy}", item.Timestamp)</p>

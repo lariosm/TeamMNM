@@ -36,6 +36,7 @@ namespace URent.Controllers
             return supUserid;
         }
 
+
         /// <summary>
         /// Retrieves photo to display to view.
         /// </summary>
