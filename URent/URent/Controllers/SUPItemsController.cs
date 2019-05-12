@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -99,8 +98,11 @@ namespace URent.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            model.sUPItem = db.SUPItems.Find(id); //Finds the item listing associated with that ID.
-            model.sUPItemReviews = db.SUPItemReviews.Where(x => x.ItemBeingReviewedID == id).ToList();
+            model.sUPItem = db.SUPItems.Find(id); //Finds the item listing associated with that ID
+            List<SUPItemReview> reviews = db.SUPItemReviews.Where(x => x.ItemBeingReviewedID == id).ToList();
+            model.sUPItemReviews = reviews;
+
+         
             model = DetailsHelper(model, id);
             GetItemRatingStats(model, id);
             //model.ItemBeingReviewedID = id;
@@ -121,6 +123,16 @@ namespace URent.Controllers
             }
             return View(model);
         }
+
+        //public List<SUPUser> GetNameOfReviewer(List<SUPItemReview> reviews)
+        //{
+        //    List<SUPUser> reviewerName = new List<SUPUser>();
+        //    for (int i = 0; i < reviews.Count(); i++)
+        //    {
+        //        reviewerName.Add(db.SUPUsers.Where(x => x.Id == reviews[i].UserDoingReviewID).SelectMany(y => new { id = y.Id, first = y.FirstName, last = y.LastName )).FirstOrDefault());
+        //    }
+        //    return (reviewerName);
+        //}
 
         public ItemDetailsViewModel GetItemRatingStats(ItemDetailsViewModel model, int? id)
         {
