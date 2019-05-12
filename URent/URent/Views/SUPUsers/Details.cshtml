@@ -5,26 +5,16 @@
     Layout = "~/Views/Shared/_UserPageLayout.cshtml";
 }
 
-<h2>Overview</h2>
+<h2>My Overview</h2>
 
 <div>
     <hr />
+
+    <h5>Full Name:</h5>
+    @Html.ActionLink(Model.FirstName + " " + Model.LastName, "UserProfile", "SUPUsers", new { id = Model.Id }, null)
+    <br />
+
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.DateOfBirth)
