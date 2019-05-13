@@ -23,7 +23,7 @@
     {
         foreach (var review in Model.sUPUserReviews)
         {
-            <h6><b>John Doe</b></h6>
+            @Html.ActionLink(review.SUPUser1.FirstName + " " + review.SUPUser1.LastName, "UserProfile", "SUPUsers", new { id = review.UserDoingReviewID }, null)
             <div style="display: flex">
                 <div class="rateit" data-rateit-value="@review.Rating" data-rateit-ispreset="true" data-rateit-mode="font" data-rateit-readonly="true" style="font-size: 25px;"></div>
                 <p class="text-muted" style="padding-left: 10px">@String.Format("{0:MM/dd/yyyy}", review.Timestamp)</p>
