@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.props" Condition="Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.props')" />
   <Import Project="..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.props" Condition="Exists('..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.props')" />
   <Import Project="..\packages\SpecRun.Runner.3.0.337\build\SpecRun.Runner.props" Condition="Exists('..\packages\SpecRun.Runner.3.0.337\build\SpecRun.Runner.props')" />
   <Import Project="..\packages\Microsoft.NET.Test.Sdk.15.0.0\build\net45\Microsoft.Net.Test.Sdk.props" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.15.0.0\build\net45\Microsoft.Net.Test.Sdk.props')" />
@@ -137,6 +138,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Ninject.Web.Common.cs" />
+    <Compile Include="Feature\Nikki.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Nikki.feature</DependentUpon>
+    </Compile>
     <Compile Include="UnitTests\HomeControllerTests.cs" />
     <Compile Include="UnitTests\ItemControllerTests.cs" />
     <Compile Include="UnitTests\TotalPriceTests.cs" />
@@ -147,6 +153,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Feature\Nikki.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Nikki.feature.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />
     <None Include="Scripts\jquery.rateit.min.js.map" />
@@ -191,9 +201,12 @@
     <Error Condition="!Exists('..\packages\SpecRun.Runner.3.0.337\build\SpecRun.Runner.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecRun.Runner.3.0.337\build\SpecRun.Runner.targets'))" />
     <Error Condition="!Exists('..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.props'))" />
     <Error Condition="!Exists('..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.targets'))" />
+    <Error Condition="!Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.props'))" />
+    <Error Condition="!Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.targets'))" />
   </Target>
   <Import Project="..\packages\MSTest.TestAdapter.1.4.0\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.1.4.0\build\net45\MSTest.TestAdapter.targets')" />
   <Import Project="..\packages\Microsoft.NET.Test.Sdk.15.0.0\build\net45\Microsoft.Net.Test.Sdk.targets" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.15.0.0\build\net45\Microsoft.Net.Test.Sdk.targets')" />
   <Import Project="..\packages\SpecRun.Runner.3.0.337\build\SpecRun.Runner.targets" Condition="Exists('..\packages\SpecRun.Runner.3.0.337\build\SpecRun.Runner.targets')" />
   <Import Project="..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.targets" Condition="Exists('..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.targets')" />
+  <Import Project="..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.targets" Condition="Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.targets')" />
 </Project>

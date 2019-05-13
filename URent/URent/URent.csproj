@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.props" Condition="Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.props')" />
   <Import Project="..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.props" Condition="Exists('..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.props')" />
   <Import Project="..\packages\SpecRun.Runner.3.0.337\build\SpecRun.Runner.props" Condition="Exists('..\packages\SpecRun.Runner.3.0.337\build\SpecRun.Runner.props')" />
   <Import Project="..\packages\Microsoft.NET.Test.Sdk.15.0.0\build\net45\Microsoft.Net.Test.Sdk.props" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.15.0.0\build\net45\Microsoft.Net.Test.Sdk.props')" />
@@ -680,10 +681,13 @@
     <Error Condition="!Exists('..\packages\SpecRun.Runner.3.0.337\build\SpecRun.Runner.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecRun.Runner.3.0.337\build\SpecRun.Runner.targets'))" />
     <Error Condition="!Exists('..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.props'))" />
     <Error Condition="!Exists('..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.targets'))" />
+    <Error Condition="!Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.props'))" />
+    <Error Condition="!Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.NET.Test.Sdk.15.0.0\build\net45\Microsoft.Net.Test.Sdk.targets" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.15.0.0\build\net45\Microsoft.Net.Test.Sdk.targets')" />
   <Import Project="..\packages\SpecRun.Runner.3.0.337\build\SpecRun.Runner.targets" Condition="Exists('..\packages\SpecRun.Runner.3.0.337\build\SpecRun.Runner.targets')" />
   <Import Project="..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.targets" Condition="Exists('..\packages\SpecRun.SpecFlow.3-0-0.3.0.337\build\SpecRun.SpecFlow.3-0-0.targets')" />
+  <Import Project="..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.targets" Condition="Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.3.0.213\build\SpecFlow.Tools.MsBuild.Generation.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
