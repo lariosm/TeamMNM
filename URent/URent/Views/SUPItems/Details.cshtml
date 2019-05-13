@@ -11,8 +11,17 @@
     }*@
 
 <div class="container">
+
     <!-- Item name -->
     <h2>@Html.DisplayFor(model => model.sUPItem.ItemName)</h2>
+
+    <!-- Rating stats for this item -->
+    <div style="display: flex">
+        <h4 style="color: gold; padding-right: 5px;">@String.Format("{0:0.0}", Model.RatingAverage)</h4>
+        <div class="rateit" data-rateit-value="@Model.RatingAverage" data-rateit-ispreset="true" data-rateit-mode="font" data-rateit-readonly="true" style="font-size: 25px;"></div>
+        <h5 class="text-muted" style="padding-left: 10px">@Model.RatingCount review(s)</h5>
+    </div>
+
     <br />
 
     <!-- Item photo -->
@@ -27,7 +36,7 @@
                 else
                 {
                     //If not, display a placeholder image instead.
-                    <img class="d-block w-100" src="https://via.placeholder.com/450x250?text=No+photo+to+display" alt="Placeholder image" />
+                    <img class="d-block w-100" src="~/Content/Img/default.png" alt="Placeholder image" />
                 }
             </div>
         </div>
@@ -83,16 +92,20 @@
 
     @if (Model.sUPItem.IsAvailable == true) //Is the item available?
     {
-        //If so, then we show a "Rent" button.
-        @Html.ActionLink("Rent", "Create", "SUPTransactions", new { itemId = Model.sUPItem.Id, dailyPrice = Model.sUPItem.DailyPrice }, new { @class = "btn btn-primary" })
+        if (Model.sUPItem.OwnerID != Model.UserDoingReviewID)
+        {
+            //If so, then we show a "Rent" button.
+            @Html.ActionLink("Rent", "Create", "SUPTransactions", new { itemId = Model.sUPItem.Id, dailyPrice = Model.sUPItem.DailyPrice }, new { @class = "btn btn-primary" })
+        }
+
     }
-    else
+    else if(Request.IsAuthenticated && Model.sUPItem.OwnerID != Model.UserDoingReviewID)
     {
         //If not, we show a "Request" button.
         @Html.ActionLink("Set Available", "makeAvailable", "SUPItems", new { itemId = Model.sUPItem.Id }, new { @class = "btn btn-primary" })
     }
 
-    @if (Request.IsAuthenticated) //Is a logged in user viewing this page?
+    @if (Request.IsAuthenticated && Model.sUPItem.OwnerID == Model.UserDoingReviewID) //Is a logged in user viewing this page?
     {
         //Show an "Edit listing" button.
         @Html.ActionLink("Edit listing", "Edit", new { id = Model.sUPItem.Id }, new { @class = "btn btn-outline-primary" })
@@ -100,64 +113,71 @@
     <div type="hidden" id="itemId" data-id="@Model.sUPItem.Id"></div>
     <br>
 
-    <label>Dates</label>
+    @*<label>Dates</label>
     <p>
         @*<div id="myDatePicker" class="DateBox datepicker" style="width:100%;height:200px;"></div>
-            <input class="form-group form-control col-md-2" type="hidden" id="dateHidden" name="datePicker" placeholder="MM/DD/YYYY" />*@
+            <input class="form-group form-control col-md-2" type="hidden" id="dateHidden" name="datePicker" placeholder="MM/DD/YYYY" />
         <input type="text" id="d" />
         <div id="z"></div>
-    </p>
-
-    @*<p>
-        <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" readonly />
-      </p>*@
+    </p>*@
 
     <br />
     <br />
 
     <h3>User reviews for this item</h3>
-    <table class="table">
-        <tr>
-            @*<th>User ID</th>*@
-            <th>Review</th>
-            <th>Posted on</th>
-        </tr>
-
-        @if (Model.sUPItemReviews != null)
-        {
-            foreach (var item in Model.sUPItemReviews)
-            {
-        <tr>
-            @*<td>@Html.DisplayFor(modelItem => item.UserDoingReviewID)</td>*@
-            <td>@Html.DisplayFor(modelItem => item.Details)</td>
-            <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
-        </tr>
-            }
-        }
-
-    </table>
-
-    <br />
-    <br />
-
-    <h3>Leave a review for this item</h3>
     <hr />
-    @using (Html.BeginForm())
+
+    @if (Model.sUPItemReviews.Any())
     {
-        @Html.AntiForgeryToken()
+        foreach (var item in Model.sUPItemReviews)
+        {
+            @Html.ActionLink(item.SUPUser.FirstName + " " + item.SUPUser.LastName, "UserProfile", "SUPUsers", new { id = item.UserDoingReviewID }, null)
+            <div style="display: flex">
+                <div class="rateit" data-rateit-value="@item.Rating" data-rateit-ispreset="true" data-rateit-mode="font" data-rateit-readonly="true" style="font-size: 25px;"></div>
+                <p class="text-muted" style="padding-left: 10px">@String.Format("{0:MM/dd/yyyy}", item.Timestamp)</p>
+            </div>
+            <p>@item.Details</p>
 
-        @*@Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <br />
+        }
+    }
+    else
+    {
+        <h5 style="text-align: center">No reviews yet. Be the first to review this item.</h5>
+    }
 
-        @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 5, @placeholder = "Review this item..." })
-        @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+    <br />
+    <br />
 
-        @Html.HiddenFor(model => model.ItemBeingReviewedID)
-        @Html.HiddenFor(model => model.UserDoingReviewID)
+    @if (Model.sUPItem.OwnerID != Model.UserDoingReviewID && Request.IsAuthenticated)
+    {
+        <h3>Leave a review for this item</h3>
+        <hr />
 
-        <br />
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <input type="submit" value="Submit Review" class="btn btn-primary" />
-        @*@Html.ActionLink("Submit Review", "addUserReview",new { reviewer = Model.UserDoingReviewId, reviewed = Model.UserBeingReviewedId , details = Model.Details}, new { @class = "btn btn-primary" })*@
+            <fieldset class="rating">
+                @Html.RadioButtonFor(model => model.Ratings, "5", new { id = "star5", name = "rating" })<label for="star5">5 stars</label>
+                @Html.RadioButtonFor(model => model.Ratings, "4", new { id = "star4", name = "rating" })<label for="star4">4 stars</label>
+                @Html.RadioButtonFor(model => model.Ratings, "3", new { id = "star3", name = "rating" })<label for="star3">3 stars</label>
+                @Html.RadioButtonFor(model => model.Ratings, "2", new { id = "star2", name = "rating" })<label for="star2">2 stars</label>
+                @Html.RadioButtonFor(model => model.Ratings, "1", new { id = "star1", name = "rating" })<label for="star1">1 star</label>
+            </fieldset>
+            @Html.ValidationMessageFor(model => model.Ratings, "", new { @class = "text-danger" })
+
+
+            @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 5, @placeholder = "Review this item..." })
+            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.ItemBeingReviewedID)
+            @Html.HiddenFor(model => model.UserDoingReviewID)
+
+            <br />
+
+            <input type="submit" value="Submit Review" class="btn btn-primary" />
+        }
     }
 </div>
 
@@ -167,4 +187,6 @@
     @Styles.Render("~/Content/cssjqueryui")
     @Scripts.Render("~/Scripts/Calendar.js")
     @Scripts.Render("~/Scripts/transactionPriceCalculator.js")
+    @Styles.Render("~/Content/rateit.css")
+    @Scripts.Render("~/Scripts/jquery.rateit.js")
 }

@@ -8,10 +8,13 @@ namespace URent.Models
 
     public partial class SUPItemReview
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         public string Details { get; set; }
+
+        [Required]
+        public int Rating { get; set; }
 
         public DateTime Timestamp { get; set; } = DateTime.Now;
 

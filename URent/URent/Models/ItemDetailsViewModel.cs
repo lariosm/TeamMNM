@@ -18,8 +18,16 @@ namespace URent.Models
         public virtual int? UserDoingReviewID { get; set; }
 
         [Required]
-        [Display(Name = "Reviews")]
+        [Display(Name = "Review Details")]
         public virtual string Details { get; set; }
+
+        [Required]
+        [Display(Name = "Rating")]
+        public virtual int Ratings { get; set; }
+
+        public virtual int? RatingCount { get; set; }
+
+        public virtual double? RatingAverage { get; set; }
 
         public IEnumerable<SUPItemReview> sUPItemReviews { get; set; }
 

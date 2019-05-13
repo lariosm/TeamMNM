@@ -211,9 +211,6 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
     <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
       <Private>True</Private>
@@ -255,9 +252,6 @@
       <HintPath>..\packages\System.Text.RegularExpressions.4.3.0\lib\net463\System.Text.RegularExpressions.dll</HintPath>
       <Private>True</Private>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -369,6 +363,7 @@
     <Compile Include="Models\ItemDetailsViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />
+    <Compile Include="Models\RequirePhotoViewModel.cs" />
     <Compile Include="Models\SUPContext.cs" />
     <Compile Include="Models\SUPImage.cs" />
     <Compile Include="Models\SUPItem.cs" />
@@ -388,12 +383,18 @@
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\custom.css" />
+    <Content Include="Content\delete.gif" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Img\default.png" />
+    <Content Include="Content\Img\EmptyStar.png" />
     <Content Include="Content\Img\favicon.ico" />
+    <Content Include="Content\Img\FilledStar.png" />
     <Content Include="Content\Img\urentlogo.svg" />
     <Content Include="Content\Img\urentlogoalt.svg" />
+    <Content Include="Content\rateit.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\star.gif" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -482,6 +483,9 @@
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery.rateit.js" />
+    <Content Include="Scripts\jquery.rateit.min.js" />
+    <Content Include="Scripts\jquery.rateit.min.js.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
@@ -495,6 +499,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\rating.js" />
     <Content Include="Scripts\transactionPriceCalculator.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
@@ -576,6 +581,7 @@
     <Content Include="Views\SUPRequests\GetRentersRequests.cshtml" />
     <Content Include="Views\SUPUsers\Notifications.cshtml" />
     <Content Include="Views\SUPUsers\UserProfile.cshtml" />
+    <Content Include="Views\SUPTransactions\GetAllOwnersItemsThatHaveBeenRented.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PayPal\" />

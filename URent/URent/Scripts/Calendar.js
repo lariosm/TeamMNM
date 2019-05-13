@@ -118,36 +118,44 @@ function showPreviousTransactions(dates) {
     // column and the value stored within that column in a single item.
     // The start and end dates are stored in the same elements within the list. 
     //console.log(dates)
-    var splitStrings, startDate, endDate;
+    var startDate, endDate;
+    var splitStrings = [];
     var newList = [];
+    var temp = []
     if (dates.length == 0) {
         console.log('nothing in list');
     } else {
-        // 
+        // startdate:datetime(13429385204985),enddate:datetime(13094205729) start,end
         for (var i = 0; i < dates.length; i++) {
             // We are turning 
-            splitStrings = JSON.stringify(dates[i]).split(',')
-            //console.log(splitStrings);
-            for (var j = 0; j < dates.length - 1; j++) {
-                newList.push(new Date(parseInt(splitStrings[j].replace(/\D/g, ""))));
-            }
+            console.log(i)
+            temp = JSON.stringify(dates[i]).split(',');
+            splitStrings.push(temp[0]);
+            splitStrings.push(temp[1]);
+            console.log(splitStrings)
+        }
+        //console.log(splitStrings.length)
+        for (var j = 0; j < splitStrings.length; j++) {
+            newList.push(new Date(parseInt(splitStrings[j].replace(/\D/g, ""))));
             
         }
+        //console.log("new List array " + newList);
         //console.log(newList)
-        for (i = 0; i < newList.length - 1; i += 2) {
+        for (i = 0; i < newList.length; i += 2) {
             startDate = newList[i];
             endDate = newList[i + 1];
             //dateRange.forEach(function (j) { j = 0; });
             //console.log(dateRange);
-            //console.log("Start Date: " + newList[i] + " End Date: " + newList[i + 1]);
-            console.log(startDate, endDate)
+            console.log("Start Date: " + newList[i] + " End Date: " + newList[i + 1]);
+            //console.log("start date " + newList[i] + " end date " + endDate)
             for (var d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
+                //console.log(d);
                 dateRange.push($.datepicker.formatDate('mm/dd/yy', d));
                 //console.log(d);
             }
             
         }
-        //console.log(dateRange);
+        console.log("Date Range array " + dateRange);
     }    
 }
 

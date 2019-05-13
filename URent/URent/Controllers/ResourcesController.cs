@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -35,6 +36,7 @@ namespace URent.Controllers
             return supUserid;
         }
 
+
         /// <summary>
         /// Retrieves photo to display to view.
         /// </summary>
@@ -49,28 +51,27 @@ namespace URent.Controllers
             return File(p.Input, "image");
         }
 
+        public FileResult HomePhoto(int? id)
+        {
+            SUPImage pid = db.SUPImages.Where(a => a.ItemID == id).FirstOrDefault(); //Finds an image associated with the listing.
+            if (pid == null) // if there is not uploaded photo with the listing then show the default no photo to display photo
+            {
+                return base.File("/Content/Img/default.png", "image");
+            }
+            return File(pid.Input, "image");
+        }
+
         public JsonResult NotificationRequest()
         {
             int id = getSUPUserID(); //Retrieve ID of current user.
-            Console.WriteLine(id);
-            var notifications = db.SUPTransactions.Where(u => u.OwnerID == id)
-                                                  .Select(i => new {  item = GetItemName(i.ItemID), renter = GetRenterName(i.RenterID), start = i.StartDate, end = i.EndDate, time = i.TimeStamp, price = i.TotalPrice})
-                                                  .OrderBy(b => b.time)
-                                                  .ToList(); //Find all item listings that is requested/rented from other users
-            Console.WriteLine(notifications);
+
+            var notifications = db.SUPTransactions.Join(db.SUPUsers, t => t.RenterID, u => u.Id, (t, u) => new { t, u })
+                                                   .Join(db.SUPItems, x => x.t.ItemID, i => i.Id, (x, i) => new { x.t, x.u, i })
+                                                   .Where(x => x.t.OwnerID == id)
+                                                   .Select(y => new { y.i.ItemName, y.u.FirstName, y.u.LastName, y.t.StartDate, y.t.EndDate, y.t.TotalPrice, y.t.TimeStamp }).ToList();
+
+
             return Json(notifications, JsonRequestBehavior.AllowGet);
-        }
-
-        public IQueryable<string> GetItemName(int? id)
-        {
-            var name = db.SUPItems.Where(x => x.Id == id).Select(y => y.ItemName);
-            return (name);
-        }
-
-        public IQueryable<string> GetRenterName(int? id)
-        {
-            var name = db.SUPUsers.Where(x => x.Id == id).Select(y => y.FirstName);
-            return (name);
         }
 
         /// <summary>

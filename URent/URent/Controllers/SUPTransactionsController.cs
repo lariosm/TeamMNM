@@ -263,5 +263,13 @@ namespace URent.Controllers
             
             return Json(dates, JsonRequestBehavior.AllowGet);
         }
+
+        [Authorize]
+        public ActionResult GetAllOwnersItemsThatHaveBeenRented()
+        {
+            int id = getSUPUserID(); //Retrieve ID of current user.
+            var transactions = db.SUPTransactions.Where(u => u.OwnerID == id);
+            return View(transactions.ToList());
+        }
     }
 }
