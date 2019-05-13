@@ -1,9 +1,10 @@
 ﻿Feature: Nikki
+	In order to test search functionality on URent
+	As a developer I was to ensure functionality is working end to end
 
-A short summary of the feature
 
 @tag1
-Scenario: [scenario name]
-	Given [context]
-	When [action]
-	Then [outcome]
+Scenario: URent search should navigate to search page
+	Given I have naigated to the URent website
+	When I press the search button
+	Then I should navigate to search result page
