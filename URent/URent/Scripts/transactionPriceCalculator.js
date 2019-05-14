@@ -4,7 +4,7 @@
     var price = $('#price').data('price');
     console.log(price);
     var totalPrice = days * price;
-    totalPrice = totalPrice.toFixed(1);
+    totalPrice = Number.parseFloat(totalPrice).toFixed(2);
     console.log(totalPrice);
     $("#TotalPrice").val(totalPrice);
 };

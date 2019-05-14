@@ -1,25 +1,19 @@
 ﻿@model IEnumerable<URent.Models.SUPTransaction>
 
 @{
-    ViewBag.Title = "GetAllOwnersItemsThatHaveBeenRented";
+    ViewBag.Title = "My Item Rental History";
     Layout = "~/Views/Shared/_UserPageLayout.cshtml";
 }
 
-<h2>GetAllOwnersItemsThatHaveBeenRented</h2>
+<h2>My Item Rental History</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.SUPItem.ItemName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SUPUser.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SUPUser1.FirstName)
+            Renter name
         </th>
         <th>
             @Html.DisplayNameFor(model => model.StartDate)
@@ -43,21 +37,19 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SUPUser.FirstName)
+            @Html.DisplayFor(modelItem => item.SUPUser.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SUPUser1.FirstName)
+            @String.Format("{0:MM/dd/yyyy}", item.StartDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
+            @String.Format("{0:MM/dd/yyyy}", item.EndDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
+            @String.Format("{0:MM/dd/yyyy}", item.TimeStamp)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TimeStamp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalPrice)
+            $@Html.DisplayFor(modelItem => item.TotalPrice)
         </td>
         @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

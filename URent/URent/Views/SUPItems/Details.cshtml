@@ -99,7 +99,7 @@
         }
 
     }
-    else if(Request.IsAuthenticated && Model.sUPItem.OwnerID != Model.UserDoingReviewID)
+    else if(Request.IsAuthenticated && Model.sUPItem.OwnerID == Model.UserDoingReviewID)
     {
         //If not, we show a "Request" button.
         @Html.ActionLink("Set Available", "makeAvailable", "SUPItems", new { itemId = Model.sUPItem.Id }, new { @class = "btn btn-primary" })
@@ -165,6 +165,8 @@
                 @Html.RadioButtonFor(model => model.Ratings, "2", new { id = "star2", name = "rating" })<label for="star2">2 stars</label>
                 @Html.RadioButtonFor(model => model.Ratings, "1", new { id = "star1", name = "rating" })<label for="star1">1 star</label>
             </fieldset>
+
+            <br />
             @Html.ValidationMessageFor(model => model.Ratings, "", new { @class = "text-danger" })
 
 
