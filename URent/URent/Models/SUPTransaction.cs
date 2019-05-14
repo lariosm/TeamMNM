@@ -11,11 +11,14 @@ namespace URent.Models
         public int Id { get; set; }
 
         [Column(TypeName = "date")]
+        [Display(Name = "Start date")]
         public DateTime StartDate { get; set; }
 
         [Column(TypeName = "date")]
+        [Display(Name = "End date")]
         public DateTime EndDate { get; set; }
 
+        [Display(Name = "Rented on")]
         public DateTime TimeStamp { get; set; } = DateTime.Now;
 
         [Display(Name = "Total price")]

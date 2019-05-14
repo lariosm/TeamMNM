@@ -30,9 +30,12 @@
                 <div id="TextBox3" typeof="hidden" val=""></div>
 
                 <label>Total price</label>
-                <span>
-                    <input class="form-group form-control col-md-2" id="TotalPrice" name="TotalPrice" type="text" value="" readonly="readonly" />
-                </span>
+                <div class="input-group-prepend">
+                    <div class="input-group-text">$</div>
+                    <input class="form-inline form-control col-md-2" id="TotalPrice" name="TotalPrice" type="text" value="" readonly="readonly" />
+                </div>
+
+                <br />
 
                 <input type="submit" value="Rent this item" class="btn btn-primary" />
             </div>
