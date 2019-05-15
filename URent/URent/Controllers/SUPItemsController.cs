@@ -459,12 +459,12 @@ namespace URent.Controllers
                     GeoCoordinate userLocation = GetGeoCoordinateForCurrentUserLocation(lat, lng);
                     sUPItems = GetItemsWithinRange(sUPItems, userLocation, radius);
                     ViewBag.ResultString = query; //Keywords to display to the view.
-                    return View(sUPItems);
+                    return View(sUPItems.ToList());
                 }
                 else
                 {
                     ViewBag.ResultString = query; //Keywords to display to the view.
-                    return View(sUPItems);
+                    return View(sUPItems.ToList());
 
                 }
 
@@ -478,7 +478,8 @@ namespace URent.Controllers
 
         public List<SUPItem> GetListOfItemsWithQueryString(string query)
         {
-            var sUPItems = repo.SUPItems.Where(s => s.ItemName.Contains(query)); //Performs the query
+            //NOTE: change 'db' back to 'repo' when we find why Contains() LINQ function doesn't work correctly.
+            var sUPItems = db.SUPItems.Where(s => s.ItemName.Contains(query)); //Performs the query
 
             return sUPItems.ToList();
         }
