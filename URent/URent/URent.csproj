@@ -345,6 +345,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Concrete\EFSUPRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PayPalController.cs" />
@@ -565,7 +566,6 @@
     <Content Include="Views\Shared\_UserPageLayout.cshtml" />
     <Content Include="Views\SUPItems\Error.cshtml" />
     <Content Include="Views\SUPItems\GetUserItems.cshtml" />
-    <Content Include="Views\SUPUsers\Error.cshtml" />
     <Content Include="Views\SUPTransactions\Create.cshtml" />
     <Content Include="Views\SUPTransactions\Delete.cshtml" />
     <Content Include="Views\SUPTransactions\Details.cshtml" />
@@ -582,6 +582,8 @@
     <Content Include="Views\SUPUsers\Notifications.cshtml" />
     <Content Include="Views\SUPUsers\UserProfile.cshtml" />
     <Content Include="Views\SUPTransactions\GetAllOwnersItemsThatHaveBeenRented.cshtml" />
+    <Content Include="Views\Error\Error_RentYourOwnItem.cshtml" />
+    <Content Include="Views\Error\Error_EditViewAnotherAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PayPal\" />
