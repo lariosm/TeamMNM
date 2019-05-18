@@ -10,6 +10,9 @@
     {
         @Html.AntiForgeryToken()
 
+        @Html.HiddenFor(x => x.OwnerID)
+        @Html.HiddenFor(x => x.RenterID)
+
         <div type="hidden" id="itemId" data-id="@Model.ItemID"></div>
         <div actions="/SUPTranctions/Create" class="form-horizontal" method="POST">
             <h4>Choose how long you want to rent out this item for</h4>
