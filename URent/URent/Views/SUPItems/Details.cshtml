@@ -92,6 +92,8 @@
 
     @if (Model.sUPItem.IsAvailable == true) //Is the item available?
     {
+        // added Request.IsAuthenticated which takes away button to rent items when you are not logged in
+        //did this to fix bug where user could rent own item from not being logged in pressing this button and then loggin in
         if (Model.sUPItem.OwnerID != Model.UserDoingReviewID)
         {
             //If so, then we show a "Rent" button.

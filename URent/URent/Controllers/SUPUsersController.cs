@@ -129,7 +129,7 @@ namespace URent.Controllers
             }
             else
             {
-                return RedirectToAction("Error");
+                return RedirectToAction("Error_EditViewAnotherAccount", "Error");
             }
         }
 
@@ -204,15 +204,6 @@ namespace URent.Controllers
             base.Dispose(disposing);
         }
 
-        /// <summary>
-        /// Displays error page
-        /// </summary>
-        /// <returns>View of Error.cshtml</returns>
-        [Authorize]
-        public ActionResult Error()
-        {
-            return View();
-        }
 
         [Authorize]
         public ActionResult Notifications()

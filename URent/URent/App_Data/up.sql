@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[SUPItems]
     [Description]   NVARCHAR(MAX)           NOT NULL,
     [TimeStamp]     DATETIME                NOT NULL,
     [IsAvailable]   BIT                     NOT NULL,
-	[DailyPrice]	DECIMAL					NOT NULL,
+	[DailyPrice]	DECIMAL(38,2)			NOT NULL,
 	[Lat]			FLOAT					NOT NULL,
 	[Lng]			FLOAT					NOT NULL,
     [OwnerID]       INT FOREIGN KEY REFERENCES SUPUsers(Id) NOT NULL
