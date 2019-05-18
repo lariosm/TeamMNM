@@ -65,23 +65,7 @@ $(document).ready(function () {
         });
 });
 
-//$(function () {
-//    $(".datepicker").datepicker({
-//        inline: true,
-//        altField: "#myDatePicker",
-//        dateFormat: 'mm-dd-yy'
-//    })
-//        .datepicker("setDate", "0");
-//});
 
-//$("#dateHidden").on('input propertychange paste', function () {
-
-//    var Loc = $("#Cafe").val();
-//    var PDate = $("#datePicker").val();
-////------Functions you call or actions you perform--------//
-////GetLoc(Loc,PDate);
-
-//});
 var dateRange = [];
 $('#z').datepicker({
     minDate: '0',
@@ -116,52 +100,6 @@ function transactionHistory() {
     })
 }
 
-//function showPreviousTransactions(dates) {
-//    // Date is returned as a list which contains the header of the db 
-//    // column and the value stored within that column in a single item.
-//    // The start and end dates are stored in the same elements within the list. 
-//    //console.log(dates)
-//    var startDate, endDate;
-//    var splitStrings = [];
-//    var newList = [];
-//    var temp = []
-//    if (dates.length == 0) {
-//        console.log('nothing in list');
-//    } else {
-//        // startdate:datetime(13429385204985),enddate:datetime(13094205729) start,end
-//        for (var i = 0; i < dates.length; i++) {
-//            // We are turning 
-//            console.log(i)
-//            temp = JSON.stringify(dates[i]).split(',');
-//            splitStrings.push(temp[0]);
-//            splitStrings.push(temp[1]);
-//            console.log(splitStrings)
-//        }
-//        //console.log(splitStrings.length)
-//        for (var j = 0; j < splitStrings.length; j++) {
-//            newList.push(new Date(parseInt(splitStrings[j].replace(/\D/g, ""))));
-            
-//        }
-//        //console.log("new List array " + newList);
-//        //console.log(newList)
-//        for (i = 0; i < newList.length; i += 2) {
-//            startDate = newList[i];
-//            endDate = newList[i + 1];
-//            //dateRange.forEach(function (j) { j = 0; });
-//            //console.log(dateRange);
-//            console.log("Start Date: " + newList[i] + " End Date: " + newList[i + 1]);
-//            //console.log("start date " + newList[i] + " end date " + endDate)
-//            for (var d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
-//                //console.log(d);
-//                dateRange.push($.datepicker.formatDate('mm/dd/yy', d));
-//                //console.log(d);
-//            }
-            
-//        }
-//        console.log("Date Range array " + dateRange);
-//    }    
-//}
-
 function showPreviousTransactions(dates) {
     // Date is returned as a list which contains the header of the db 
     // column and the value stored within that column in a single item.
@@ -170,6 +108,7 @@ function showPreviousTransactions(dates) {
     var startDate, endDate;
     var splitStrings = [];
     var newList = [];
+    var newDate;
     var temp;
     if (dates.length == 0) {
         console.log('nothing in list');
@@ -204,7 +143,8 @@ function showPreviousTransactions(dates) {
             //console.log(unavailableDates)
             while (temp <= endDate) {
                 console.log(temp);
-                unavailableDates.push(new Date(temp));
+
+                unavailableDates.push((temp.getMonth() + 1) + "/" + temp.getDate() + "/" + temp.getFullYear());
                 temp.setDate(temp.getDate() + 1);
             }
             console.log("U " + unavailableDates);
@@ -231,7 +171,7 @@ $(document).ready(main());
 
 // To set mindate in enddate
 function unavailable(date) {
-    dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+    dmy = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
     if ($.inArray(dmy, unavailableDates) == -1) {
         return [true, ""];
     } else {
@@ -259,12 +199,15 @@ $(document).ready(function () {
             beforeShow: customRangeStart,
             beforeShowDay: unavailable,
             minDate: 0,
-            dateFormat: "mm-dd-yy",
+            dateFormat: "mm/dd/yy",
             changeYear: true,
             onSelect: function () {
+                $('#EndDate').removeAttr("disabled");
                 triggerOnStartSelect();
                 var startDate = $('#StartDate').datepicker('getDate');
                 if (startDate != null) {
+                    startDate.setDate(startDate.getDate() + 1)
+                    $("#EndDate").datepicker('option', 'minDate', startDate); // Set other min, default to today
                     totalDays();
                 }
             }
@@ -274,11 +217,12 @@ $(document).ready(function () {
         {
             beforeShow: customRange,
             beforeShowDay: unavailable,
-            dateFormat: "mm-dd-yy",
+            dateFormat: "mm/dd/yy",
             changeYear: true,
             onSelect: function () {
                 var startDate = $('#StartDate').datepicker('getDate');
                 if (startDate != null) {
+                    $('#StartDate').datepicker('option', 'minDate'); // Set other max, default to +18 months
                     totalDays();
                 }
             }
@@ -286,22 +230,37 @@ $(document).ready(function () {
 });
 
 //Convert String Date List to Date object List
+//function convertDisabledFieldToDateObject(diabledList) {
+//    console.log("convert start")
+//    console.log(diabledList)
+//    var dateList = [];
+//    $.each(diabledList, function (i, singleDate) {
+//        var parsedDate = $.datepicker.parseDate("mm-dd-yy", singleDate);
+//        dateList.push(parsedDate);
+//    });
+//    //Sort date if the diabled date sets are in jumbled order
+//    dateList.sort(function (date1, date2) {
+//        return date1 - date2;
+//    });
+//    console.log("convert end")
+//    console.log(dateList)
+//    return dateList;
+//}
+
 function convertDisabledFieldToDateObject(diabledList) {
-    console.log("convert start")
-    console.log(diabledList)
-    var dateList = diabledList;
-    //$.each(diabledList, function (i, singleDate) {
-    //    var parsedDate = $.datepicker.parseDate("dd-mm-yy", singleDate);
-    //    dateList.push(parsedDate);
-    //});
+    var dateList = [];
+    $.each(diabledList, function (i, singleDate) {
+        var parsedDate = $.datepicker.parseDate("mm/dd/yy", singleDate);
+        dateList.push(parsedDate);
+    });
     //Sort date if the diabled date sets are in jumbled order
     dateList.sort(function (date1, date2) {
         return date1 - date2;
     });
-    console.log("convert end")
-    console.log(dateList)
     return dateList;
 }
+
+
 
 //Trigger upon change event of either start or end date
 function triggerOnStartSelect() {
