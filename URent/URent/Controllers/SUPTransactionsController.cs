@@ -83,6 +83,9 @@ namespace URent.Controllers
 
             ViewBag.dailyPrice = dailyPrice;
 
+            transaction.RenterID = getSUPUserID();
+            transaction.OwnerID = db.SUPItems.Where(x => x.Id == itemId).Select(x => x.OwnerID).FirstOrDefault();
+
             ViewBag.ItemID = new SelectList(db.SUPItems, "Id", "ItemName");
             ViewBag.RenterID = new SelectList(db.SUPUsers, "Id", "FirstName");
             return View(transaction);
@@ -128,8 +131,8 @@ namespace URent.Controllers
                                 SUPItem i = db.SUPItems.Find(sUPTransaction.ItemID);
                                 i.IsAvailable = false;
                                 db.Entry(i).State = EntityState.Modified;
-                                sUPTransaction.RenterID = getSUPUserID();
-                                sUPTransaction.OwnerID = i.OwnerID;
+                                //sUPTransaction.RenterID = getSUPUserID();
+                                //sUPTransaction.OwnerID = i.OwnerID;
                                 db.SUPTransactions.Add(sUPTransaction);
                                 //db.Entry(sUPTransaction).State = EntityState.Modified;
                                 db.SaveChanges();
