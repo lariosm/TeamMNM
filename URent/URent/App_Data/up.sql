@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[SUPItems]
     [Description]   NVARCHAR(MAX)           NOT NULL,
     [TimeStamp]     DATETIME                NOT NULL,
     [IsAvailable]   BIT                     NOT NULL,
-	[DailyPrice]	DECIMAL					NOT NULL,
+	[DailyPrice]	DECIMAL(38,2)			NOT NULL,
 	[Lat]			FLOAT					NOT NULL,
 	[Lng]			FLOAT					NOT NULL,
     [OwnerID]       INT FOREIGN KEY REFERENCES SUPUsers(Id) NOT NULL
@@ -47,7 +47,7 @@ CREATE TABLE [dbo].[SUPTransactions]
 	[StartDate]     DATE	                NOT NULL,
 	[EndDate]		DATE	                NOT NULL,
     [TimeStamp]     DATETIME                NOT NULL,
-	[TotalPrice]	DECIMAL					NOT NULL,
+	[TotalPrice]	DECIMAL(38,2)					NOT NULL,
     [RenterID]      INT FOREIGN KEY REFERENCES SUPUsers(Id) NOT NULL,
 	[OwnerID]		INT FOREIGN KEY REFERENCES SUPUsers(Id)	NOT NULL,
 	[ItemID]		INT FOREIGN KEY REFERENCES SUPItems(Id)	NOT NULL

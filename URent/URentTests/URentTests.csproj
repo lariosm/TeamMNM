@@ -112,10 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Feature\Nikki.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Nikki.feature.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
     <None Include="Scripts\jquery.rateit.min.js.map" />
   </ItemGroup>

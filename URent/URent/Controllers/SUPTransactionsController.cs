@@ -83,6 +83,9 @@ namespace URent.Controllers
 
             ViewBag.dailyPrice = dailyPrice;
 
+            transaction.RenterID = getSUPUserID();
+            transaction.OwnerID = db.SUPItems.Where(x => x.Id == itemId).Select(x => x.OwnerID).FirstOrDefault();
+
             ViewBag.ItemID = new SelectList(db.SUPItems, "Id", "ItemName");
             ViewBag.RenterID = new SelectList(db.SUPUsers, "Id", "FirstName");
             return View(transaction);
@@ -103,31 +106,38 @@ namespace URent.Controllers
         {
             if (ModelState.IsValid) //Are required fields filled out?
             {
-                var startDate = sUPTransaction.StartDate.ToString();
-                var endDate = sUPTransaction.EndDate.ToString();
-
-                //Are start and end date inputs in the proper format?
-                if (checkDateFormat(startDate, endDate))
+                if (sUPTransaction.OwnerID == sUPTransaction.RenterID)
                 {
-                    //Are start and end dates valid?
-                    if (IsValidDate(sUPTransaction.StartDate, sUPTransaction.EndDate))
-                    {
-                        var totalDays = (sUPTransaction.EndDate - sUPTransaction.StartDate).TotalDays;
-                        var dailyRate = db.SUPItems.Where(x => x.Id == sUPTransaction.ItemID).Select(x => x.DailyPrice).FirstOrDefault();
-                        var totalPrice = dailyRate * (decimal)totalDays;
+                    return RedirectToAction("Error_RentYourOwnItem", "Error");
+                }
+                else
+                {
+                    var startDate = sUPTransaction.StartDate.ToString();
+                    var endDate = sUPTransaction.EndDate.ToString();
 
-                        //verify total price are the same client and server side.
-                        if (totalPrice == sUPTransaction.TotalPrice)
+                    //Are start and end date inputs in the proper format?
+                    if (checkDateFormat(startDate, endDate))
+                    {
+                        //Are start and end dates valid?
+                        if (IsValidDate(sUPTransaction.StartDate, sUPTransaction.EndDate))
                         {
-                            SUPItem i = db.SUPItems.Find(sUPTransaction.ItemID);
-                            i.IsAvailable = false;
-                            db.Entry(i).State = EntityState.Modified;
-                            sUPTransaction.RenterID = getSUPUserID();
-                            sUPTransaction.OwnerID = i.OwnerID;
-                            db.SUPTransactions.Add(sUPTransaction);
-                            //db.Entry(sUPTransaction).State = EntityState.Modified;
-                            db.SaveChanges();
-                            return RedirectToAction("PaymentWithPaypal", "PayPal", new { transactionId = sUPTransaction.Id, itemId = sUPTransaction.ItemID });
+                            var totalDays = (sUPTransaction.EndDate - sUPTransaction.StartDate).TotalDays;
+                            var dailyRate = db.SUPItems.Where(x => x.Id == sUPTransaction.ItemID).Select(x => x.DailyPrice).FirstOrDefault();
+                            var totalPrice = dailyRate * (decimal)totalDays;
+
+                            //verify total price are the same client and server side.
+                            if (totalPrice == sUPTransaction.TotalPrice)
+                            {
+                                SUPItem i = db.SUPItems.Find(sUPTransaction.ItemID);
+                                i.IsAvailable = false;
+                                db.Entry(i).State = EntityState.Modified;
+                                //sUPTransaction.RenterID = getSUPUserID();
+                                //sUPTransaction.OwnerID = i.OwnerID;
+                                db.SUPTransactions.Add(sUPTransaction);
+                                //db.Entry(sUPTransaction).State = EntityState.Modified;
+                                db.SaveChanges();
+                                return RedirectToAction("PaymentWithPaypal", "PayPal", new { transactionId = sUPTransaction.Id, itemId = sUPTransaction.ItemID });
+                            }
                         }
                     }
                 }

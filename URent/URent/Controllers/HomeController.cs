@@ -73,8 +73,7 @@ namespace URent.Controllers
         {
             
             List<SUPItem> newList = new List<SUPItem>(); //List of filtered item listings to return
-            // Deleted .Include(s => s.SUPUser)
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 var userId = getSUPUserID();
                 newList = repo.SUPItems.Where(x => x.OwnerID != userId).Select(x => x).ToList();

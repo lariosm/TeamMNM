@@ -10,6 +10,10 @@
     {
         @Html.AntiForgeryToken()
 
+        @Html.HiddenFor(x => x.OwnerID)
+        @Html.HiddenFor(x => x.RenterID)
+
+        <div type="hidden" id="itemId" data-id="@Model.ItemID"></div>
         <div actions="/SUPTranctions/Create" class="form-horizontal" method="POST">
             <h4>Choose how long you want to rent out this item for</h4>
             <hr />
@@ -24,7 +28,7 @@
 
                 <label>End Date</label>
                 <p>
-                    <input class="form-group form-control col-md-2" type="text" id="EndDate" name="EndDate" placeholder="MM/DD/YYYY" readonly/>
+                    <input class="form-group form-control col-md-2" type="text" id="EndDate" name="EndDate" placeholder="MM/DD/YYYY" disabled readonly/>
                 </p>
 
                 <div id="TextBox3" typeof="hidden" val=""></div>

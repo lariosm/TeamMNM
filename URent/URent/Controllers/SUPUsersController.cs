@@ -59,13 +59,14 @@ namespace URent.Controllers
         /// </summary>
         /// <param name="id">ID of a user account</param>
         /// <returns>User account info of a user.</returns>
-        [Authorize]
+        //[Authorize]
         public ActionResult Details(int? id)
         {
             SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
             if (User.Identity.IsAuthenticated)
             {
-                sUPUser = db.SUPUsers.Find(getSUPUserID());
+                var userId = getSUPUserID();
+                sUPUser = db.SUPUsers.Where(x => x.Id == userId).Select(y => y).FirstOrDefault();
                 return View(sUPUser);
             }
             if (id == null) //No user ID?
@@ -128,7 +129,7 @@ namespace URent.Controllers
             }
             else
             {
-                return RedirectToAction("Error");
+                return RedirectToAction("Error_EditViewAnotherAccount", "Error");
             }
         }
 
@@ -143,13 +144,13 @@ namespace URent.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,StreetAddress,CityAddress,StateAddress,ZipCode,TimeStamp")] SUPUser sUPUser)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,StreetAddress,CityAddress,StateAddress,ZipCode,TimeStamp,Lat,Lng,NetUserId")] SUPUser sUPUser)
         {
             if (ModelState.IsValid) //Are required fields filled out?
             {
                 db.Entry(sUPUser).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details", new {id = sUPUser.Id });
+                return RedirectToAction("Details", new { id = sUPUser.Id });
             }
 
             //If not, send user back to edit page to make corrections.
@@ -203,15 +204,6 @@ namespace URent.Controllers
             base.Dispose(disposing);
         }
 
-        /// <summary>
-        /// Displays error page
-        /// </summary>
-        /// <returns>View of Error.cshtml</returns>
-        [Authorize]
-        public ActionResult Error()
-        {
-            return View();
-        }
 
         [Authorize]
         public ActionResult Notifications()
