@@ -88,10 +88,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestLoginSteps.cs" />
     <Compile Include="TestUserRatingSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="TestLogin.feature" />
     <None Include="TestRealTimeNotifications.feature" />
     <None Include="TestUserRating.feature" />
   </ItemGroup>
