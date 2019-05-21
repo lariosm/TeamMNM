@@ -9,12 +9,20 @@ using TechTalk.SpecFlow;
 namespace Specflow
 {
     [Binding]
-    public class TestUserRatingSteps
+    public class TestUserRatingSteps : IDisposable
     {
+        private ChromeDriver driver;
+
+        public TestUserRatingSteps()
+        {
+            driver = new ChromeDriver();
+        }
+
         [Given(@"I have navigated to an item listing as a logged in user")]
         public void GivenIHaveNavigatedToAnItemListingAsALoggedInUser()
         {
-            ScenarioContext.Current.Pending();
+            driver.Navigate().GoToUrl("https://urent.azurewebsites.net");
+            Assert.IsTrue(driver.Title.ToLower().Contains("Home"));
         }
         
         [Given(@"click to view the user profile of the owner renting the item")]
@@ -34,5 +42,15 @@ namespace Specflow
         {
             ScenarioContext.Current.Pending();
         }
+
+        public void Dispose()
+        {
+            if (driver != null)
+            {
+                driver.Dispose();
+                driver = null;
+            }
+        }
+
     }
 }

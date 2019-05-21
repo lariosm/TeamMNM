@@ -27,9 +27,9 @@ namespace Specflow
         }
         
         [Given(@"I have typed a search word into the search bar")]
-        public void GivenIHaveTypedASearchWordIntoTheSearchBar(string search)
+        public void GivenIHaveTypedASearchWordIntoTheSearchBar()
         {
-            this.searchKeyword = search.ToLower();
+            this.searchKeyword = "guitar";
             var searchInputBox = driver.FindElementById("searchinput");
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(2));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("searchbar")));
