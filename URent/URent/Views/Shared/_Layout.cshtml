@@ -30,11 +30,11 @@
         </div>
         <!-- Search bar -->
         <div class="collapse navbar-collapse nav navbar-nav" id="navbar">
-            <div class="input-group">
+            <div class="input-group" id="searchbar">
                 <form class="input-group" action="/SUPItems/Search" method="get">
-                    <input type="text" name="query" class="form-control" placeholder="Search for an item" aria-label="Search">
+                    <input type="text" name="query" id="searchinput" class="form-control" placeholder="Search for an item" aria-label="Search">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-warning search-btn-outline" type="submit"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-outline-warning search-btn-outline" id="searchbutton" type="submit"><i class="fa fa-search"></i></button>
                     </div>
                 </form>
             </div>
