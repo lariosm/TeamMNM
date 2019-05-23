@@ -75,8 +75,7 @@ namespace Specflow
         [NUnit.Framework.CategoryAttribute("mytag")]
         public virtual void URentSearch()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("URent Search", null, new string[] {
-                        "mytag"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("URent Search", null, new string[] { "mytag" });
 #line 6
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();

@@ -18,22 +18,21 @@ namespace Specflow
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("TestUserRating")]
-    public partial class TestUserRatingFeature
+    [NUnit.Framework.DescriptionAttribute("TestLogin")]
+    public partial class TestLoginFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "TestUserRating.feature"
+#line 1 "TestLogin.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "TestUserRating", "\tWhen a logged in user clicks to view the user profile of the owner from an item " +
-                    "listing, \r\n\tthey will be able to rate the owner on a scale of 1 to 5 stars, with" +
-                    " 1 being the worst and 5 being the best.", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "TestLogin", "\tWhen a user has registered a new account, whenever they visit our site they\r\n\tca" +
+                    "n login to their account.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -72,23 +71,23 @@ namespace Specflow
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Rate another user")]
-        [NUnit.Framework.CategoryAttribute("scopedBinding")]
-        public virtual void RateAnotherUser()
+        [NUnit.Framework.DescriptionAttribute("Login to a user account")]
+        [NUnit.Framework.CategoryAttribute("mytag")]
+        public virtual void LoginToAUserAccount()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Rate another user", null, new string[] {
-                        "scopedBinding"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login to a user account", null, new string[] {
+                        "mytag"});
 #line 6
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 7
- testRunner.Given("I have navigated to an item listing as a logged in user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have registered as a user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.And("click to view the user profile of the owner renting the item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I can input my email and password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9
- testRunner.When("I click on a star and leave a review", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I press login", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
- testRunner.Then("I should be able to see my review on the owner on their user profile page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I am logged into my account and redirected to the home page.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
