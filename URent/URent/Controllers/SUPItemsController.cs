@@ -528,5 +528,18 @@ namespace URent.Controllers
             }
             return RedirectToAction("Details", new { id = itemId });
         }
+
+        public ActionResult makeUnavailable(int itemId)
+        {
+            SUPItem i = db.SUPItems.Find(itemId);
+            if (i.IsAvailable == true)
+            {
+                i.IsAvailable = false;
+                db.Entry(i).State = EntityState.Modified;
+                //db.Entry(sUPTransaction).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Details", new { id = itemId });
+        }
     }
 }

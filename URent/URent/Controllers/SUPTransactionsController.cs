@@ -102,7 +102,7 @@ namespace URent.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TotalPrice,RenterID,OwnerID,ItemID")] SUPTransaction sUPTransaction)
+        public ActionResult Create([Bind(Include = "Id,StartDate,EndDate,TotalPrice,RenterID,OwnerID,ItemID,IsAvailable")] SUPTransaction sUPTransaction)
         {
             if (ModelState.IsValid) //Are required fields filled out?
             {
@@ -129,7 +129,6 @@ namespace URent.Controllers
                             if (totalPrice == sUPTransaction.TotalPrice)
                             {
                                 SUPItem i = db.SUPItems.Find(sUPTransaction.ItemID);
-                                i.IsAvailable = false;
                                 db.Entry(i).State = EntityState.Modified;
                                 //sUPTransaction.RenterID = getSUPUserID();
                                 //sUPTransaction.OwnerID = i.OwnerID;
