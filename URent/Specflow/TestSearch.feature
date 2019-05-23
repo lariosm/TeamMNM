@@ -3,7 +3,7 @@
 	after the user clicks the search button then it should take them to the search page.
 
 @mytag
-Scenario: Add two numbers
+Scenario: URent Search
 	Given I have navigated to the URent website
 	And I have typed a search word into the search bar
 	When I press the search button

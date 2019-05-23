@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_UserPageLayout.cshtml";
 }
 
-<h2>Account Overview</h2>
+<h1>@Html.ActionLink(Model.FirstName + " " + Model.LastName, "UserProfile", "SUPUsers", new { id = Model.Id }, null)</h1>
 
 <div>
     <hr />
@@ -13,52 +13,44 @@
     <dl class="dl-horizontal">
 
         <dt>
-            Full name
-        </dt>
-
-        <dd>
-            @Html.ActionLink(Model.FirstName + " " + Model.LastName, "UserProfile", "SUPUsers", new { id = Model.Id }, null)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.DateOfBirth)
         </dt>
 
-        <dd>
+        <h4>
             @String.Format("{0:MM/dd/yyyy}", Model.DateOfBirth)
-        </dd>
+        </h4>
 
         <dt>
             @Html.DisplayNameFor(model => model.StreetAddress)
         </dt>
 
-        <dd>
+        <h4>
             @Html.DisplayFor(model => model.StreetAddress)
-        </dd>
+        </h4>
 
         <dt>
             @Html.DisplayNameFor(model => model.CityAddress)
         </dt>
 
-        <dd>
+        <h4>
             @Html.DisplayFor(model => model.CityAddress)
-        </dd>
+        </h4>
 
         <dt>
             @Html.DisplayNameFor(model => model.StateAddress)
         </dt>
 
-        <dd>
+        <h4>
             @Html.DisplayFor(model => model.StateAddress)
-        </dd>
+        </h4>
 
         <dt>
             @Html.DisplayNameFor(model => model.ZipCode)
         </dt>
 
-        <dd>
+        <h4>
             @Html.DisplayFor(model => model.ZipCode)
-        </dd>
+        </h4>
 
     </dl>
 </div>
