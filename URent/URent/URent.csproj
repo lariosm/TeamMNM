@@ -606,6 +606,7 @@
     <Content Include="Views\Error\Error_RentYourOwnItem.cshtml" />
     <Content Include="Views\Error\Error_EditViewAnotherAccount.cshtml" />
     <Content Include="Views\SUPItems\ShowAllItemReviews.cshtml" />
+    <Content Include="Views\SUPUsers\ShowAllUserReviews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PayPal\" />
