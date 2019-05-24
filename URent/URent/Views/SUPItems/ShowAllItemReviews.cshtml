@@ -1,0 +1,23 @@
+﻿@model URent.Models.AllReviewsModel
+@{
+    ViewBag.Title = "ShowAllItemReviews";
+}
+
+<h2>@Model.iName's Reviews</h2>
+
+
+<br />
+@foreach (var item in Model.iReviews)
+{
+    @Html.ActionLink(item.SUPUser.FirstName + " " + item.SUPUser.LastName, "UserProfile", "SUPUsers", new { id = item.UserDoingReviewID }, null)
+    <div style="display: flex">
+        <div class="rateit" data-rateit-value="@item.Rating" data-rateit-ispreset="true" data-rateit-mode="font" data-rateit-readonly="true" style="font-size: 25px;"></div>
+        <p class="text-muted" style="padding-left: 10px">@String.Format("{0:MM/dd/yyyy}", item.Timestamp)</p>
+    </div>
+    <p>@item.Details</p>
+}
+
+<br />
+@Html.ActionLink("Back to Item Details", "Details", "SUPItems", new { id = Model.iId }, null)
+
+
