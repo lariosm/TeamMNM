@@ -12,7 +12,7 @@ namespace URent
                         "~/Scripts/address-autofill.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jsessentials").Include(
-                        "~/Scripts/jquery-{version}.min.js",
+                        "~/Scripts/jquery-{version}.js",
                         "~/Scripts/bootstrap.bundle.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

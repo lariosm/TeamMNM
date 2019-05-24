@@ -47,6 +47,15 @@ namespace URent.Controllers
             return supUserid;
         }
 
+        public ActionResult ShowAllUserReviews(int id)
+        {
+            AllReviewsModel model = new AllReviewsModel();
+            model.uId = id;
+            model.uName = db.SUPUsers.Where(x => x.Id == id).Select(x => x.FirstName).FirstOrDefault().ToString();
+            model.uReviews = db.SUPUserReviews.Where(x => x.UserBeingReviewedID == id).OrderByDescending(x => x.Timestamp).ToList();
+            return View(model);
+        }
+
         // GET: SUPUsers
         //public ActionResult Index()
         //{
@@ -220,7 +229,7 @@ namespace URent.Controllers
             {
                 profile.UserDoingReviewID = getSUPUserID();
             }
-            profile.sUPUserReviews = db.SUPUserReviews.Where(x => x.UserBeingReviewedID == id).ToList();
+            profile.sUPUserReviews = db.SUPUserReviews.Where(x => x.UserBeingReviewedID == id).OrderByDescending(x => x.Timestamp).Take(3).ToList();
             GetUserRatingStats(profile, id);
 
             //SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
