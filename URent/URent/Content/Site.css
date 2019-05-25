@@ -52,6 +52,21 @@ footer > p {
     background-color: #D3D3D3;
 }
 
+/* Profile photo CSS */
+
+/* Restricts photo size */
+.image-cropper {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.profile-pic {
+    height: 100%;
+    width: auto;
+}
+
 /*Star Rating CSS*/
 .rating {
     float: left;

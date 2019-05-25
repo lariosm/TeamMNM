@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-4">
+        <div class="col-md-6">
             <h2>@Model.FirstName @Model.LastName</h2>
 
             <!-- Rating stats for this item -->
@@ -17,90 +17,87 @@
             </div>
 
             <br />
-
         </div>
-        <div class="col-7">
-            <!-- Item photo -->
-            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" align="right">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        @if (ViewBag.Send != null) //Does a photo for this item exist?
-                        {
-                            //If so, display the photo.
-                            <img src="/Resources/Photo/@ViewBag.Send" alt="Item photo" style="border-radius: 50%;" />
-                        }
-                        else
-                        {
-                            //If not, display a placeholder image instead.
-                            <img src="~/Content/Img/NullProfile.png" alt="Placeholder image" style="border-radius: 50%;" />
-                        }
-                    </div>
-                </div>
+
+        <div class="col-md-6">
+            <div class="image-cropper mx-auto d-block">
+                @if (ViewBag.Send != null) //Does a photo for this item exist?
+                {
+                    //If so, display the photo.
+                    <img class="profile-pic" src="/Resources/Photo/@ViewBag.Send" alt="Item photo" />
+                }
+                else
+                {
+                    //If not, display a placeholder image instead.
+                    <img class="profile-pic" src="~/Content/Img/NullProfile.png" alt="Placeholder image" />
+                }
             </div>
-            <br />
         </div>
 
-        <br />
         <br />
     </div>
 
-    <h3>User reviews for this user</h3>
+    <br />
+    <br />
+
+
+<h3>User reviews for this user</h3>
+<hr />
+@if (Model.sUPUserReviews.Any())
+{
+    foreach (var review in Model.sUPUserReviews)
+    {
+        @Html.ActionLink(review.SUPUser1.FirstName + " " + review.SUPUser1.LastName, "UserProfile", "SUPUsers", new { id = review.UserDoingReviewID }, null)
+        <div style="display: flex">
+            <div class="rateit" data-rateit-value="@review.Rating" data-rateit-ispreset="true" data-rateit-mode="font" data-rateit-readonly="true" style="font-size: 25px;"></div>
+            <p class="text-muted" style="padding-left: 10px">@String.Format("{0:MM/dd/yyyy}", review.Timestamp)</p>
+        </div>
+        <p>@review.Details</p>
+
+        <br />
+    }
+    @Html.ActionLink("Show All Reviews", "ShowAllUserReviews", "SUPUsers", new { id = Model.UserBeingReviewedID }, null)
+}
+else
+{
+    <h5 style="text-align: center">No reviews yet. Be the first to review this user.</h5>
+}
+
+<br />
+<br />
+
+@if (Model.UserBeingReviewedID != Model.UserDoingReviewID && Request.IsAuthenticated)
+{
+
+    <h3>Leave a review for this user</h3>
     <hr />
-    @if (Model.sUPUserReviews.Any())
+
+    using (Html.BeginForm())
     {
-        foreach (var review in Model.sUPUserReviews)
-        {
-            @Html.ActionLink(review.SUPUser1.FirstName + " " + review.SUPUser1.LastName, "UserProfile", "SUPUsers", new { id = review.UserDoingReviewID }, null)
-            <div style="display: flex">
-                <div class="rateit" data-rateit-value="@review.Rating" data-rateit-ispreset="true" data-rateit-mode="font" data-rateit-readonly="true" style="font-size: 25px;"></div>
-                <p class="text-muted" style="padding-left: 10px">@String.Format("{0:MM/dd/yyyy}", review.Timestamp)</p>
-            </div>
-            <p>@review.Details</p>
+        @Html.AntiForgeryToken()
 
-            <br />
-        }
-        @Html.ActionLink("Show All Reviews", "ShowAllUserReviews", "SUPUsers", new { id = Model.UserBeingReviewedID }, null)
+        <fieldset class="rating">
+            @Html.RadioButtonFor(model => model.Ratings, "5", new { id = "star5", name = "rating" })<label for="star5">5 stars</label>
+            @Html.RadioButtonFor(model => model.Ratings, "4", new { id = "star4", name = "rating" })<label for="star4">4 stars</label>
+            @Html.RadioButtonFor(model => model.Ratings, "3", new { id = "star3", name = "rating" })<label for="star3">3 stars</label>
+            @Html.RadioButtonFor(model => model.Ratings, "2", new { id = "star2", name = "rating" })<label for="star2">2 stars</label>
+            @Html.RadioButtonFor(model => model.Ratings, "1", new { id = "star1", name = "rating" })<label for="star1">1 star</label>
+        </fieldset>
+        @Html.ValidationMessageFor(model => model.Ratings, "", new { @class = "text-danger" })
+
+
+
+        @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 5, @placeholder = "Review this user..." })
+        @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+
+
+        @Html.HiddenFor(model => model.UserBeingReviewedID)
+        @Html.HiddenFor(model => model.UserDoingReviewID)
+
+        <br />
+        <input type="submit" value="Submit Review" class="btn btn-primary" />
     }
-    else
-    {
-        <h5 style="text-align: center">No reviews yet. Be the first to review this user.</h5>
-    }
-
-    <br />
-    <br />
-
-    @if (Model.UserBeingReviewedID != Model.UserDoingReviewID && Request.IsAuthenticated)
-    {
-
-        <h3>Leave a review for this user</h3>
-        <hr />
-
-        using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-
-            <fieldset class="rating">
-                @Html.RadioButtonFor(model => model.Ratings, "5", new { id = "star5", name = "rating" })<label for="star5">5 stars</label>
-                @Html.RadioButtonFor(model => model.Ratings, "4", new { id = "star4", name = "rating" })<label for="star4">4 stars</label>
-                @Html.RadioButtonFor(model => model.Ratings, "3", new { id = "star3", name = "rating" })<label for="star3">3 stars</label>
-                @Html.RadioButtonFor(model => model.Ratings, "2", new { id = "star2", name = "rating" })<label for="star2">2 stars</label>
-                @Html.RadioButtonFor(model => model.Ratings, "1", new { id = "star1", name = "rating" })<label for="star1">1 star</label>
-            </fieldset>
-            @Html.ValidationMessageFor(model => model.Ratings, "", new { @class = "text-danger" })
-
-
-
-            @Html.TextAreaFor(model => model.Details, new { @class = "form-control", @rows = 5, @placeholder = "Review this user..." })
-            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
-
-
-            @Html.HiddenFor(model => model.UserBeingReviewedID)
-            @Html.HiddenFor(model => model.UserDoingReviewID)
-
-            <br />
-            <input type="submit" value="Submit Review" class="btn btn-primary" />
-        }
-    }
+}
 </div>
 
 @section Scripts {
