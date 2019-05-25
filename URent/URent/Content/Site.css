@@ -52,11 +52,11 @@ footer > p {
     background-color: #D3D3D3;
 }
 
-/* Profile photo CSS */
+/* ---Profile photo CSS--- */
 
 /* Restricts photo size */
 .image-cropper {
-    width: 200px;
+    width: 300px;
     height: 200px;
     overflow: hidden;
     border-radius: 50%;
@@ -65,6 +65,15 @@ footer > p {
 .profile-pic {
     height: 100%;
     width: auto;
+}
+
+.img-responsive {
+    height: 40vh;
+    object-fit: scale-down;
+}
+
+.lg-img-responsive {
+    object-fit: scale-down;
 }
 
 /*Star Rating CSS*/
