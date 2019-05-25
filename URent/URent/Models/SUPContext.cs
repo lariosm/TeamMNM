@@ -79,6 +79,11 @@ namespace URent.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<SUPUser>()
+                .HasMany(e => e.SUPImages)
+                .WithOptional(e => e.SUPUser)
+                .HasForeignKey(e => e.UserID);
+
+            modelBuilder.Entity<SUPUser>()
                 .HasMany(e => e.SUPTransactions1)
                 .WithRequired(e => e.SUPUser1)
                 .HasForeignKey(e => e.RenterID)

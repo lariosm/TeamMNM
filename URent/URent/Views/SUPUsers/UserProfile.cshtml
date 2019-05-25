@@ -15,6 +15,25 @@
     </div>
 
     <br />
+
+    <!-- Item photo -->
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" align="center">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                @if (ViewBag.Send != null) //Does a photo for this item exist?
+                {
+                    //If so, display the photo.
+                    <img class="d-block w-50" src="/Resources/Photo/@ViewBag.Send" alt="Item photo">
+                }
+                else
+                {
+                    //If not, display a placeholder image instead.
+                    <img class="d-block w-50" src="~/Content/Img/default.png" alt="Placeholder image" />
+                }
+            </div>
+        </div>
+    </div>
+    <br />
     <br />
 
     <h3>User reviews for this user</h3>

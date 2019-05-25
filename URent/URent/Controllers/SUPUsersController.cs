@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using URent.Models;
 using URent.Abstract;
+using System.IO;
 
 namespace URent.Controllers
 {
@@ -153,12 +154,28 @@ namespace URent.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,StreetAddress,CityAddress,StateAddress,ZipCode,TimeStamp,Lat,Lng,NetUserId")] SUPUser sUPUser)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,StreetAddress,CityAddress,StateAddress,ZipCode,TimeStamp,Lat,Lng,NetUserId")] SUPUser sUPUser, int? photoElementID)
         {
             if (ModelState.IsValid) //Are required fields filled out?
             {
-                db.Entry(sUPUser).State = EntityState.Modified;
-                db.SaveChanges();
+                if(photoElementID != null)
+                {
+                    SUPImage sUPImage = db.SUPImages.Where(x => x.UserID == sUPUser.Id).FirstOrDefault();
+                    if (sUPImage != null)
+                    {
+                        db.SUPImages.Remove(sUPImage);
+                    }
+                    //Fetch the photo matching passed photoElementID value and link it to this listing.
+                    SUPImage p = db.SUPImages.Find(photoElementID);
+                    p.UserID = sUPUser.Id;
+                    db.Entry(p).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else //create a listing without any photos
+                {
+                    db.Entry(sUPUser).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Details", new { id = sUPUser.Id });
             }
 
@@ -243,6 +260,11 @@ namespace URent.Controllers
             }
             //returns the user with that SUPUser ID
             ViewBag.ReviewerName = db.SUPUsers.Where(x => x.Id == profile.UserDoingReviewID).Select(y => y.FirstName).ToString();
+            SUPImage pid = db.SUPImages.Where(a => a.UserID == id).FirstOrDefault(); //Finds an image associated with the listing.
+            if (pid != null) //Display an image if it exists in the table.
+            {
+                ViewBag.Send = pid.Id;
+            }
             return View(profile);
         }
 
@@ -308,5 +330,56 @@ namespace URent.Controllers
             return RedirectToAction("UserProfile", new { id = userReview.UserBeingReviewedID});
         }
 
+        /* DropZone Method called from Form element in View */
+        /// <summary>
+        /// Saves uploaded photo to database and returns it as JSON data.
+        /// </summary>
+        /// <returns>JSON photo data</returns>
+        [Authorize]
+        public ActionResult SaveUploadedFile()
+        {
+            bool isSavedSuccessfully = true;
+            string fName = "";
+            int pid = 0;
+
+            try
+            {
+                // base instance of Image for saving information
+                SUPImage i = new SUPImage();
+                foreach (string fileName in Request.Files)
+                {
+                    HttpPostedFileBase file = Request.Files[fileName];
+                    //Save file content goes here
+                    fName = file.FileName;
+                    //assign file name to filename
+                    i.Filename = file.FileName;
+                    // read in InputStream into input
+                    using (var reader = new BinaryReader(file.InputStream))
+                    {
+                        i.Input = reader.ReadBytes((int)file.InputStream.Length);
+                    }
+                    //save file to local db
+                    // !!!!!!!!! NOTE: it is saving into SUPUserTables database
+                }
+                db.SUPImages.Add(i);
+                db.SaveChanges();
+                pid = i.Id;
+            }
+            catch (Exception ex)
+            {
+                isSavedSuccessfully = false;
+            }
+
+            if (isSavedSuccessfully) //Was photo saved successfully?
+            {
+                //Return JSON data containing photo info.
+                return Json(new { id = "PhotoID", value = pid });
+            }
+            else
+            {
+                //Return JSON data containing error message.
+                return Json(new { Message = "Error in saving file" });
+            }
+        }
     }
 }
