@@ -413,6 +413,7 @@
     <Content Include="Content\Img\EmptyStar.png" />
     <Content Include="Content\Img\favicon.ico" />
     <Content Include="Content\Img\FilledStar.png" />
+    <Content Include="Content\Img\NullProfile.png" />
     <Content Include="Content\Img\urentlogo.svg" />
     <Content Include="Content\Img\urentlogoalt.svg" />
     <Content Include="Content\rateit.css" />

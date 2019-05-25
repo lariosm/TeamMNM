@@ -5,17 +5,44 @@
 }
 
 <div class="container">
-    <h2>@Model.FirstName @Model.LastName</h2>
+    <div class="row">
+        <div class="col-4">
+            <h2>@Model.FirstName @Model.LastName</h2>
 
-    <!-- Rating stats for this item -->
-    <div style="display: flex">
-        <h4 style="color: gold; padding-right: 5px;">@String.Format("{0:0.0}", Model.RatingAverage)</h4>
-        <div class="rateit" data-rateit-value="@Model.RatingAverage" data-rateit-ispreset="true" data-rateit-mode="font" data-rateit-readonly="true" style="font-size: 25px;"></div>
-        <h5 class="text-muted" style="padding-left: 10px">@Model.RatingCount review(s)</h5>
+            <!-- Rating stats for this item -->
+            <div style="display: flex">
+                <h4 style="color: gold; padding-right: 5px;">@String.Format("{0:0.0}", Model.RatingAverage)</h4>
+                <div class="rateit" data-rateit-value="@Model.RatingAverage" data-rateit-ispreset="true" data-rateit-mode="font" data-rateit-readonly="true" style="font-size: 25px;"></div>
+                <h5 class="text-muted" style="padding-left: 10px">@Model.RatingCount review(s)</h5>
+            </div>
+
+            <br />
+
+        </div>
+        <div class="col-7">
+            <!-- Item photo -->
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" align="right">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        @if (ViewBag.Send != null) //Does a photo for this item exist?
+                        {
+                            //If so, display the photo.
+                            <img class="rounded-circle w-75" src="/Resources/Photo/@ViewBag.Send" alt="Item photo">
+                        }
+                        else
+                        {
+                            //If not, display a placeholder image instead.
+                            <img class="rounded-circle w-50" src="~/Content/Img/NullProfile.png" alt="Placeholder image" />
+                        }
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+
+        <br />
+        <br />
     </div>
-
-    <br />
-    <br />
 
     <h3>User reviews for this user</h3>
     <hr />
