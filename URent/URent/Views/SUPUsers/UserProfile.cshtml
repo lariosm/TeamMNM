@@ -27,12 +27,12 @@
                         @if (ViewBag.Send != null) //Does a photo for this item exist?
                         {
                             //If so, display the photo.
-                            <img class="rounded-circle w-75" src="/Resources/Photo/@ViewBag.Send" alt="Item photo">
+                            <img src="/Resources/Photo/@ViewBag.Send" alt="Item photo" style="border-radius: 50%;" />
                         }
                         else
                         {
                             //If not, display a placeholder image instead.
-                            <img class="rounded-circle w-50" src="~/Content/Img/NullProfile.png" alt="Placeholder image" />
+                            <img src="~/Content/Img/NullProfile.png" alt="Placeholder image" style="border-radius: 50%;" />
                         }
                     </div>
                 </div>
