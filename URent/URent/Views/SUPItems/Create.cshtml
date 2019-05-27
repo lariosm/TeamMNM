@@ -3,8 +3,7 @@
 @{
     ViewBag.Title = "Create your listing";
     Layout = "~/Views/Shared/_UserPageLayout.cshtml";
-    @Styles.Render("~/Scripts/dropzone/dropzone.css")
-    @Scripts.Render("~/Scripts/dropzone/dropzone.js")
+    @Styles.Render("~/Scripts/dropzone/dropzone.min.css")
 }
 
 <h2>Create your listing</h2>
@@ -43,7 +42,7 @@
                 <div action="~/SUPItems/SaveUploadedFile" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
                     <div class="fallback">
                         @*<input name="file" type="file" multiple />
-                          <input type="submit" value="Upload" />*@
+                            <input type="submit" value="Upload" />*@
                     </div>
                 </div>
             </div>
@@ -99,4 +98,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/dropzone/dropzone.min.js")
 }

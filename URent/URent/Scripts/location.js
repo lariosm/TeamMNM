@@ -35,7 +35,7 @@ function setLocation(locationData) {
  * Displays AJAX error as pop-up alert
  */
 function ajaxError() {
-    alert("Unable to reach server. Did you hit the 1.5K/day request limit?");
+    console.error("ERROR: Unable to resolve location");
 }
 
 $(document).ready(locateRequest); //Calls main() when page is loaded.

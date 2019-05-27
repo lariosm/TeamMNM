@@ -8,8 +8,8 @@ $(function () {
             changeMonth: true,
             changeYear: true,
             minDate: "-100Y",
-            maxDate: "-14Y",
-            yearRange: "-100:-14"
+            maxDate: "-18Y",
+            yearRange: "-100:-18"
         });
 });
 

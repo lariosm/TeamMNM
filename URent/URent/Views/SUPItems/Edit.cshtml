@@ -3,8 +3,7 @@
 @{
     ViewBag.Title = "Revise your listing";
     Layout = "~/Views/Shared/_UserPageLayout.cshtml";
-    @Styles.Render("~/Scripts/dropzone/dropzone.css")
-    @Scripts.Render("~/Scripts/dropzone/dropzone.js")
+    @Styles.Render("~/Scripts/dropzone/dropzone.min.css")
 }
 
 <h2>Revise your listing</h2>
@@ -85,7 +84,7 @@
     </div>
 }
 
-    <script>
+<script>
     //File Upload response from the server
     Dropzone.options.dropzoneForm = {
         init: function () {
@@ -97,8 +96,9 @@
             });
         }
     };
-    </script>
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/dropzone/dropzone.min.js")
 }

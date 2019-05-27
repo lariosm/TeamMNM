@@ -1,11 +1,8 @@
 ﻿function calculate() {
     var days = $("#TextBox3").val();
-    console.log(days);
     var price = $('#price').data('price');
-    console.log(price);
     var totalPrice = days * price;
     totalPrice = Number.parseFloat(totalPrice).toFixed(2);
-    console.log(totalPrice);
     $("#TotalPrice").val(totalPrice);
 };
 
@@ -18,7 +15,6 @@ function totalDays() {
         var days = (end - start) / (1000 * 60 * 60 * 24);
         days = days.toFixed(0);
         $("#TextBox3").val(days);
-        console.log(days);
         calculate();
     }
     else {

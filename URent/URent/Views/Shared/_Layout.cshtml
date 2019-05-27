@@ -7,7 +7,6 @@
     <link rel="icon" type="image/x-icon" sizes="32x32" href="~/Content/Img/favicon.ico">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/fontawesome")
 
 </head>
 <body>
@@ -73,9 +72,8 @@
         <p>&copy; @DateTime.Now.Year - MNM Solutions</p>
     </footer>
 
-    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jsessentials")
-    @Scripts.Render("~/Scripts/location.js")
+    @Scripts.Render("~/Scripts/location.min.js")
     @RenderSection("Scripts", required: false)
 </body>
 </html>
