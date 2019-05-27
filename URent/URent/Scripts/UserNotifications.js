@@ -27,7 +27,7 @@ function showNotifications(notificationList) {
 }
 
 function notificationError() {
-    alert("Unable to reach server. Please try again later.");
+    console.error("ERROR: Unable to resolve notifications. Please try again later.");
 }
 
 function formatJSONDate(jsonDate) {

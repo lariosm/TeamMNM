@@ -406,6 +406,7 @@
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\custom.css" />
+    <Content Include="Content\custom.min.css" />
     <Content Include="Content\delete.gif" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
@@ -417,7 +418,9 @@
     <Content Include="Content\Img\urentlogo.svg" />
     <Content Include="Content\Img\urentlogoalt.svg" />
     <Content Include="Content\rateit.css" />
+    <Content Include="Content\rateit.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\Site.min.css" />
     <Content Include="Content\star.gif" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -464,11 +467,13 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\address-autofill.js" />
+    <Content Include="Scripts\address-autofill.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Calendar.js" />
+    <Content Include="Scripts\calendar.min.js" />
     <Content Include="Scripts\dropzone\basic.css" />
     <Content Include="Scripts\dropzone\basic.min.css" />
     <Content Include="Scripts\dropzone\dropzone-amd-module.js" />
@@ -518,17 +523,20 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\location.js" />
+    <Content Include="Scripts\location.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\transactionPriceCalculator.js" />
+    <Content Include="Scripts\transactionPriceCalculator.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\UserNotifications.js" />
+    <Content Include="Scripts\UserNotifications.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
