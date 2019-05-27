@@ -108,7 +108,7 @@ namespace URent.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             model.sUPItem = db.SUPItems.Find(id); //Finds the item listing associated with that ID
-            List<SUPItemReview> reviews = db.SUPItemReviews.Where(x => x.ItemBeingReviewedID == id).OrderByDescending(x => x.Timestamp).Take(3).ToList();
+            List<SUPItemReview> reviews = db.SUPItemReviews.Where(x => x.ItemBeingReviewedID == id).OrderByDescending(x => x.Timestamp).ToList();
             model.sUPItemReviews = reviews;
 
          

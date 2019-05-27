@@ -246,7 +246,7 @@ namespace URent.Controllers
             {
                 profile.UserDoingReviewID = getSUPUserID();
             }
-            profile.sUPUserReviews = db.SUPUserReviews.Where(x => x.UserBeingReviewedID == id).OrderByDescending(x => x.Timestamp).Take(3).ToList();
+            profile.sUPUserReviews = db.SUPUserReviews.Where(x => x.UserBeingReviewedID == id).OrderByDescending(x => x.Timestamp).ToList();
             GetUserRatingStats(profile, id);
 
             //SUPUser sUPUser = db.SUPUsers.Find(id); //Finds user account with that ID.
