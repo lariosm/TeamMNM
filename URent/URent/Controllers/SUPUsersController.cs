@@ -154,7 +154,7 @@ namespace URent.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,StreetAddress,CityAddress,StateAddress,ZipCode,TimeStamp,Lat,Lng,NetUserId")] SUPUser sUPUser, int? photoElementID)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,DateOfBirth,StreetAddress,CityAddress,StateAddress,ZipCode,TimeStamp,Lat,Lng,NetUserId")] SUPUser sUPUser, int? photoElementID)
         {
             if (ModelState.IsValid) //Are required fields filled out?
             {
