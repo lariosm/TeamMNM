@@ -141,6 +141,7 @@
 
     @if (Model.sUPItemReviews.Any())
     {
+        int i = 0;
         foreach (var item in Model.sUPItemReviews)
         {
             @Html.ActionLink(item.SUPUser.FirstName + " " + item.SUPUser.LastName, "UserProfile", "SUPUsers", new { id = item.UserDoingReviewID }, null)
@@ -151,12 +152,55 @@
             <p>@item.Details</p>
 
             <br />
+
+            i++;
+            if (i == 3)
+            {
+                break;
+            }
         }
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            Show all reviews
+        </button>
     }
     else
     {
         <h5 style="text-align: center">No reviews yet. Be the first to review this item.</h5>
     }
+
+
+    <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">All reviews for this item</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @if (Model.sUPItemReviews.Any())
+                        {
+                            foreach (var item in Model.sUPItemReviews)
+                            {
+                                @Html.ActionLink(item.SUPUser.FirstName + " " + item.SUPUser.LastName, "UserProfile", "SUPUsers", new { id = item.UserDoingReviewID }, null)
+                                <div style="display: flex">
+                                    <div class="rateit" data-rateit-value="@item.Rating" data-rateit-ispreset="true" data-rateit-readonly="true" style="font-size: 17px;"></div>
+                                    <p class="text-muted" style="padding-left: 10px">@String.Format("{0:MM/dd/yyyy}", item.Timestamp)</p>
+                                </div>
+                                <p>@item.Details</p>
+
+                                <br />
+                            }
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <br />
     <br />
@@ -197,10 +241,9 @@
 
 @section Scripts {
     @Styles.Render("~/Content/cssjqueryui")
-    @Styles.Render("~/Content/rateit.css")
+    @Styles.Render("~/Content/rateit.min.css")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")
     @*@Scripts.Render("~/Scripts/Calendar.js")*@
-    @Scripts.Render("~/Scripts/transactionPriceCalculator.js")
-    @Scripts.Render("~/Scripts/jquery.rateit.js")
+    @Scripts.Render("~/Scripts/jquery.rateit.min.js")
 }

@@ -23,12 +23,12 @@
             <div>
                 <label>Start Date</label>
                 <p>
-                    <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" readonly/>
+                    <input class="form-group form-control col-md-2" type="text" id="StartDate" name="StartDate" placeholder="MM/DD/YYYY" readonly />
                 </p>
 
                 <label>End Date</label>
                 <p>
-                    <input class="form-group form-control col-md-2" type="text" id="EndDate" name="EndDate" placeholder="MM/DD/YYYY" disabled readonly/>
+                    <input class="form-group form-control col-md-2" type="text" id="EndDate" name="EndDate" placeholder="MM/DD/YYYY" disabled readonly />
                 </p>
 
                 <div id="TextBox3" typeof="hidden" val=""></div>
@@ -48,9 +48,9 @@
 </div>
 
 @section Scripts {
+    @Styles.Render("~/Content/cssjqueryui")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")
-    @Styles.Render("~/Content/cssjqueryui")
-    @Scripts.Render("~/Scripts/Calendar.js")
-    @Scripts.Render("~/Scripts/transactionPriceCalculator.js")
+    @Scripts.Render("~/Scripts/calendar.min.js")
+    @Scripts.Render("~/Scripts/transactionPriceCalculator.min.js")
 }

@@ -13,6 +13,7 @@ namespace URent.Models
         {
             SUPItemReviews = new HashSet<SUPItemReview>();
             SUPItems = new HashSet<SUPItem>();
+            SUPImages = new HashSet<SUPImage>();
             SUPRequests = new HashSet<SUPRequest>();
             SUPTransactions = new HashSet<SUPTransaction>();
             SUPTransactions1 = new HashSet<SUPTransaction>();
@@ -70,6 +71,9 @@ namespace URent.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SUPItem> SUPItems { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SUPImage> SUPImages { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SUPRequest> SUPRequests { get; set; }

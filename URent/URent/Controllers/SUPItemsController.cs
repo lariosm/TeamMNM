@@ -78,6 +78,15 @@ namespace URent.Controllers
             return View();
         }
 
+        public ActionResult ShowAllItemReviews(int id)
+        {
+            AllReviewsModel model = new AllReviewsModel();
+            model.iReviews = db.SUPItemReviews.Where(x => x.ItemBeingReviewedID == id).OrderByDescending(x => x.Timestamp).ToList();
+            model.iId = id;
+            model.iName = db.SUPItems.Where(x => x.Id == id).Select(x => x.ItemName).FirstOrDefault().ToString();
+            return View(model);
+        }
+
         // GET: SUPItems
         //public ActionResult Index()
         //{
@@ -99,7 +108,7 @@ namespace URent.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             model.sUPItem = db.SUPItems.Find(id); //Finds the item listing associated with that ID
-            List<SUPItemReview> reviews = db.SUPItemReviews.Where(x => x.ItemBeingReviewedID == id).ToList();
+            List<SUPItemReview> reviews = db.SUPItemReviews.Where(x => x.ItemBeingReviewedID == id).OrderByDescending(x => x.Timestamp).ToList();
             model.sUPItemReviews = reviews;
 
          

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_UserPageLayout.cshtml";
+    @Styles.Render("~/Scripts/dropzone/dropzone.min.css")
 }
 
 <h2>Edit account info</h2>
@@ -69,6 +70,23 @@
             </div>
         </div>
 
+
+        <div class="form-group">
+            @Html.Label("Photos", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <!--Drop Zone Stuff-->
+                <div action="~/SUPUsers/SaveUploadedFile" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                    <div class="fallback">
+                        @*<input name="file" type="file" multiple />
+                            <input type="submit" value="Upload" />*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Place for Image stuff -->
+        <input hidden="hidden" id="PhotoElement" name="photoElementID" />
+
         @Html.HiddenFor(m => m.NetUserId)
         @Html.HiddenFor(m => m.Lat)
         @Html.HiddenFor(m => m.Lng)
@@ -81,6 +99,21 @@
     </div>
 }
 
+<script>
+    //File Upload response from the server
+    Dropzone.options.dropzoneForm = {
+        init: function () {
+            this.on("complete", function (data) {
+                //var res = eval('(' + data.xhr.responseText + ')');
+                var res = JSON.parse(data.xhr.responseText);
+                console.info(res);
+                $("#PhotoElement").val(res.value);
+            });
+        }
+    };
+</script>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/dropzone/dropzone.js")
 }
