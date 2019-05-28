@@ -33,6 +33,7 @@ function notificationError() {
 function formatJSONDate(jsonDate) {
     //Formats Microsoft JSON date (i.e. /Date(1556686986603)/) into a date object that JavaScript can read
     var parsedDate = new Date(parseInt(jsonDate.substr(6)));
+    parsedDate.setDate(parsedDate.getDate() + 1); //Quick dirty fix for deployed site where dates are a day behind
 
     //Converts date object to MM/DD/YYYY format
     var mm = parsedDate.getMonth() + 1; //January is 0!
