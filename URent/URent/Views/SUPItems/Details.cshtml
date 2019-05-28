@@ -168,6 +168,7 @@
         <h5 style="text-align: center">No reviews yet. Be the first to review this item.</h5>
     }
 
+
     <!-- Modal -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -185,7 +186,7 @@
                             {
                                 @Html.ActionLink(item.SUPUser.FirstName + " " + item.SUPUser.LastName, "UserProfile", "SUPUsers", new { id = item.UserDoingReviewID }, null)
                                 <div style="display: flex">
-                                    <div class="rateit" data-rateit-value="@item.Rating" data-rateit-ispreset="true" data-rateit-mode="font" data-rateit-readonly="true" style="font-size: 25px;"></div>
+                                    <div class="rateit" data-rateit-value="@item.Rating" data-rateit-ispreset="true" data-rateit-readonly="true" style="font-size: 17px;"></div>
                                     <p class="text-muted" style="padding-left: 10px">@String.Format("{0:MM/dd/yyyy}", item.Timestamp)</p>
                                 </div>
                                 <p>@item.Details</p>

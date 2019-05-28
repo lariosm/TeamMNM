@@ -45,6 +45,7 @@
     <hr />
     @if (Model.sUPUserReviews.Any())
     {
+        int i = 0;
         foreach (var review in Model.sUPUserReviews)
         {
             @Html.ActionLink(review.SUPUser1.FirstName + " " + review.SUPUser1.LastName, "UserProfile", "SUPUsers", new { id = review.UserDoingReviewID }, null)
@@ -55,6 +56,11 @@
             <p>@review.Details</p>
 
             <br />
+            i++;
+            if(i == 3)
+            {
+                break;
+            }
         }
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
             Show all reviews
@@ -78,24 +84,17 @@
                 <div class="modal-body">
                     @if (Model.sUPUserReviews.Any())
                     {
-                        int i = 0;
                         foreach (var review in Model.sUPUserReviews)
                         {
                             @Html.ActionLink(review.SUPUser1.FirstName + " " + review.SUPUser1.LastName, "UserProfile", "SUPUsers", new { id = review.UserDoingReviewID }, null)
                             <div style="display: flex">
-                                <div class="rateit" data-rateit-value="@review.Rating" data-rateit-ispreset="true" data-rateit-mode="font" data-rateit-readonly="true" style="font-size: 25px;"></div>
+                                <div class="rateit" data-rateit-value="@review.Rating" data-rateit-ispreset="true" data-rateit-readonly="true" style="font-size: 17px;"></div>
                                 <p class="text-muted" style="padding-left: 10px">@String.Format("{0:MM/dd/yyyy}", review.Timestamp)</p>
                             </div>
                             <p>@review.Details</p>
 
                             <br />
-
-                            if (i == 3)
-                            {
-                                break;
-                            }
                         }
-                        i++;
                     }
                 </div>
                 <div class="modal-footer">
