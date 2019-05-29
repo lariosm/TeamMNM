@@ -410,6 +410,8 @@
     <Content Include="Content\delete.gif" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Img\404.gif" />
+    <Content Include="Content\Img\500.gif" />
     <Content Include="Content\Img\default.png" />
     <Content Include="Content\Img\EmptyStar.png" />
     <Content Include="Content\Img\favicon.ico" />
@@ -616,6 +618,9 @@
     <Content Include="Views\Error\Error_EditViewAnotherAccount.cshtml" />
     <Content Include="Views\SUPItems\ShowAllItemReviews.cshtml" />
     <Content Include="Views\SUPUsers\ShowAllUserReviews.cshtml" />
+    <Content Include="Views\Error\Error404.cshtml" />
+    <Content Include="Views\Error\Error500.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\PayPal\" />
