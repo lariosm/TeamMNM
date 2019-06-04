@@ -17,9 +17,9 @@ namespace URent.Controllers
         private SUPContext db = new SUPContext();
 
         /// <summary>
-        /// Retrieves user ID of current user from AspNetUsers table.
+        /// Retrieves user ID of current logged in user from AspNetUsers table.
         /// </summary>
-        /// <returns>User ID of current user from AspNetUsers table.</returns>
+        /// <returns>User ID of current logged in user from AspNetUsers table.</returns>
         [Authorize]
         private string getIdentityID()
         {
@@ -27,9 +27,9 @@ namespace URent.Controllers
         }
 
         /// <summary>
-        /// Retrieves user ID of current user from SUPUsers table that is associated with user ID from AspNetUsers table.
+        /// Retrieves user ID of current logged in user from SUPUsers table that is associated with user ID from AspNetUsers table.
         /// </summary>
-        /// <returns>User ID of current user from SUPUsers table associated with user ID from AspNetUsers table.</returns>
+        /// <returns>User ID of current logged in user from SUPUsers table associated with user ID from AspNetUsers table.</returns>
         [Authorize]
         private int getSUPUserID()
         {
@@ -74,17 +74,17 @@ namespace URent.Controllers
         /// </summary>
         /// <param name="itemId">ID of an item listing</param>
         /// <param name="dailyPrice">Price on the item listing.</param>
-        /// <returns>View of Create.cshtml</returns>
+        /// <returns>View of Create page</returns>
         [Authorize]
         public ActionResult Create(int? itemId, decimal? dailyPrice)
         {
             SUPTransaction transaction = new SUPTransaction();
-            transaction.ItemID = itemId;
+            transaction.ItemID = itemId; //Assigns item listing ID to ItemID.
 
             ViewBag.dailyPrice = dailyPrice;
 
-            transaction.RenterID = getSUPUserID();
-            transaction.OwnerID = db.SUPItems.Where(x => x.Id == itemId).Select(x => x.OwnerID).FirstOrDefault();
+            transaction.RenterID = getSUPUserID(); //Assigns renter user ID to RenterID.
+            transaction.OwnerID = db.SUPItems.Where(x => x.Id == itemId).Select(x => x.OwnerID).FirstOrDefault(); //Assigns owner user ID to OwnerID.
 
             ViewBag.ItemID = new SelectList(db.SUPItems, "Id", "ItemName");
             ViewBag.RenterID = new SelectList(db.SUPUsers, "Id", "FirstName");

@@ -11,6 +11,7 @@ using URent.Models;
 
 namespace URent.Controllers
 {
+    //NOTE: As of 2 June 2019, this controller is DEPRECATED and scheduled for removal.
     public class SUPRequestsController : Controller
     {
         //private SUPContext db = new SUPContext();
