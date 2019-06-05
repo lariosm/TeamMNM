@@ -1,10 +1,11 @@
-﻿@{
-    Response.StatusCode = 500;
-    ViewBag.Title = "Internal Server Error";
+﻿
+@{
+    Response.StatusCode = 400;
+    ViewBag.Title = "Bad Request";
 }
 
 <div class="container">
-    <h2><b>500. That's an error.</b></h2>
+    <h2><b>400. That's an error.</b></h2>
     <img class="mx-auto d-block" src="@Url.Content("~/Content/Img/500.gif")" style="max-height: 25%; max-width: 25%;" />
     <br />
     <h5 style="text-align:center">The resource you requested encountered an error. Sorry about that. :( Sit tight while we put out the fire.</h5>

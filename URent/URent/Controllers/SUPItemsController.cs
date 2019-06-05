@@ -97,7 +97,7 @@ namespace URent.Controllers
             ItemDetailsViewModel model = new ItemDetailsViewModel();
             if (id == null) //No item listing ID?
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error404", "Error");
             }
             model.sUPItem = db.SUPItems.Find(id); //Finds the item listing associated with that ID
             List<SUPItemReview> reviews = db.SUPItemReviews.Where(x => x.ItemBeingReviewedID == id).OrderByDescending(x => x.Timestamp).ToList();

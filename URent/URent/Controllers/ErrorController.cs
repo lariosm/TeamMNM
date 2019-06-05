@@ -19,6 +19,14 @@ namespace URent.Controllers
             return View();
         }
 
+        public ActionResult Error400()
+        {
+            HttpContext.Response.StatusCode = 400;
+            HttpContext.Response.TrySkipIisCustomErrors = true;
+
+            return View();
+        }
+
         public ActionResult Error404()
         {
             HttpContext.Response.StatusCode = 404;
