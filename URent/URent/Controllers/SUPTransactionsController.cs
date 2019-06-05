@@ -160,17 +160,35 @@ namespace URent.Controllers
             return DateTime.TryParse(startDate, out outputStartDate) && DateTime.TryParse(endDate, out outputEndDate);
         }
 
+        /// <summary>
+        /// Checks that the total price of an item is valid
+        /// </summary>
+        /// <param name="totalPrice">The total price to check</param>
+        /// <param name="transaction">The total price to check from SUPTransaction object</param>
+        /// <returns>Whether total price is valid</returns>
         public bool checkTotalPrice(int totalPrice, SUPTransaction transaction)
         {
             return totalPrice == transaction.TotalPrice;
         }
 
+        /// <summary>
+        /// Performs total price calculation
+        /// </summary>
+        /// <param name="days">Number of days to rent out an item</param>
+        /// <param name="price">The daily price of an item</param>
+        /// <returns>Total price of a transaction</returns>
         public int calculateTotalPrice(int days, int price)
         {
             int answer = days * price;
             return(answer);
         }
 
+        /// <summary>
+        /// Checks that start and end dates are valid
+        /// </summary>
+        /// <param name="startDate">Start date</param>
+        /// <param name="endDate">End date</param>
+        /// <returns>Whether start and end dates are valid.</returns>
         public bool IsValidDate(DateTime startDate, DateTime endDate)
         {
             var current = DateTime.Today;
