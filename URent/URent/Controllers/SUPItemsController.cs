@@ -125,7 +125,12 @@ namespace URent.Controllers
             return View(model);
         }
 
-        //
+        /// <summary>
+        /// Gets rating stats of an item
+        /// </summary>
+        /// <param name="model">Item details model</param>
+        /// <param name="id">ID of item listing we want to get rating stats on.</param>
+        /// <returns>Rating stats of an item</returns>
         public ItemDetailsViewModel GetItemRatingStats(ItemDetailsViewModel model, int? id)
         {
             int? ratingSum = 0;
@@ -153,12 +158,23 @@ namespace URent.Controllers
             }
         }
 
+        /// <summary>
+        /// Helps get rating stats of an item
+        /// </summary>
+        /// <param name="model">Item details model</param>
+        /// <param name="id">ID of item listing we want to get rating stats on.</param>
+        /// <returns>Rating stats of an item</returns>
         public ItemDetailsViewModel DetailsHelper(ItemDetailsViewModel model, int? id)
         {
             model.ItemBeingReviewedID = id;
             return (model);
         }
 
+        /// <summary>
+        /// Adds rating and review to an item
+        /// </summary>
+        /// <param name="itemReview"></param>
+        /// <returns>Details page</returns>
         [Authorize, HttpPost]
         public ActionResult Details([Bind(Include = "Details, Ratings, ItemBeingReviewedID, UserDoingReviewID")]ItemDetailsViewModel itemReview)
         {
