@@ -410,6 +410,7 @@
     <Content Include="Content\delete.gif" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Img\400.gif" />
     <Content Include="Content\Img\404.gif" />
     <Content Include="Content\Img\500.gif" />
     <Content Include="Content\Img\default.png" />
