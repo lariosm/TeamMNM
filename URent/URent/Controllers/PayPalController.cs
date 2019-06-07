@@ -16,38 +16,50 @@ namespace URent.Controllers
         private int transactionId;
         private int itemId;
         
+        /// <summary>
+        /// Gets the transaction ID of a transaction
+        /// </summary>
+        /// <returns>Transaction ID of a transaction</returns>
         private int getTransactionId()
         {
             return transactionId;
         }
 
+        /// <summary>
+        /// Sets the transaction ID of a transaction
+        /// </summary>
+        /// <param name="id">ID of a transaction</param>
         private void setTransactionId(int id)
         {
             transactionId = id;
         }
 
+        /// <summary>
+        /// Gets the item ID
+        /// </summary>
+        /// <returns>Item ID</returns>
         private int getItemId()
         {
             return itemId;
         }
 
+        /// <summary>
+        /// Sets the item ID
+        /// </summary>
+        /// <param name="id">ID of an item</param>
         private void setItemId(int id)
         {
             itemId = id;
         }
 
-        private void printIDs()
-        {
-            Console.WriteLine(transactionId);
-            Console.WriteLine(itemId);
-        }
-
         // GET: PayPal
+        // NOTE: As of 2 June 2019, this view is DEPRECATED.
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult PaymentWithPaypal(int transactionId, int itemId, string Cancel = null)
         {
             //call to helper method
@@ -126,7 +138,6 @@ namespace URent.Controllers
         {
             var itID = getItemId();
             var transID = getTransactionId();
-            printIDs();
             var itemName = db.SUPItems.Where(y => y.Id == itID).Select(x => x.ItemName).FirstOrDefault().ToString();
             var price = db.SUPTransactions.Where(y => y.Id == transID).Select(x => x.TotalPrice).FirstOrDefault().ToString();
             var sku = itID.ToString();

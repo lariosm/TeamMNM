@@ -3,9 +3,17 @@ using System.Web.Optimization;
 
 namespace URent
 {
+    /// <summary>
+    /// Bundles or combines multiple files into a single file so fewer HTTP requests are made
+    /// for better performance.
+    /// </summary>
     public class BundleConfig
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
+        /// <summary>
+        /// Collection of CSS and script bundles to be registered.
+        /// </summary>
+        /// <param name="bundles">Collection of CSS and script files being registered.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/addrautocomplete").Include(

@@ -19,21 +19,27 @@ namespace URent.Controllers
             return View();
         }
 
+        public ActionResult Error400()
+        {
+            HttpContext.Response.StatusCode = 400;
+            HttpContext.Response.TrySkipIisCustomErrors = true;
+
+            return View();
+        }
+
         public ActionResult Error404()
         {
-            //HttpContext.Response.StatusCode = 404;
-            //HttpContext.Response.TrySkipIisCustomErrors = true;
+            HttpContext.Response.StatusCode = 404;
+            HttpContext.Response.TrySkipIisCustomErrors = true;
 
             return View();
         }
 
         public ActionResult Error500()
         {
-            return View();
-        }
+            HttpContext.Response.StatusCode = 500;
+            HttpContext.Response.TrySkipIisCustomErrors = true;
 
-        public ActionResult Error()
-        {
             return View();
         }
     }

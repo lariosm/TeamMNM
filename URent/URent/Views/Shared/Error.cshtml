@@ -1,9 +1,37 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 
+
 @{
-    ViewBag.Title = "Error";
+    Response.StatusCode = 500;
+    ViewBag.Title = "Internal Server Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<div class="container">
+    <h2><b>500. That's an error.</b></h2>
+    <img class="mx-auto d-block" src="@Url.Content("~/Content/Img/500.gif")" style="max-height: 25%; max-width: 25%;" />
+    <br />
+    <h5 style="text-align:center">The resource you requested encountered an error. Sorry about that. :( Sit tight while we put out the fire.</h5>
+
+    <br />
+    <div style="color: #8700d1">
+        <h4><i class="fa fa-info-circle"></i> What you can do</h4>
+        <hr style="border-color: #8700d1" />
+        <p>This is an error generated on our end. Try reload the page or resource again in a few moments.</p>
+        <p style="margin: 0;">If the issue persists, try the following:</p>
+        <ul>
+            <li>Force reload the page or resource (this will clear the cache for this page)</li>
+            <ul>
+                <li>In most Windows and Linux browsers, hold down <b>Ctrl</b> and press <b>F5</b></li>
+                <li>In most Mac browsers, hold down both <b>Command</b> and <b>Shift</b> keys and press <b>R</b></li>
+                <li>For other browsers, please refer to <a href="https://en.wikipedia.org/wiki/Wikipedia:Bypass_your_cache#Bypassing_cache" style="color:blue">this page.</a></li>
+            </ul>
+            <li>Clear your browser's cookies</li>
+            <ul>
+                <li>For instructions on how to do that, refer to <a href="https://www.lifewire.com/how-to-delete-cookies-2617981" style="color:blue">this page.</a></li>
+                <li>After removing the cookie(s), restart the browser and try again.</li>
+            </ul>
+        </ul>
+        <p>If all else fails, send us an <a href="mailto:urentofficial@gmail.com" style="color:blue">email</a> and we'll look into it.</p>
+    </div>
+</div>
 

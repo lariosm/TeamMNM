@@ -26,9 +26,9 @@ namespace URent.Controllers
         }
 
         /// <summary>
-        /// Retrieves user ID of current user from AspNetUsers table.
+        /// Retrieves user ID of current logged in user from AspNetUsers table.
         /// </summary>
-        /// <returns>User ID of current user from AspNetUsers table.</returns>
+        /// <returns>User ID of current logged in user from AspNetUsers table.</returns>
         [Authorize]
         private string getIdentityID()
         {
@@ -36,9 +36,9 @@ namespace URent.Controllers
         }
 
         /// <summary>
-        /// Retrieves user ID of current user from SUPUsers table that is associated with user ID from AspNetUsers table.
+        /// Retrieves user ID of current logged in user from SUPUsers table that is associated with user ID from AspNetUsers table.
         /// </summary>
-        /// <returns>User ID of current user from SUPUsers table associated with user ID from AspNetUsers table.</returns>
+        /// <returns>User ID of current logged in user from SUPUsers table associated with user ID from AspNetUsers table.</returns>
         [Authorize]
         private int getSUPUserID()
         {
@@ -78,14 +78,6 @@ namespace URent.Controllers
             return View();
         }
 
-        public ActionResult ShowAllItemReviews(int id)
-        {
-            AllReviewsModel model = new AllReviewsModel();
-            model.iReviews = db.SUPItemReviews.Where(x => x.ItemBeingReviewedID == id).OrderByDescending(x => x.Timestamp).ToList();
-            model.iId = id;
-            model.iName = db.SUPItems.Where(x => x.Id == id).Select(x => x.ItemName).FirstOrDefault().ToString();
-            return View(model);
-        }
 
         // GET: SUPItems
         //public ActionResult Index()
@@ -105,7 +97,7 @@ namespace URent.Controllers
             ItemDetailsViewModel model = new ItemDetailsViewModel();
             if (id == null) //No item listing ID?
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error404", "Error");
             }
             model.sUPItem = db.SUPItems.Find(id); //Finds the item listing associated with that ID
             List<SUPItemReview> reviews = db.SUPItemReviews.Where(x => x.ItemBeingReviewedID == id).OrderByDescending(x => x.Timestamp).ToList();
@@ -133,16 +125,12 @@ namespace URent.Controllers
             return View(model);
         }
 
-        //public List<SUPUser> GetNameOfReviewer(List<SUPItemReview> reviews)
-        //{
-        //    List<SUPUser> reviewerName = new List<SUPUser>();
-        //    for (int i = 0; i < reviews.Count(); i++)
-        //    {
-        //        reviewerName.Add(db.SUPUsers.Where(x => x.Id == reviews[i].UserDoingReviewID).SelectMany(y => new { id = y.Id, first = y.FirstName, last = y.LastName )).FirstOrDefault());
-        //    }
-        //    return (reviewerName);
-        //}
-
+        /// <summary>
+        /// Gets rating stats of an item
+        /// </summary>
+        /// <param name="model">Item details model</param>
+        /// <param name="id">ID of item listing we want to get rating stats on.</param>
+        /// <returns>Rating stats of an item</returns>
         public ItemDetailsViewModel GetItemRatingStats(ItemDetailsViewModel model, int? id)
         {
             int? ratingSum = 0;
@@ -170,12 +158,23 @@ namespace URent.Controllers
             }
         }
 
+        /// <summary>
+        /// Helps get rating stats of an item
+        /// </summary>
+        /// <param name="model">Item details model</param>
+        /// <param name="id">ID of item listing we want to get rating stats on.</param>
+        /// <returns>Rating stats of an item</returns>
         public ItemDetailsViewModel DetailsHelper(ItemDetailsViewModel model, int? id)
         {
             model.ItemBeingReviewedID = id;
             return (model);
         }
 
+        /// <summary>
+        /// Adds rating and review to an item
+        /// </summary>
+        /// <param name="itemReview"></param>
+        /// <returns>Details page</returns>
         [Authorize, HttpPost]
         public ActionResult Details([Bind(Include = "Details, Ratings, ItemBeingReviewedID, UserDoingReviewID")]ItemDetailsViewModel itemReview)
         {
@@ -276,7 +275,6 @@ namespace URent.Controllers
             {
                 return View(sUPItem); //Otherwise, allow user to edit listing.
             }
-            //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
         }
 
         // POST: SUPItems/Edit/5
@@ -286,6 +284,7 @@ namespace URent.Controllers
         /// Edits the item listing
         /// </summary>
         /// <param name="sUPItem">The item listing to modify</param>
+        /// <param name="photoElementID">ID of the photo associated with the item</param>
         /// <returns>Whether edits to listing were successful.</returns>
         [HttpPost, Authorize]
         [ValidateAntiForgeryToken]
@@ -295,8 +294,9 @@ namespace URent.Controllers
             {
                 if (photoElementID != null) //is a photo ID value present?
                 {
+                    //Fetch existing photo associated with the item listing (if any).
                     SUPImage sUPImage = db.SUPImages.Where(x => x.ItemID == sUPItem.Id).FirstOrDefault();
-                    if (sUPImage != null)
+                    if (sUPImage != null) //If an item photo exists, then remove it before replacing with new one
                     {
                         db.SUPImages.Remove(sUPImage);
                     }
@@ -316,13 +316,12 @@ namespace URent.Controllers
                 return RedirectToAction("GetUserItems");
 
             }
-            //ViewBag.OwnerID = new SelectList(db.SUPUsers, "Id", "FirstName", sUPItem.OwnerID);
-
             //If not, send the user back to the Edit page.
             return View(sUPItem);
         }
 
         // GET: SUPItems/Delete/5
+        // NOTE: This method will be DEPRECATED soon. (posted 3 Jun 2019)
         [Authorize]
         public ActionResult Delete(int? id)
         {
@@ -347,6 +346,7 @@ namespace URent.Controllers
         }
 
         // POST: SUPItems/Delete/5
+        // NOTE: This method will be DEPRECATED soon. (posted 3 Jun 2019)
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -384,6 +384,11 @@ namespace URent.Controllers
             return View(myItems.ToList());
         }
 
+        /// <summary>
+        /// Helper to get a list of all item listings by cuurent user
+        /// </summary>
+        /// <param name="id">Current user ID</param>
+        /// <returns>List of all item listings by current user</returns>
         public List<SUPItem> GetItemsByUserId(int id)
         {
             List<SUPItem> myItems = repo.SUPItems.Where(u => u.OwnerID == id).ToList();
@@ -446,6 +451,9 @@ namespace URent.Controllers
         /// Performs item listing search based on keywords entered from search box.
         /// </summary>
         /// <param name="query">Keywords to search</param>
+        /// <param name="lat">User's current latitude</param>
+        /// <param name="lng">User's current longitude</param>
+        /// <param name="radius">Radius to specify in miles</param>
         /// <returns>A list of item listings matching keywords entered</returns>
         [HttpGet]
         public ActionResult Search(string query, double? lat, double? lng, int? radius)
@@ -461,11 +469,13 @@ namespace URent.Controllers
                 {
                     ViewBag.ShowError = true; //Display unsuccessful search message.
                     return View();
-
                 }
                 else if ((lat != null && lng != null) && radius != null) //We got matching results. The search was a success!
                 {
+                    //Use the user's current longitude and latitude values to generate a GeoCoordinate value.
                     GeoCoordinate userLocation = GetGeoCoordinateForCurrentUserLocation(lat, lng);
+
+                    //Add all item listings within a specified radius from the user's current location to the list.
                     sUPItems = GetItemsWithinRange(sUPItems, userLocation, radius);
                     ViewBag.ResultString = query; //Keywords to display to the view.
                     return View(sUPItems.ToList());
@@ -476,7 +486,6 @@ namespace URent.Controllers
                     return View(sUPItems.ToList());
 
                 }
-
             }
             else
             {
@@ -485,33 +494,58 @@ namespace URent.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets list of item listings that match the keyword(s) inputed.
+        /// </summary>
+        /// <param name="query">Keyword(s) to search</param>
+        /// <returns>List of item listings that matched the keyword(s) inputed</returns>
         public List<SUPItem> GetListOfItemsWithQueryString(string query)
         {
-            //NOTE: change 'db' back to 'repo' when we find why Contains() LINQ function doesn't work correctly.
+            //NOTE: change 'db' back to 'repo' when we find why Contains() LINQ function doesn't work correctly. (posted 13 May 2019)
             var sUPItems = db.SUPItems.Where(s => s.ItemName.Contains(query)); //Performs the query
 
             return sUPItems.ToList();
         }
 
+        /// <summary>
+        /// Uses user's current longitude and latitude values to generate a GeoCoordinate value
+        /// </summary>
+        /// <param name="lat">User's current longitude</param>
+        /// <param name="lng">User's current latitude</param>
+        /// <returns>User's location as GeoCoordinate value</returns>
         public GeoCoordinate GetGeoCoordinateForCurrentUserLocation(double? lat, double? lng)
         {
             var userLocation = new GeoCoordinate((double)lat, (double)lng);
             return userLocation;
         }
 
+        /* NOTE: Given GeoCoordinate classes only work with meter values when measuring the distance between
+        two locations. This method helps make the necessary convertion from miles to meters for accuracy. */
+        /// <summary>
+        /// Converts radius input from miles to meters.
+        /// </summary>
+        /// <param name="radiusInMiles">Radius in miles</param>
+        /// <returns>Radius in meters</returns>
         public double CalculateRadius(int? radiusInMiles)
         {
-            double meters = 1609.344;
-            double radiusInMeters = (double)radiusInMiles * meters;
+            double meters = 1609.344; //Meters in a mile
+            double radiusInMeters = (double)radiusInMiles * meters; //Formula for converting from miles to meters
             return radiusInMeters;
         }
 
+        /// <summary>
+        /// Gets item listings within a specified radius
+        /// </summary>
+        /// <param name="itemList">List of item listings found in search</param>
+        /// <param name="userLocation">Geocoordinates of user's current location</param>
+        /// <param name="radius">The radius being specified in miles</param>
+        /// <returns>Item listings within specified radius</returns>
         public List<SUPItem> GetItemsWithinRange(List<SUPItem> itemList, GeoCoordinate userLocation, int? radius)
         {
-            GeoCoordinate itemLocation;
-            double calculatedRadius = CalculateRadius(radius);
-            List<SUPItem> sUPItems = itemList;
-            List<SUPItem> newList = new List<SUPItem>();
+            GeoCoordinate itemLocation; //Initalizes GeoCoordinate variable to be used later.
+            double calculatedRadius = CalculateRadius(radius); //The radius in meters
+            List<SUPItem> sUPItems = itemList; //List of item listings previously found in search.
+            List<SUPItem> newList = new List<SUPItem>(); //List of filtered item listings to return.
 
             //Traverse through sUPItems list
             for (int i = 0; i < sUPItems.Count(); i++)
@@ -525,11 +559,17 @@ namespace URent.Controllers
             return newList;
         }
 
+        /// <summary>
+        /// Sets an item's availability status to "Available"
+        /// </summary>
+        /// <param name="itemId">Item listing ID</param>
+        /// <returns>Item details view</returns>
         public ActionResult makeAvailable(int itemId)
         {
-            SUPItem i = db.SUPItems.Find(itemId);
-            if (i.IsAvailable == false)
+            SUPItem i = db.SUPItems.Find(itemId); //Fetch the item listing
+            if (i.IsAvailable == false) //Checks if an item listing is currently unavailable.
             {
+                //If so, set it to unavailable and save.
                 i.IsAvailable = true;
                 db.Entry(i).State = EntityState.Modified;
                 //db.Entry(sUPTransaction).State = EntityState.Modified;
@@ -538,11 +578,17 @@ namespace URent.Controllers
             return RedirectToAction("Details", new { id = itemId });
         }
 
+        /// <summary>
+        /// Sets an item's availability status to "Unavailable"
+        /// </summary>
+        /// <param name="itemId">Item listing ID</param>
+        /// <returns>Item details view</returns>
         public ActionResult makeUnavailable(int itemId)
         {
-            SUPItem i = db.SUPItems.Find(itemId);
-            if (i.IsAvailable == true)
+            SUPItem i = db.SUPItems.Find(itemId); //Fetch the item listing
+            if (i.IsAvailable == true) //Checks if an item listing is currently available.
             {
+                //If so, set it to unavailable and save.
                 i.IsAvailable = false;
                 db.Entry(i).State = EntityState.Modified;
                 //db.Entry(sUPTransaction).State = EntityState.Modified;

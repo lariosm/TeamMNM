@@ -230,13 +230,21 @@ namespace URent.Controllers
             base.Dispose(disposing);
         }
 
-
+        /// <summary>
+        /// Notifications view
+        /// </summary>
+        /// <returns>Notifications view</returns>
         [Authorize]
         public ActionResult Notifications()
         {
             return View(); // return list of transactions that have this owner's id
         }
 
+        /// <summary>
+        /// User profile view of a user
+        /// </summary>
+        /// <param name="id">ID of a user profile to view</param>
+        /// <returns>User profile of a user</returns>
         [HttpGet]
         public ActionResult UserProfile(int? id)
         {
@@ -268,6 +276,12 @@ namespace URent.Controllers
             return View(profile);
         }
 
+        /// <summary>
+        /// User profile helper
+        /// </summary>
+        /// <param name="profile">Profile view model object</param>
+        /// <param name="id">ID of a user we want to view</param>
+        /// <returns></returns>
         public ProfileViewModel ProfileHelper(ProfileViewModel profile, int? id)
         {
             profile.UserBeingReviewedID = id;
@@ -276,6 +290,12 @@ namespace URent.Controllers
             return (profile);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ProfileViewModel GetUserRatingStats(ProfileViewModel model, int? id)
         {
             int? ratingSum = 0;
@@ -321,6 +341,11 @@ namespace URent.Controllers
         //    return RedirectToAction("UserProfile", new { id = sUPUserReview.UserBeingReviewedID} );
         //}
 
+        /// <summary>
+        /// Adds review to a user's profile
+        /// </summary>
+        /// <param name="userReview">Review to add to a user's profile</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult UserProfile([Bind(Include = "Details, Ratings, UserBeingReviewedID, UserDoingReviewID")]ProfileViewModel userReview)
         {

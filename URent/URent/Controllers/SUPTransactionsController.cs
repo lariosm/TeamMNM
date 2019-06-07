@@ -17,9 +17,9 @@ namespace URent.Controllers
         private SUPContext db = new SUPContext();
 
         /// <summary>
-        /// Retrieves user ID of current user from AspNetUsers table.
+        /// Retrieves user ID of current logged in user from AspNetUsers table.
         /// </summary>
-        /// <returns>User ID of current user from AspNetUsers table.</returns>
+        /// <returns>User ID of current logged in user from AspNetUsers table.</returns>
         [Authorize]
         private string getIdentityID()
         {
@@ -27,9 +27,9 @@ namespace URent.Controllers
         }
 
         /// <summary>
-        /// Retrieves user ID of current user from SUPUsers table that is associated with user ID from AspNetUsers table.
+        /// Retrieves user ID of current logged in user from SUPUsers table that is associated with user ID from AspNetUsers table.
         /// </summary>
-        /// <returns>User ID of current user from SUPUsers table associated with user ID from AspNetUsers table.</returns>
+        /// <returns>User ID of current logged in user from SUPUsers table associated with user ID from AspNetUsers table.</returns>
         [Authorize]
         private int getSUPUserID()
         {
@@ -74,17 +74,17 @@ namespace URent.Controllers
         /// </summary>
         /// <param name="itemId">ID of an item listing</param>
         /// <param name="dailyPrice">Price on the item listing.</param>
-        /// <returns>View of Create.cshtml</returns>
+        /// <returns>View of Create page</returns>
         [Authorize]
         public ActionResult Create(int? itemId, decimal? dailyPrice)
         {
             SUPTransaction transaction = new SUPTransaction();
-            transaction.ItemID = itemId;
+            transaction.ItemID = itemId; //Assigns item listing ID to ItemID.
 
             ViewBag.dailyPrice = dailyPrice;
 
-            transaction.RenterID = getSUPUserID();
-            transaction.OwnerID = db.SUPItems.Where(x => x.Id == itemId).Select(x => x.OwnerID).FirstOrDefault();
+            transaction.RenterID = getSUPUserID(); //Assigns renter user ID to RenterID.
+            transaction.OwnerID = db.SUPItems.Where(x => x.Id == itemId).Select(x => x.OwnerID).FirstOrDefault(); //Assigns owner user ID to OwnerID.
 
             ViewBag.ItemID = new SelectList(db.SUPItems, "Id", "ItemName");
             ViewBag.RenterID = new SelectList(db.SUPUsers, "Id", "FirstName");
@@ -160,17 +160,35 @@ namespace URent.Controllers
             return DateTime.TryParse(startDate, out outputStartDate) && DateTime.TryParse(endDate, out outputEndDate);
         }
 
+        /// <summary>
+        /// Checks that the total price of an item is valid
+        /// </summary>
+        /// <param name="totalPrice">The total price to check</param>
+        /// <param name="transaction">The total price to check from SUPTransaction object</param>
+        /// <returns>Whether total price is valid</returns>
         public bool checkTotalPrice(int totalPrice, SUPTransaction transaction)
         {
             return totalPrice == transaction.TotalPrice;
         }
 
+        /// <summary>
+        /// Performs total price calculation
+        /// </summary>
+        /// <param name="days">Number of days to rent out an item</param>
+        /// <param name="price">The daily price of an item</param>
+        /// <returns>Total price of a transaction</returns>
         public int calculateTotalPrice(int days, int price)
         {
             int answer = days * price;
             return(answer);
         }
 
+        /// <summary>
+        /// Checks that start and end dates are valid
+        /// </summary>
+        /// <param name="startDate">Start date</param>
+        /// <param name="endDate">End date</param>
+        /// <returns>Whether start and end dates are valid.</returns>
         public bool IsValidDate(DateTime startDate, DateTime endDate)
         {
             var current = DateTime.Today;
