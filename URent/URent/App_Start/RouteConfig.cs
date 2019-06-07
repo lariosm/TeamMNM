@@ -30,7 +30,7 @@ namespace URent
             routes.MapRoute(
                 name: "Catchall",
                 url: "{*url}",
-                defaults: new { controller = "Error", action = "Error400" }
+                defaults: new { controller = "Error", action = "Error404" }
             );
         }
     }
