@@ -1,7 +1,7 @@
 # Project Contribution Guidelines
 
 ## Software Construction Process
-We are following the Agile SCRUM process, and also processes explained in the Discipline Agile Delivery book. We follow a two-week sprint cycle that involves daily SCRUM meetings, weekly sprint planning sessions, and end of sprint review and retrospective. To be apart of MNM Solutions these processes and lifecycles are required.
+We are following the Agile SCRUM process, and also processes explained in the Discipline Agile Delivery book. We follow a two-week sprint cycle that involves daily SCRUM meetings, weekly sprint planning sessions, and end of sprint review and retrospective. To be a part of MNM Solutions these processes and lifecycles are required.
 
 ## Coding Guidelines
 
