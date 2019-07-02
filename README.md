@@ -46,7 +46,7 @@ This project currently uses the following tools and packages:
 * DropzoneJS (v4.3.0)
 * FontAwesome (v4.7.0)
 * Rateit (v1.1.2)
-* jQuery UI (v1.12.1)
+* jQueryUI (v1.12.1)
 * PayPal (v1.9.1)
 * And lots more...
 
