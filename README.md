@@ -55,4 +55,4 @@ This project currently uses the following tools and packages:
 You can find a live version of our website [here](https://urent.azurewebsites.net).
 
 ## Want to contribute?
-To become a contributor, please follow our contribution guidelines [here](https://bitbucket.org/manuellarios/m-m/src/develop/contribute.md).
+To become a contributor, please follow our contribution guidelines [here](https://bitbucket.org/manuellarios/m-m/src/master/contribute.md).
