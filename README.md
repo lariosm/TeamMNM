@@ -52,7 +52,9 @@ This project currently uses the following tools and packages:
 
 ## Current Deployment
 
-You can find a live version of our website [here](https://urent.azurewebsites.net).
+~~You can find a live version of our website here.~~
+
+NOTE: No longer deployed.
 
 ## Want to contribute?
 To become a contributor, please follow our contribution guidelines [here](https://bitbucket.org/manuellarios/m-m/src/master/contribute.md).
